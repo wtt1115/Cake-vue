@@ -11,6 +11,14 @@ import car from '../components/car/car.vue'
 import community from '../components/community/community.vue'
 
 
+// 后端
+import serverlogin from '../components/server/serverlogin/serverlogin.vue'
+import serverBackground from '../components/server/serverBackground/serverBackground.vue'
+import serverUser from '../components/server/serverUser/serverUser.vue'
+import serverProduct from '../components/server/serverProduct/serverProduct.vue'
+
+
+
 
 const router = new VueRouter({
     routes: [
@@ -21,7 +29,11 @@ const router = new VueRouter({
         {path: '/community', component: community, name: 'community'},
 
         // 服务端路由
-        // {path:'/serverlogin',component:serverlogin,name:'serverlogin'},
+        {path:'/serverlogin',component:serverlogin,name:'serverlogin'},
+        {path:'/serverBackground',component:serverBackground,name:'serverBackground',children:[
+         {path:'serverUser',component:serverUser,name:'serverUser'},
+         {path:'serverProduct',component:serverProduct,name:'serverProduct'},
+                ]},
         
     ]
 })

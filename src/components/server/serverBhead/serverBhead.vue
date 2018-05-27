@@ -1,0 +1,84 @@
+<template>
+        <div class="serverBhead">
+            <div class="logo">
+                <img src="http://static.21cake.com//themes/site/img/logo.png" />
+            </div>
+            <div class="gongneng1">
+                <ul>
+                    <li>
+                        <i class="fa fa-arrow-circle-left left" @click="scaling1"></i>
+                        <i class="fa fa-arrow-circle-right right" @click="scaling2"></i>
+                    </li>
+                    <li><i class="fa fa-arrows-alt"></i></li>
+                    <li>
+                        <i class="fa fa-cog"></i>
+                        <span class="badge b3">10</span>
+                    </li>
+                    <li>
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge b4">4</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="gongneng2">
+                <ul>
+                    <li>
+                        <i class="fa fa-cloud-download"></i>
+                        <span class="badge b1"> 2</span>
+                    </li>
+                    <li>
+                        <i class="fa fa-bell"></i>
+                        <span class="badge b2"> 1</span>
+                    </li>
+                    <li>
+                        <img :src="src" class="touxiang" />
+                        <span class="nickname">{{this.txt}}</span>
+                    </li>
+                    <li>
+                        <i class="fa fa-power-off" @click="leave"></i>
+                    </li>
+                </ul>
+            </div>
+       
+            
+        </div>
+        
+</template>
+<script>
+    import './serverBhead.scss'
+    import $ from 'jquery'
+
+    export default{
+        data(){
+            return{
+     
+                src:'http://img2.woyaogexing.com/2018/05/25/ea6ee9435f32b367!400x400_big.jpg',
+                txt:'wtt',
+            }
+        },
+        methods:{
+             scaling1(){
+                $(".left").hide();
+                $(".right").show();
+                $(".menu").hide();
+                $(".main").addClass("main-acive")
+             },
+             scaling2(){
+                $(".left").show();
+                $(".right").hide();
+                $(".menu").show();
+                $(".main").removeClass("main-acive")
+             },
+             leave(){
+                if(confirm('确定要离开吗？')){
+                     this.$router.push({name:'serverlogin'})
+                 }else{
+                      console.log('留在原地')
+                 }
+             }
+        }
+
+        
+       
+    }
+</script>

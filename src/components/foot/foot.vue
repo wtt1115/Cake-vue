@@ -10,7 +10,7 @@
         <li ref="car"><i class="fa fa-shopping-cart"></i><span>购物车</span></li>
         </router-link>
         <router-link to="/community">
-        <li ref="community"><i class="fa fa-shopping-cart"></i><span>社区</span></li>
+        <li ref="community"><i class="fa fa-envelope-o"></i><span>社区</span></li>
         </router-link>
         <router-link to="/users"> 
         <li ref="users"><i class="fa fa-user-o"></i><span>我</span></li>

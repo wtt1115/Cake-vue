@@ -1,0 +1,96 @@
+.serverBhead{
+
+    .logo{
+        float:left;
+        img{
+            width: 160px;
+            height: 40px;
+            margin-left: 50px;
+        }
+    }
+    .gongneng1{
+        margin-left: 38px;
+        height:60px;
+        float:left;
+        ul{
+            li{float:left;
+                margin-right: 30px;
+                margin-left: 30px;
+                i{
+                    color:#442818;
+                    font-size:22px;
+                    line-height: 40px;
+                }
+                .fa-arrow-circle-right{
+                    display: none;                    
+                }
+                .badge{
+                        display: inline-block;
+                        padding: 3px 7px;
+                        font-size: 12px;
+                        font-weight: 700;
+                        color: #fff;
+                        background-color:red;
+                        border-radius: 10px;
+                    }
+                    .b3{
+                        position:absolute;
+                        top: 14px;
+                        left: 462px;
+                    }
+                    .b4{
+                        position:absolute;
+                        top: 14px;
+                        left: 544px;
+                    }
+            }
+        }
+    }
+    .gongneng2{
+        float:right;
+        
+        height: 60px;
+        ul{
+            li{float:left;
+                margin: 0 20px;
+                
+                i{
+                    color:#442818;
+                    font-size:22px;
+                    line-height: 50px;
+                }
+                .badge{
+                        display: inline-block;
+                        padding: 3px 7px;
+                        font-size: 12px;
+                        font-weight: 700;
+                        color: #fff;
+                        background-color:red;
+                        border-radius: 10px;
+                    }
+                    .b1{
+                        position:absolute;
+                        top: 14px;
+                        right: 248px;
+                    }
+                    .b2{
+                        position:absolute;
+                        top: 14px;
+                        right: 184px;
+                    }
+                .touxiang{
+                    width: 40px;
+                    height: 40px;
+                    float: left;
+                     border-radius: 10px;
+                }
+                .nickname{
+                    margin-left: 10px;
+                    line-height: 40px;
+                    font-size: 16px;
+                    color:#442818;
+                }
+            }
+        }
+    }
+}
