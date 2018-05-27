@@ -1,0 +1,155 @@
+#classfiy{
+    display:flex;
+    height: 100%;
+    flex-direction:column;
+    overflow:hidden;
+    .k-header{
+        width: 100%;
+        .Htop{
+            width: 100%;
+            height: 0.6rem;
+            display:flex;
+            padding:0.133333rem 0;
+            border-bottom:1px solid #FCFCFC;
+            li{
+                width:20%;
+                text-align:center;
+            }
+            li:nth-child(2){
+                flex:1;
+                display:flex;
+                justify-content:center;
+                img{
+                    width: 0.36rem;
+                    height: 0.426667rem;
+                    margin: 0;
+                }
+            }
+        }
+    }
+    .k-nav{
+        overflow: hidden;  
+        border-bottom:1px solid #ddd; 
+        z-index:10;
+        ul{
+          height:0.533333rem;   
+          overflow: auto;
+          white-space: nowrap;
+
+            li{
+                display: inline-block;
+                font-size:0.186667rem;
+                color:#867086;
+                height: 0.533333rem;
+                width: 1.093333rem;
+                text-align:center;
+                line-height:0.533333rem;
+            }
+        }
+    }
+    .k-main{
+        flex:1;
+        width: 100%;
+        display:flex;
+        flex-direction:column;
+        overflow:auto;
+        .k-Tmain{
+             ul{
+                display:flex;
+                flex-wrap: wrap;
+                padding:0 0.133333rem 0 0.266667rem;
+                li{
+                    width: 50%;
+                    height: 3.466667rem;
+                    position:relative;
+                    img{
+                        width:2.133333rem;
+                        height: 2.346667rem;
+                    }
+                    p{
+                        font-size:0.186667rem;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    span{
+                        font-size:0.186667rem;
+                        color:#EEC188;
+                    }
+                    i{
+                        color:#704934;
+                        text-align:right;
+                        position:absolute;
+                        bottom:0.213333rem;
+                        right: 0.2rem;
+                    }
+                }
+            }
+        }
+        .k-Bmain{
+            margin-bottom:0.693333rem;
+            .title{
+                width: 100%;
+                height: 0.626667rem;
+                background-color:#FBF9F6;
+                overflow:hidden;
+                p{
+                    font-size:0.186667rem;
+                    text-align:center;
+                    margin-top:0.066667rem;
+                }
+                span{
+                    display:block;
+                    font-size:0.16rem;
+                    text-align:center;
+                    color:#D5BFA7;
+                }
+            }
+            .look{
+                ul{
+                    display:flex;
+                    flex-wrap: wrap;
+                    padding:0 0.133333rem 0 0.266667rem;
+                    li{
+                        width: 50%;
+                        height: 3.466667rem;
+                        position:relative;
+                        img{
+                            width:2.133333rem;
+                            height: 2.346667rem;
+                        }
+                        p{
+                            font-size:0.186667rem;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+                        span{
+                            font-size:0.186667rem;
+                            color:#EEC188;
+                        }
+                        .mask{
+                            width: 100%;
+                            height: 100%;
+                            background-color:#fff;
+                            position:absolute;
+                            top: 0;
+                            left: 0;
+                            opacity:0.7;
+                        }
+                        h2{
+                            color:#847065;
+                            font-size:0.186667rem;
+                            position:absolute;
+                            top: 30%;
+                            left: 30%;
+                            z-index:100;
+                        }
+                    }
+                }
+            }
+        }     
+    }
+
+}
+
