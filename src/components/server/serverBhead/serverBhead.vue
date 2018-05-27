@@ -58,16 +58,16 @@
         },
         methods:{
              scaling1(){
-                $(".left").hide();
-                $(".right").show();
-                $(".menu").hide();
-                $(".main").addClass("main-acive")
+                $(".left").hide(700);
+                $(".right").show(700);
+                $(".menu").hide(700);
+                $(".main").animate({left:'10px'},800)
              },
              scaling2(){
-                $(".left").show();
-                $(".right").hide();
-                $(".menu").show();
-                $(".main").removeClass("main-acive")
+                $(".left").show(700);
+                $(".right").hide(700);
+                $(".menu").show(700);
+                $(".main").animate({left:'270px'},800)
              },
              leave(){
                 if(confirm('确定要离开吗？')){
