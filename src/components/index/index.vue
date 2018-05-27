@@ -450,8 +450,10 @@
                     zIndex:9999,
                     borderRadius:20
                 });
-                $('body').append($flyImg);
-                $flyImg.animate({top:620,left:185,width:5,height:5,opacity:0.5},1000);
+                $('.f-index').append($flyImg);
+               console.log($flyImg[0].offsetTop);
+               
+                $flyImg.animate({top:$flyImg[0].scrollTop+600,left:185,width:5,height:5,opacity:0.5},1000);
                 setTimeout(function(){
                     // 移除元素
                     $flyImg.remove();
