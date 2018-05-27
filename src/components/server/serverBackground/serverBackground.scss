@@ -1,40 +1,42 @@
-.head{
+.serverBackground{
+    .w-head{
     padding: 10px;
     height: 60px;
     position: fixed;
     top: 0;
     width: 100%;
     border-bottom: solid 1px #ccc;
+    }
+    .w-menu{
+        position: absolute;
+        top: 58px;
+        bottom: 0;
+        left: 0;
+        width: 230px;
+        border-right: solid 1px #ccc;
+        overflow-x: hidden;
+        overflow-y: auto;
+        transition: width 0.5s;
+    }
+
+    .w-main{
+        position: absolute;
+        top: 58px;
+        bottom: 0;
+        left: 270px;
+        right: 0;
+        overflow: auto;
+        
+    }
+    .main-acive{
+        position: absolute;
+        top: 58px;
+        bottom: 0;
+        left: 0px;
+        right: 0;
+        overflow: auto;
+       
+    }
+}
 
 
-}
-.menu{
-    position: absolute;
-    top: 58px;
-    bottom: 0;
-    left: 0;
-    width: 230px;
-    border-right: solid 1px #ccc;
-    overflow-x: hidden;
-    overflow-y: auto;
-    transition: width 0.5s;
-}
-
-.main{
-    position: absolute;
-    top: 58px;
-    bottom: 0;
-    left: 270px;
-    right: 0;
-    overflow: auto;
-    
-}
-.main-acive{
-    position: absolute;
-    top: 58px;
-    bottom: 0;
-    left: 0px;
-    right: 0;
-    overflow: auto;
-   
-}
