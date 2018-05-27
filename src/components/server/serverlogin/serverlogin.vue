@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="login" id="login">
+        <div class="wlogin" id="login">
             <div class="center">
                 <h3>后台管理系统</h3>
                 <div class="form">

@@ -1,12 +1,12 @@
 <template>
-        <div>
-            <div class="head">
+        <div class="serverBackground">
+            <div class="w-head">
                 <hd></hd>
             </div>
-            <div class="menu">
+            <div class="w-menu">
                 <mn></mn>
             </div>
-            <div class="main">
+            <div class="w-main">
                 <router-view></router-view>
             </div>
        
