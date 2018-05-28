@@ -26,7 +26,10 @@ const user = require('./user');
 user.account(app);
 
 const cakeProduct = require('./cakeProduct');
-cakeProduct.manager(app);
+cakeProduct.edit(app);
+
+const cakeProduct = require('./city');
+cakeProduct.choose(app);
 
 const admin = require('./admin');
 admin.manager(app);

@@ -20,7 +20,7 @@
             <button @click="fanhui()">返回</button>
         </div>
         <div class="k-nav">
-            <ul class="Nav" @click="GaoLiang()">
+            <ul class="Nav">
                 <li @click="cut('cake')" class="k-active">蛋糕</li>
                 <li @click="cut('Ice')">冰淇淋</li>
                 <li @click="cut('Dice')">小切块</li>

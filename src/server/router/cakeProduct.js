@@ -21,7 +21,7 @@ module.exports = {
 
             } else {
                 let result = await db.select('productsCake');
-                res.send(result);
+                res.send(apiResult(result.status,result.data));
             }
             
         });

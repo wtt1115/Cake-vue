@@ -438,6 +438,7 @@
             addToCart(item,e){console.log(item)
                 let x = e.pageX;
                 let y = e.pageY;
+                console.log(x,y)
                 // 创建图片元素
                 let $flyImg = $('<img />');
                 $flyImg.attr('src',item.img_url);
@@ -450,7 +451,7 @@
                     zIndex:9999,
                     borderRadius:20
                 });
-                $('body').append($flyImg);
+                $('body').append($flyImg);  
                 $flyImg.animate({top:620,left:185,width:5,height:5,opacity:0.5},1000);
                 setTimeout(function(){
                     // 移除元素

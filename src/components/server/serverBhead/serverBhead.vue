@@ -1,6 +1,6 @@
 <template>
         <div class="serverBhead">
-            <div class="logo">
+            <div class="w-logo">
                 <img src="http://static.21cake.com//themes/site/img/logo.png" />
             </div>
             <div class="gongneng1">
@@ -12,11 +12,11 @@
                     <li><i class="fa fa-arrows-alt"></i></li>
                     <li>
                         <i class="fa fa-cog"></i>
-                        <span class="badge b3">10</span>
+                        <span class="wbadge wb3">10</span>
                     </li>
                     <li>
                         <i class="fa fa-envelope-o"></i>
-                        <span class="badge b4">4</span>
+                        <span class="wbadge wb4">4</span>
                     </li>
                 </ul>
             </div>
@@ -24,11 +24,11 @@
                 <ul>
                     <li>
                         <i class="fa fa-cloud-download"></i>
-                        <span class="badge b1"> 2</span>
+                        <span class="wbadge wb1"> 2</span>
                     </li>
                     <li>
                         <i class="fa fa-bell"></i>
-                        <span class="badge b2"> 1</span>
+                        <span class="wbadge wb2"> 1</span>
                     </li>
                     <li>
                         <img :src="src" class="touxiang" />
@@ -58,16 +58,16 @@
         },
         methods:{
              scaling1(){
-                $(".left").hide();
-                $(".right").show();
-                $(".menu").hide();
-                $(".main").addClass("main-acive")
+                $(".left").hide(700);
+                $(".right").show(700);
+                $(".menu").hide(700);
+                $(".main").animate({left:'10px'},800)
              },
              scaling2(){
-                $(".left").show();
-                $(".right").hide();
-                $(".menu").show();
-                $(".main").removeClass("main-acive")
+                $(".left").show(700);
+                $(".right").hide(700);
+                $(".menu").show(700);
+                $(".main").animate({left:'270px'},800)
              },
              leave(){
                 if(confirm('确定要离开吗？')){
