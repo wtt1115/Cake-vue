@@ -1,0 +1,24 @@
+        if(res.status){
+                        let _username = res.data[0].username;
+                        window.localStorage.setItem('_username',_username); 
+                        this.$router.push({name:'serverhome'});    
+                    }else{
+                        this.data.username = '';
+                        this.data.password = '';
+                        alert('ÃÜÂë´íÎó');
+                    }
+admin.js
+	 if(username=='wtt' &&password =='123'){
+                 res.send(apiResult(true))
+             }else{
+                res.send(apiResult(false))
+           }
+
+server.vue -js
+		//res.statusÄ¬ÈÏµÈÓÚtrue
+		if(res.status){
+
+                        alert('µÇÂ½³É¹¦')
+                    }else{
+                        alert('µÇÂ½Ê§°Ü')
+                    }
