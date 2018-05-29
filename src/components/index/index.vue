@@ -1,7 +1,7 @@
 <template>
     <div class="f-index">
         <div class="index-masked" v-if="this.showStatus" @click="hideCity">
-            <div class="masked-box" v-for="(obj,idx) in cityData" @click="stopProp()">
+            <div class="masked-box" v-for="(obj,idx) in cityData" @click="stopProp()" :key="idx">
                 <h3 class="city-title">{{obj.name}}</h3>
                 <ul class="city-content" >
                     <li v-for="(item,index) in obj.data" :key="index" @click="selectActive(index,$event)" :class="{'active':activeArr.indexOf(index) > -1}">
@@ -14,7 +14,7 @@
         <header class="index-header">
             <ul class="header-ul">
                 <li>
-                    <img src="http://static.21cake.com/themes/wap/img/logo.png" />
+                    <img src="http://10.3.133.73:88/logo.png" />
                 </li>
                 <li>
                     <i class="fa fa-search fdj" aria-hidden="true"></i>
@@ -56,7 +56,7 @@
                         <span class="more">{{obj.more}}</span>
                     </div>
                     <ul class="content-info">
-                        <li v-for="(item,index) in obj.data" :key="index" @click="toDetails(item.product_id)">
+                        <li v-for="(item,index) in obj.data" :key="index" @click="toDetails(obj.type,item.product_id)">
                             <div class="info-img">
                                 <img :src="item.img_url" /> 
                             </div>
@@ -78,7 +78,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="wrap-activity" v-for="(obj,idx) in activityData">
+                <div class="wrap-activity" v-for="(obj,idx) in activityData" :key="obj.title">
                     <div class="activity-title">
                         <span>{{obj.title}}</span>
                     </div>
@@ -93,7 +93,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="wrap-magazine" v-if="magazineData.length > 0" v-for="(obj,idx) in magazineData">
+                <div class="wrap-magazine" v-if="magazineData.length > 0" v-for="(obj) in magazineData" :key="obj.title">
                     <div class="magazine-title">
                         <span>
                             {{obj.title}}
@@ -209,15 +209,11 @@
                               el: '.swiper-pagination',
                               clickable :true,
                             },
-                            // observer:true,//修改swiper自己或子元素时，自动初始化swiper
-                            // observeParents:true,
                         });
                         // 杂志轮播图
                         var magazineSwiper = new Swiper('.wrap-magazine',{
                             direction:'horizontal',
                             slidesPerView:1.5,
-                            // observer:true,//修改swiper自己或子元素时，自动初始化swiper
-                            // observeParents:true,
                         })
                     })
 
@@ -285,12 +281,13 @@
                     $flyImg.remove();
                     item.price = item.price[0];
                     item.spec = item.spec[0];
+                    // 用户添加的默认商品
                     console.log(item);
                 },1000);
             },
             // 获取商品id并跳转到详情页
-            toDetails(product_id){
-                this.$router.push({name:'details',params:{product_id}});
+            toDetails(type,product_id){
+                this.$router.push({name:'details',query:{type,product_id}});
             }
         }
     }
