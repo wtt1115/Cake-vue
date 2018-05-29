@@ -5,7 +5,8 @@ const state = {
     carListLen : 0
 }
 const mutations = {
-    addCar(state,item){
+    addCar(state,_item){
+        let item = Object.assign({},_item);
         // 本地购物车
         let nativeCarlist = window.localStorage.getItem('nativeCarlist');
         
@@ -69,6 +70,7 @@ const mutations = {
                             }
                         })
                     })
+                    // nativeCarlist = [];
                 }else{
                     // 直接添加商品到数据库
                 }
@@ -77,7 +79,7 @@ const mutations = {
 
     },
     addCarListLen(){
-        state.carListLen ++ ;
+        state.carListLen ++ ; 
     },
     subCarlistLen(){
         state.carListLen -- ;
