@@ -1,15 +1,16 @@
 <template>
         <div class="dl">
-        <div class="k-header">
-            <ul class="Htop">
-                <li><i class="fa fa-bars"></i></li>
-                <li><img src="http://static.21cake.com/themes/wap/img/logo.png" /></li>
-                <li><i class="fa fa-shopping-cart"></i></li>
-            </ul>
-        </div>
-            <!-- <div class="navl">
-            <router-link to="/users"><i class="fa fa-angle-left " ></i></router-link><p>验证码登录</p>
-            </div> -->
+             <div class="nav">
+                <div class="nvt">
+                    <router-link to="/register">
+                    <i class="fa fa-angle-left " ></i>
+                    </router-link>
+                    <span>用户登录</span>
+                    <router-link to="users">
+                    <i class="fa fa-angle-right " ></i>
+                    </router-link>
+                </div>
+            </div>
             <div class="yzm">
                 <ul class="form">
                     <li> 
@@ -33,14 +34,9 @@
                 <p class="xieyi">使用未注册的手机号码登录时，将自动注册21cake账号，且认为您已同意<i class="tip">《21cake用户协议》</i></p>
                 
             </div>
-            
-       
-            <!-- <footComponent></footComponent> -->
-        </div>
-        
+        </div> 
 </template>
 <script>
-
 import './login.scss'
 import '../../libs/date/gVerify.js'
 import '../../libs/yzm/jquery-2.1.1.min.js'
@@ -58,13 +54,11 @@ import router from '../../../router/router.js'
                 errot:''
             }
         },
-         mounted(){
+        mounted(){
             var verifyCode = new GVerify("v_container");
               document.getElementById('btn').onclick=()=>{
                 console.log(document.getElementById("code_input").value)
                 var rest = verifyCode.validate(document.getElementById("code_input").value);
-
-
                 let reg = /^1[34578]\d{9}$/;
                 if(!reg.test(this.data.username)){
                     this.show = true;
@@ -91,7 +85,7 @@ import router from '../../../router/router.js'
                     } 
                 })
             }
+        }
     }
-}
     
 </script>
