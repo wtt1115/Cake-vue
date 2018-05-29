@@ -10,10 +10,9 @@
                     <span v-show="show"> 
                         <router-link to="/register">
                             <span class="zhuce">注册</span>
-                        </router-link>
+                        <span class="dl">登录</span>  
 
-                        
-                        <span class="dl">登录</span>
+                         </router-link>
                         </span>
                        <span v-show="showname">{{username}}</span>
                     </li>
@@ -25,7 +24,7 @@
                 </ul>
             </div>
             <div class="you">
-                <ul class="hui" v-show="showname">
+                <ul class="hui">
                     <li>
                         <span>1张</span><span>优惠券</span>
                     </li>
@@ -36,21 +35,23 @@
             </div>
         </div>
          <div class="t_main">
-            <ul class="big" v-show="showname">
-                <li>
+            <ul class="big" >
+                <li> 
+                <router-link to="/order"> 
                    <span>
                         <i class="fa fa-check-square"></i>我的订单
                     </span>
-                    <router-link to="/order"> 
+                   
                         <b  class="fa fa-angle-right">
                         </b>
                     </router-link>
                 </li>
                <li>
+                <router-link to="/address">
                     <span>
                         <i class="fa fa-truck"></i>地址管理
                     </span>
-                    <router-link to="/address">
+                   
                         <b class="fa fa-angle-right"></b>
                     </router-link>
                </li>
@@ -92,7 +93,8 @@
         </div>
         <div class="b_main">
             <p>客服电话400 650 2121 <i class="fa fa-tty"></i></p>
-            <router-link to="/"> <p class="tui" @click="tuc">退出账号</p></router-link>
+         <p class="tui" @click="tuc" >退出账号</p>
+         <!--     </router-link>    <router-link to="/"> -->
         </div>
         <footComponent></footComponent>
     </div>
@@ -108,7 +110,9 @@ import router from '../../router/router.js'
             return{
                 show:true,
                 showname:false,
-                username:''
+                username:'',
+                pl:'sdsss'
+              
             }
         },
         components: {
@@ -123,10 +127,7 @@ import router from '../../router/router.js'
                     this.show = false;
                     this.showname = true;
 
-                } else{
-                     this.show = true;
-                    this.showname = false;
-                }
+                } 
             })
         },
 
@@ -135,8 +136,13 @@ import router from '../../router/router.js'
                  let un = window.localStorage.removeItem('username');
                 // window.localStorage.removeItem('token');
               console.log(un) 
-               // this.show = true; 
+               this.show = true;
+               this.showname = false;
+
+
+
             }
+
          }
     }
     

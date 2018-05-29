@@ -3,12 +3,12 @@
       
             <div class="nav">
                 <div class="nvt">
-                    <router-link to="/">
+                    <router-link to="/users">
                     <i class="fa fa-angle-left " ></i>
                     </router-link>
                     <span>用户注册</span>
                     <router-link to="/login">
-                    <i class="fa fa-angle-right " ></i>
+                        登录
                     </router-link>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <h1 id="v_container" class="codes"></h1> 
                     </li>
                     <li>
-                        <input type="text" placeholder="请选择生日" id="date" />
+                        <input type="text" placeholder="请选择生日" id="demo1" />
                     </li>
                      <li> 
                        <span  v-text="errot" v-show="show" calss="fa fa-info-circle"></span>
@@ -45,8 +45,9 @@
 <script>
 import './register.scss'
 import '../../libs/date/gVerify.js'
-import '../../libs/yzm/jquery-2.1.1.min.js'
-import  '../../libs/yzm/dateSelect.js'
+import '../../libs/date/datePicker.js'
+
+
 import http from '../../../utils/httpclient.js'
 import router from '../../../router/router.js'
     export default{
@@ -63,9 +64,20 @@ import router from '../../../router/router.js'
             }  
         },
         mounted(){
-               // this.showl = true;
-              $("#date").dateSelect();
-               console.log($("#date")) 
+            var calendar = new datePicker();
+calendar.init({
+    'trigger': '#demo1', /*按钮选择器，用于触发弹出插件*/
+    'type': 'date',/*模式：date日期；datetime日期时间；time时间；ym年月；*/
+    'minDate':'1900-1-1',/*最小日期*/
+    'maxDate':'2100-12-31',/*最大日期*/
+    'onSubmit':function(){/*确认时触发事件*/
+        var theSelectData=calendar.value;
+    },
+    'onClose':function(){/*取消时触发事件*/
+    }
+});
+              
+        
              
               var verifyCode = new GVerify("v_container");
               document.getElementById('btn').onclick=()=>{

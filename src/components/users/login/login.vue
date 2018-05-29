@@ -2,12 +2,12 @@
         <div class="dl">
              <div class="nav">
                 <div class="nvt">
-                    <router-link to="/register">
+                    <router-link to="/users">
                     <i class="fa fa-angle-left " ></i>
                     </router-link>
                     <span>用户登录</span>
-                    <router-link to="/">
-                    <i class="fa fa-angle-right " ></i>
+                    <router-link to="/register">
+                    注册
                     </router-link>
                 </div>
             </div>
