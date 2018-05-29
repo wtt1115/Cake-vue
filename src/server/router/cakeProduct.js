@@ -8,23 +8,50 @@ module.exports = {
         app.post('/addProduct',(req,res) =>{
 
         });
-        //获取全部商品
+        //有id获取详情页的，没有id则获取全部商品
         app.post('/getProduct',async (req,res) =>{
-            if(req.body.id){
+            if(req.body.id && !req.body.type){
                 let product_id = req.body.id;
-
-                product_id = Number(product_id);
+                // product_id = Number(product_id);id是string类型就不用这个转义
+                // console.log(product_id)
 
                 let result = await db.select('productsCake',{product_id});
-
                 res.send(result)
 
-            } else {
+            } else if(req.body.type && req.body.id) {
+                let result = await db.select('productsCake',{type:req.body.type});
+                // 是否获取到数据
+                if(result.status){
+                    let data = result.data[0].data;
+                    let arr = [];
+                    for(var i=0;i<data.length;i++){
+                        if(data[i].product_id == req.body.id){
+                            arr.push(data[i]);
+                        }
+                    }
+                    if(arr.length > 0){
+                        res.send(apiResult(true,arr));
+                    }else{
+                        res.send(apiResult(false,arr));
+                    }
+                }else{
+                    res.send(apiResult(false));
+                }
+                
+            }else{
+                
                 let result = await db.select('productsCake');
-                res.send(apiResult(result.status,result.data));
+                res.send(apiResult(result.status,result.data,[] ,result.data.length));
+
             }
             
         });
+        //获取定位地址
+        app.post('/city',async (req,res)=>{
+            let city = req.body.city;
+            let result = await db.select('productsCake',{city});
+            res.send(result);
+        })
         //获取Car商品
         app.post('/getProductCar', async (req,res) =>{
 

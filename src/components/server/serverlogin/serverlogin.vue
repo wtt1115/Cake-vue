@@ -20,7 +20,6 @@
 </template>
 <script type="text/javascript">
     import './severlogin.scss'
-    // import '../../css/bootstrap.css'
     import http from '../../../utils/httpclient.js';
    
     export default {

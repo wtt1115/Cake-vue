@@ -40,6 +40,7 @@ module.exports = {
         try{
             let items = await db.collection(_collection).find(_condition).toArray();
             let result =  apiResult(items.length > 0,items);
+            
             return result;
         }catch(error){
             return apiResult(false,error);

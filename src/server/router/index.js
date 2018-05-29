@@ -4,6 +4,8 @@ const express = require('express');
 const bp = require('body-parser');
 
 const app = express();
+// 静态访问路径
+app.use(express.static(path.join(__dirname,'../../components/img/')));
 
 // 跨域处理
 app.all('*', function(req, res, next) {
@@ -27,9 +29,6 @@ user.account(app);
 
 const cakeProduct = require('./cakeProduct');
 cakeProduct.edit(app);
-
-const cakeProduct = require('./city');
-cakeProduct.choose(app);
 
 const admin = require('./admin');
 admin.manager(app);

@@ -1349,7 +1349,7 @@ var Core = function () {
    * @param $table
       */
 		value: function createDOM($table) {
-			var settings = _Cache2.default.getSettings($table);
+			var settings = _Cache2.default.getSettings($table)
 			$table.attr('width', '100%').attr('cellspacing', 0);
 			var theadHtml = '<thead grid-manager-thead>';
 			var tbodyHtml = '<tbody></tbody>';
