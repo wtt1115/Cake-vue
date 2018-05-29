@@ -1,6 +1,6 @@
 <template>
     <div class="carBox">
-        <div v-if="!isEmpty" class="carContent">
+        <div v-if="carlist.length >= 1" class="carContent">
             <div class="carTop">
                 <span><i class="fa fa-angle-left" aria-hidden="true" @click="back"></i></span>
                 <span>购物车</span>
@@ -25,21 +25,22 @@
                                 <span>{{item.spec}}</span>
                                 <div>
                                     <p>￥{{item.price}}</p> <p v-if="show == 'add-car'">
-                                        <span @click="sub(index)">-</span>
+                                        <span v-if="carlist[index].qty > 1" @click="sub(index)">-</span>
+                                        <span v-else @click="delGoods($event,index)"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                                         <span @click="changQty(carlist[index].qty,index)">{{carlist[index].qty}}</span>
                                         <span @click="add(index)">+</span>
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="package">
+                        <div v-if="item.tableware" class="package">
                             <p><img src="http://m.21cake.com/themes/wap/img/cart-laid.png"/><span>含免费餐具{{item.tableware}}套</span></p>
                         </div>
                     </li>
                 </ul>
+            <RecommendComponent :carlist="carlist"></RecommendComponent>
             </div>
             <div :is="show" :chosenItemLen="chosenItem.length" :carlistLen="carlist.length" :totalPrice="this.totalPrice" :chosenDelItemLen="chosenDelItem.length"></div>
-            
         </div>
         <div v-else class="emptyCar">
             <div class="carTop">
@@ -53,6 +54,7 @@
                 <span>去购物 >></span>
             </div>
         </div>
+            <!-- <RecommendComponent></RecommendComponent> -->
         <footComponent></footComponent>
         <div v-if="isEdit" class="changeQtyForCar">
             <div class="editCon">
@@ -80,16 +82,18 @@
 <script>
     
     import footComponent from '../foot/foot.vue'
+    import RecommendComponent from './recommend.vue'
     import './car.scss'
     export default{
         components: {
            footComponent,
+           RecommendComponent,
             'edit-car':{
                 props:['chosenDelItemLen','carlistLen'],
-               template:`<div class="carBottom">
+                template:`<div class="carBottom">
                         <p class="labelContainer">
                             <label @change="this.$parent.checkAll">
-                                <input type="checkbox" name="radioName" id="checkAll" hidden :checked="chosenDelItemLen == carlistLen"/>
+                                <input type="checkbox" name="radioName" id="checkAll" hidden :checked="this.chosenDelItemLen == this.carlistLen"/>
                                 <label for="checkAll" class="radio-beauty"></label>
                                 <span>全选</span>
                             </label>
@@ -103,12 +107,12 @@
                     <div class="carBottom">
                         <p class="labelContainer">
                             <label @change="this.$parent.checkAll">
-                                <input type="checkbox" name="radioName" id="checkAll" hidden :checked="chosenItemLen == carlistLen"/>
+                                <input type="checkbox" name="radioName" id="checkAll" hidden :checked="this.chosenItemLen == this.carlistLen"/>
                                 <label for="checkAll" class="radio-beauty"></label>
                                 <span>全选</span>
                             </label>
                         </p>
-                        <p class="settlement">合计:<span class="total">￥{{totalPrice}}.00</span> <span :class="this.$parent.getAutoOrder()" @click="this.$parent.addOrders" >下单</span></p>
+                        <p class="settlement">合计:<span class="total">￥{{this.totalPrice}}.00</span> <span :class="this.$parent.getAutoOrder()" @click="this.$parent.addOrders" >结算({{chosenItemLen}})</span></p>
                     </div>`
            },
           
@@ -231,15 +235,33 @@
                 })
             },
             // 点击显示删除确认弹窗
-            delGoods(e){
-                if(this.chosenDelItem.length <= 0){
-                    return;
+            delGoods(e,idx){
+                if(!idx && idx != 0){
+                    if(this.chosenDelItem.length <= 0){
+                        return;
+                    } 
+                }else{
+                    this.delIdx = idx;
                 }
                 this.isDel = true;
 
             },
             // 确认删除
-            confirmDel(){
+            confirmDel(idx){
+                if(this.delIdx == -1){
+                    this.chosenDelItem.forEach(item => {
+                        this.carlist.forEach((item_car,idx_car) => {
+                            console.log(666);
+                            if(this.chosenDelItem.indexOf(item_car.product_id) > -1){
+                                this.carlist.splice(idx_car,1)
+                            }
+                        })
+                    })
+                }else{
+                    this.carlist.splice(this.delIdx,1)
+                }
+                this.chosenDelItem = [];
+                this.delIdx = -1 ;
                 this.isDel = false;
             },
             // 取消删除
@@ -252,7 +274,8 @@
                 if(this.chosenItem.length <= 0){
                     return;
                 }
-                alert('添加订单');
+                this.$router.push({name:'order'})
+                // alert('添加订单');
                 
             },
             // 是否高亮删除按钮(返回样式)
@@ -262,7 +285,7 @@
                     delCar:this.chosenDelItem.length  >= 1
                 }
             },
-            // 是否订单删除按钮
+            // 是否高亮结算按钮
             getAutoOrder(){
                 return{
                     noOrder : this.chosenItem.length <= 0 ,
@@ -277,7 +300,7 @@
         mounted(){
             // ajax
             this.getTotalPrice();
-            this.isEmpty = false;
+            // this.isEmpty = false;
             
         },
         data(){
@@ -296,8 +319,8 @@
                 isEdit : false,
                 // 显示删除弹窗标识
                 isDel:false,
-                // 购物车是否为空标识
-                isEmpty:false,
+                // // 购物车是否为空标识
+                delIdx : -1,
                 // 选中商品总价
                 totalPrice : 0,
                 // 垃圾桶图标
@@ -317,10 +340,9 @@
                     },
                     {
                         type: "normal",
-                        img_url: "http://static.21cake.com/public/images/96/ba/cb/314e2984a002615e244765b113d6f44a.jpg",
+                        img_url: "//static.21cake.com//upload/images/78ad114c07704d96ac2d8123d9ae480c.jpg",
                         name: "冻慕斯与焗芝士",
                         en_name: "Cool&Hot ",
-                        tableware:"5",
                         product_id: "3093",
                         price: "200.00",
                         spec: "2.0磅",
@@ -328,7 +350,7 @@
                     },
                     {
                         type: "normal",
-                        img_url: "http://static.21cake.com/public/images/41/0e/89/0a6a0a81b6fda709467ef0f36bd61df4.jpg",
+                        img_url: "//static.21cake.com//upload/images/a5ead52bc79022ccf30c38be37f4ac04.jpg",
                         name: "冻慕斯与焗芝士",
                         en_name: "Cool&Hot ",
                         tableware:"15",

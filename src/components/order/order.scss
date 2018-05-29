@@ -1,0 +1,211 @@
+.order_c{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    background-color: #eee;
+    .orderTop_c{
+        height: 0.6667rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0.1333rem;
+        background-color: #fff;
+        span{
+            i{
+                font-size: 0.3067rem;
+            }
+        }
+        span:nth-of-type(2){
+            font-size: 0.25rem;
+        }
+    }
+    .orderCenter_c{
+        flex: 1;
+        overflow-x: hidden;
+        padding-top: 10px;
+        .address_c{
+            display: flex;
+            flex-direction: column;
+            height: 60px;
+            background-color: #fff;
+            p:nth-of-type(1),p:nth-of-type(3){
+                height:2px;
+                width: 100%;
+                background:url("https://morder.jiuxian.com/ordernew/wap/images/addBor.png") repeat-x bottom ;
+                background-position: -5px 0;
+            }
+            p:nth-of-type(2){
+                flex:1;
+                align-self: center;
+                line-height: 56px;
+                font-size: 15px;
+            }
+        }
+        .orderBanner_c{
+           padding: 20px 10px;
+           .swiper-container_c{
+               overflow: hidden;
+               ul{
+                   li{
+                       margin-right: 1%;
+                       img{
+                           width: 100%;
+                       }
+                       div{
+                           width: 100%;
+                           height: 40px;
+                           position: absolute;
+                           bottom: 0;
+                           left: 0;
+                           background-color: rgba(0, 0, 0, 0.438);
+                           display: flex;
+                           flex-direction: column;
+                           justify-content: space-between;
+                           padding: 3px;
+                           p{
+                               font-size: 12px;
+                               color: #fff;
+                           }
+                           p:nth-of-type(2){
+                               display: flex;
+                               width: 100%;
+                               justify-content: space-between;
+                           }
+                       }
+                   }
+                   li:last-child{
+                       margin-right: 0;
+                   }
+               }
+           }
+        }
+        .orderTime_c{
+            ul{
+                li{
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 20px 10px;
+                    background-color: #fff;
+                    align-items: center;
+                    p{
+                        font-size: 15px;
+
+                    }
+                }
+                li{
+                    p:last-child{
+                        i{
+                            font-size: 20px;
+                        }
+                    }
+                    p:last-child{
+                        span{
+                            margin-right: 20px;
+                            display: inline-block;
+                        }
+
+                    }
+                }
+                li:nth-of-type(1){
+                    p:first-child{
+                        font-weight: 600;
+                        i{
+                            color: #000;
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .orderBot_c{
+        width: 100%;
+        // border-top: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        p{
+            height: 100%;
+            line-height: 0.6667rem;
+            font-size: 15px;
+            span{
+                i{
+                    font-weight: 600;
+                    font-size: 18px;
+                    color: red;
+                }
+            }
+            span:last-child{
+                display: inline-block;
+                padding: 0 20px;
+                height: 0.6667rem;
+                background-color: #000;
+                color: #fff;
+                font-size: 15px;
+                margin-left: 10px;
+            }
+        }
+    }
+}
+.pickMark{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.267);
+    display: flex;
+    z-index: 100;
+    .pickCon{
+        width: 85%;
+        height: 38%;
+        background-color: #fff;
+        margin: auto auto; 
+        border-radius: 5px;
+        p{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            span{
+                flex: 1;
+                height: 60px;
+                line-height: 60px;
+                text-align: center;
+                border-right: 1px solid #ccc;
+                color: rgba(54, 54, 134, 0.74);
+            }
+
+        }
+        h2{
+            font-size: 23px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        div{
+            display: flex;
+            justify-content: space-between;
+            .selectItem{
+                flex:1;
+                height: 100px;
+                background-color: rgba(204, 204, 204, 0.247);
+                overflow: hidden;
+                text-align: center;
+    
+                ul{
+                    padding-top: 5px;
+                    li{
+                        height: 20px;
+                        font-size: 18px;
+                        color:rgba(0, 0, 0, 0.767);
+                    }
+                    li:nth-of-type(2){
+                        font-weight: 800;
+                    }
+                }
+            }
+        }
+    }
+}

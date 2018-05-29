@@ -33,6 +33,7 @@ module.exports = {
             let province = '';
             let city = '';
             let  region = '';
+            
 
             // 调用数据库模块
             // 注册之前先查询用户名是否存在
@@ -41,6 +42,7 @@ module.exports = {
                 res.send(apiResult(false));
             }else{
                 let result = await db.insert('user',{username,password,address,receiver,province,city,region});
+                console.log(result)
                 res.send(result);
             }
         });

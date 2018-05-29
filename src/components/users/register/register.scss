@@ -1,11 +1,37 @@
 .zhuce{
-    .nav{height:0.78125rem;
-        i{
-            font-size:40px;padding-left: 0.3125rem;line-height:0.78125rem; 
-
+    
+     .k-header{
+        width: 100%;
+        .Htop{
+            width: 100%;
+            height: 0.6rem;
+            display:flex;
+            padding:0.133333rem 0;
+            border-bottom:1px solid #FCFCFC;
+            li{
+                width:20%;
+                text-align:center;
+            }
+            li:nth-child(2){
+                flex:1;
+                display:flex;
+                justify-content:center;
+                img{
+                    width: 0.36rem;
+                    height: 0.426667rem;
+                    margin: 0;
+                }
+            }
         }
+    }
+
+    .nav{height:0.78125rem;
+        // i{
+        //     font-size:40px;padding-left: 0.3125rem;line-height:0.78125rem; 
+
+        // }
        p{
-            text-align:center;display: inline;line-height:0.46875rem;padding-left:28%;font-size:20px;color:#000; 
+            text-align:center;line-height:0.46875rem;font-size:20px;color:#000; margin-top: 0.078125rem;
         }
     }
     .yzm{
@@ -18,36 +44,23 @@
                 input:nth-child(5){
                     height: 0.703125rem;padding-top:none;          
                 }
-                #date{
-                    width:7.8125rem;color:red;vertical-align:baseline;
-                }
-
-                
-                // i{s
-                //     color:red;
-                // }
+              
                 span{
                     color:red;font-size:14px;padding-top:0.1875rem;
 
                 }
-                // .codes{
-                //     height:0.46875rem;width:60%;
-                // }
-
+                
+                a{height:0.703125rem;background:#442818;text-align:center;font-size:14px;line-height:0.625rem;border-radius:0.125rem;width:100%;color:#fff;  
+                    button{
+                        color:#fff;background-color:#442818;border:0; 
+                    }      
+              
+                }
             }
-            //    li:nth-child(4){
-            //  color:red;
-            // }
-           
-            // li:nth-child (5){
-            //   margin-bottom:0.15625rem;
-            // }
+            
             
             li:nth-child(6){
                 height: 0.46875rem;border-bottom:none;
-            }
-           #btn{
-                height:0.625rem;margin-top: 0.3125rem;background:#442818;text-align:center;font-size:14px;line-height:0.625rem;border-radius:0.125rem;color:#fff; padding-left:2.0rem;       
             }
         }
         .xieyi{padding:0 0.21875rem;
