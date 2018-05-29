@@ -6,7 +6,7 @@
                     <i class="fa fa-angle-left " ></i>
                     </router-link>
                     <span>用户登录</span>
-                    <router-link to="users">
+                    <router-link to="/">
                     <i class="fa fa-angle-right " ></i>
                     </router-link>
                 </div>

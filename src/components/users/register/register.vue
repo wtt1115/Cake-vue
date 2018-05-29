@@ -28,7 +28,7 @@
                         <h1 id="v_container" class="codes"></h1> 
                     </li>
                     <li>
-                        <input type="text" placeholder="请选择生日" id="date" v-show="showl"/>
+                        <input type="text" placeholder="请选择生日" id="date" />
                     </li>
                      <li> 
                        <span  v-text="errot" v-show="show" calss="fa fa-info-circle"></span>
@@ -63,7 +63,7 @@ import router from '../../../router/router.js'
             }  
         },
         mounted(){
-               this.showl = true;
+               // this.showl = true;
               $("#date").dateSelect();
                console.log($("#date")) 
              

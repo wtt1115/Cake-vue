@@ -7,11 +7,12 @@
                         <b class="fa fa-user-circle"></b>
                     </li>
                     <li>
+                    <span v-show="show"> 
                         <router-link to="/register">
                             <span class="zhuce">注册</span>
-                        </router-link></li>
-                    <li>
-                        <span v-show="show"> 
+                        </router-link>
+
+                        
                         <span class="dl">登录</span>
                         </span>
                        <span v-show="showname">{{username}}</span>
@@ -91,7 +92,7 @@
         </div>
         <div class="b_main">
             <p>客服电话400 650 2121 <i class="fa fa-tty"></i></p>
-            <p class="tui" @click="tuc">退出账号</p>
+            <router-link to="/"> <p class="tui" @click="tuc">退出账号</p></router-link>
         </div>
         <footComponent></footComponent>
     </div>
@@ -122,15 +123,19 @@ import router from '../../router/router.js'
                     this.show = false;
                     this.showname = true;
 
+                } else{
+                     this.show = true;
+                    this.showname = false;
                 }
             })
         },
 
          methods:{
              tuc(){
-                 window.localStorage.removeItem('username');
-                window.localStorage.removeItem('token');
-              console.log(22332)  
+                 let un = window.localStorage.removeItem('username');
+                // window.localStorage.removeItem('token');
+              console.log(un) 
+               // this.show = true; 
             }
          }
     }
