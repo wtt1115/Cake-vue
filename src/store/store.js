@@ -6,6 +6,8 @@ const state = {
 }
 const mutations = {
     addCar(state,_item){
+        console.log(_item);
+        
         let item = Object.assign({},_item);
         // 本地购物车
         let nativeCarlist = window.localStorage.getItem('nativeCarlist');
@@ -41,8 +43,10 @@ const mutations = {
                     nativeCarlist[hasIdx].qty ++;
                 }else{
                     item.qty = 1;
-                    item.price = eval(item.price)[0];
-                    item.spec = eval(item.spec)[0];
+                    if(!typeof(item.price) == 'string'){
+                        item.spec = item.spec;
+                        item.price = item.price;
+                    }
                     nativeCarlist.push(item);
                 }
             }
