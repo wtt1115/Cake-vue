@@ -207,7 +207,8 @@
                     // 调用深度克隆函数
                     this.deepClone();
                     // 加入：保存到本地存储
-                    console.log(this.userProduct);
+                    // console.log(this.userProduct);
+                    this.$store.commit('addCar',this.userProduct);
                     // window.localStorage.setItem('userProduct',JSON.stringify(this.userProduct));
                     // http.post('addProduct',{this.userProduct}).then(res=>{})
                     this.showTips = true;
