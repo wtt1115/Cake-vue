@@ -16,7 +16,6 @@ import details from '../components/details/details.vue'
 
 import register from '../components/users/register/register.vue'
 import login from '../components/users/login/login.vue'
-import order from '../components/users/order/order.vue'
 import address from '../components/users/address/address.vue'
 
 // 后端
@@ -39,11 +38,8 @@ const router = new VueRouter({
         {path: '/classfiy', component: classfiy, name: 'classfiy'},
         {path: '/car', component: car, name: 'car'},
         {path: '/community', component: community, name: 'community'},
-<<<<<<< HEAD
         {path: '/order', component: order, name: 'order'},
-=======
         {path:'/details',component:details,name:'details'},
->>>>>>> 3e3b6aa3bf4d657ff91f354f97aa6c33896283ca
 
         // 服务端路由
         {path:'/serverlogin',component:serverlogin,name:'serverlogin'},
