@@ -22,7 +22,6 @@ const mutations = {
                     nativeCarlist = [];
                 }
             }
-            console.log(nativeCarlist);
             
             if(nativeCarlist.length <= 0){
                 item.qty = 1;

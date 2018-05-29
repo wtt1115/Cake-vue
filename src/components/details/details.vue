@@ -5,7 +5,7 @@
         </div>
         <header class="details-header">
             <ul class="header-wrap">
-                <li>
+                <li @click="toIndex">
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                 </li>
                 <li>
@@ -73,7 +73,7 @@
             <div class="masked-content">
                 <p class="content-price">￥{{this.defaultPrice}}</p>
                 <div class="content-img">
-                    <img src="//static.21cake.com//themes/wap/img/2.00P-full-17.00.jpg"/>
+                    <img src="http://10.3.133.73:88/f-tips.jpg"/>
                     <ul class="content-options">
                         <li v-for="(obj,idx) in paramsData">
                             <i :class="obj.icon" aria-hidden="true"></i> 
@@ -103,8 +103,8 @@
             return {
                 productData:[],
                 bannerData:[
-                    "http://m.21cake.com/upload/images/7baa87117f830d64d22b1ef255b13eea.jpg",
-                    "http://m.21cake.com/upload/images/7baa87117f830d64d22b1ef255b13eea.jpg"
+                    // "http://m.21cake.com/upload/images/7baa87117f830d64d22b1ef255b13eea.jpg",
+                    // "http://m.21cake.com/upload/images/7baa87117f830d64d22b1ef255b13eea.jpg"
                 ],
                 paramsData:[
                     {
@@ -139,43 +139,42 @@
             }
         },
         mounted(){
-            // 接收商品id
-            let product_id = this.$route.params.product_id;
+            // 接收商品id和类型
+            let type ='' ;
+            if(this.$route.query.type){
+                type = this.$route.query.type;
+            }
+            let product_id = this.$route.query.product_id;
+            console.log(this.$route)
             // 向后端获取商品数据
-            http.post('getProduct',{id:product_id}).then(res=>{
+            http.post('getProduct',{type,id:product_id}).then(res=>{
                 console.log(res)
+                if(res.status){
+                    this.productData = res.data;
+                    // 初始化数据
+                    this.defaultPrice = this.productData[0].price[0];
+                    this.defaultSpec = this.productData[0].spec[0];
+                    this.bannerData = [this.productData[0].img_url,this.productData[0].img_url1]
+                    this.$nextTick(function(){
+                        // 首页轮播图
+                        var mySwiper = new Swiper ('.swiper-container', {
+                            direction: 'horizontal',
+                            loop:true,
+                            autoplay: {
+                                delay: 3000,
+                                stopOnLastSlide: false,
+                                disableOnInteraction: false,
+                            },
+                            // 如果需要分页器
+                            pagination: {
+                              el: '.swiper-pagination',
+                              clickable :true,
+                            }
+                        });
+                    })
+                }
             })
-            let ajaxProduct = [
-                {
-                    product_id: "12824",
-                    name: "浅草",
-                    en_name: "中国绿茶与爽脆果实",
-                    href: "/goods-750.html",
-                    target: "_blank",
-                    img_url: "http://m.21cake.com/upload/images/7baa87117f830d64d22b1ef255b13eea.jpg",
-                    price: ["198.00","298.00","398.00","498.00"],
-                    spec: ["1.0磅","2.0磅","3.0磅","4.0磅"]
-                }
-            ];
-            // 初始化数据
-            this.productData = ajaxProduct;
-            this.defaultPrice = this.productData[0].price[0];
-            this.defaultSpec = this.productData[0].spec[0];
-            // 首页轮播图
-            var mySwiper = new Swiper ('.swiper-container', {
-                direction: 'horizontal',
-                loop:true,
-                autoplay: {
-                    delay: 3000,
-                    stopOnLastSlide: false,
-                    disableOnInteraction: false,
-                },
-                // 如果需要分页器
-                pagination: {
-                  el: '.swiper-pagination',
-                  clickable :true,
-                }
-            });
+            
         },
         methods:{
             // 封一个深度克隆数据的函数
@@ -212,6 +211,9 @@
                     // window.localStorage.setItem('userProduct',JSON.stringify(this.userProduct));
                     // http.post('addProduct',{this.userProduct}).then(res=>{})
                     this.showTips = true;
+                    setTimeout(()=>{
+                        this.showTips = false;
+                    },500);
                     this.hideMasked();
                 }
             },
@@ -227,7 +229,10 @@
                 // 修改商品参数
                 this.defaultPrice = this.productData[0].price[idx];
                 this.defaultSpec = this.productData[0].spec[idx];
-                console.log(e.target.innerText,idx);
+            },
+            // 跳回首页
+            toIndex(){
+                this.$router.push('/');
             }
         }
     }
