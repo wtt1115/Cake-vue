@@ -32,7 +32,7 @@
         <div class="k-main">
             <div class="k-Tmain">
                 <ul class="Main">
-                    <li v-for="(item,idx) in data">
+                    <li v-for="(item,idx) in data" @click="Chuan(item)">
                         <img :src="item.img_url">
                         <p> {{item.en_name}}</p>
                         <p>{{item.name}}</p>
@@ -79,6 +79,7 @@
     import footComponent from '../foot/foot.vue'
     import './classfiy.scss'
     import http from '../../utils/httpclient.js'
+    import router from '../../router/router.js'
 
     export default{
         data(){
@@ -135,12 +136,15 @@
             },
             fanhui(){
                 $('.zhezao').css("width","0")
-            }   
+            },
+            Chuan(item){
+
+                this.$router.push({path:'details',params:{product_id:item.product_id}})
+            }
         },
         mounted(){
             http.post('getProduct',{}).then((res) =>{
 
-                console.log(res);
                 if(res.status){
                     for(var i=0;i<res.data.length;i++){
                         if(res.data[i].type == '蛋糕'){
@@ -158,8 +162,10 @@
 
                         } else if(res.data[i].type == '常温蛋糕'){
                             this.Ccake.push(res.data[i]);
+
                         } else if(res.data[i].type == '设计师作品'){
                             this.Gift.push(res.data[i]);
+                            
                         }
                     }
                 }
