@@ -1,7 +1,7 @@
 <template>
         <div class="serverBhead">
             <div class="w-logo">
-                <img src="http://static.21cake.com//themes/site/img/logo.png" />
+                <img src="http://10.3.133.73:88/cake.png" />
             </div>
             <div class="gongneng1">
                 <ul>
@@ -9,7 +9,9 @@
                         <i class="fa fa-arrow-circle-left left" @click="scaling1"></i>
                         <i class="fa fa-arrow-circle-right right" @click="scaling2"></i>
                     </li>
-                    <li><i class="fa fa-arrows-alt"></i></li>
+                    <li>
+                        <i class="fa fa-arrows-alt" @click="scaling3"></i>
+                    </li>
                     <li>
                         <i class="fa fa-cog"></i>
                         <span class="wbadge wb3">10</span>
@@ -52,22 +54,39 @@
         data(){
             return{
      
-                src:'http://img2.woyaogexing.com/2018/05/25/ea6ee9435f32b367!400x400_big.jpg',
+                src:'http://10.3.133.73:88/touxiang.jpg',
                 txt:'wtt',
             }
         },
+        mounted(){
+            $(document).keyup(function(event){
+                 switch(event.keyCode) {
+                 case 27:
+                 $(".w-head").show(800);
+                 $(".w-menu").show(800);
+                 $(".w-main").animate({left:'230px',top:"58px"},900);
+                 
+                  }
+                });
+        },
         methods:{
              scaling1(){
-                $(".left").hide(700);
-                $(".right").show(700);
-                $(".menu").hide(700);
-                $(".main").animate({left:'10px'},800)
+                $(".left").hide(1000);
+                $(".right").show(1000);
+                $(".w-menu").hide(800);
+                $(".w-main").animate({left:'30px'},900)
              },
              scaling2(){
-                $(".left").show(700);
-                $(".right").hide(700);
-                $(".menu").show(700);
-                $(".main").animate({left:'270px'},800)
+                $(".left").show(1000);
+                $(".right").hide(1000);
+                $(".w-menu").show(800);
+                $(".w-main").animate({left:'230px'},900)
+             },
+             scaling3(){
+                $(".w-head").hide(800);
+                $(".w-menu").hide(800);
+                $(".w-main").animate({left:'30px',top:"30px"},900)
+
              },
              leave(){
                 if(confirm('确定要离开吗？')){

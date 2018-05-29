@@ -1,7 +1,7 @@
 .wlogin {
     .center{
     width:500px;
-    height:300px;
+    height:350px;
     background:#fff;
     padding:20px;
     position:absolute;
@@ -20,6 +20,30 @@
             color:#fff;
             border-radius:10px;
             margin-bottom:10px;
+        }
+        .form{
+            .form-group{
+                label{
+                    font-size: 16px;
+                    color:#442818;
+                }
+                input{
+                    margin-top: 10px;
+                    height: 40px;
+                    width: 100%;
+                    border-color:#CB8;
+                    border-radius:10px;
+                }
+            }
+        }
+        button{
+            margin-top: 20px;
+            width: 60px;
+            padding: 10px;
+            border: 0 none;
+            background-color:#442818;
+            color:#fff;
+            border-radius:10px;
         }
 
     }

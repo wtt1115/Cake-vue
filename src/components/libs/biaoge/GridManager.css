@@ -257,18 +257,16 @@
 
 /* 基础样式 */
 
-/*html {
-  height: auto !important;
-}*/
+
 
 /* 基本样式, 默认样式清除 */
 
 .table-wrap *,
 .grid-menu * {
-  box-sizing: border-box !important;
-  font-size: 12px;
+  box-sizing: border-box ;
+  font-size: 16px;
   color: #000;
-  line-height: 18px;
+  line-height: 42px;
   margin: 0;
   padding: 0;
 }
@@ -349,6 +347,26 @@ table[grid-manager].GridManager-ready {
   animation: gm_square_check 1s ease-in-out infinite;
 }
 
+/*按钮的样式*/
+.plugin-action{
+    width: 60px;
+    height: 30px;
+    border:0 none;
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 10px;
+}
+.edit{
+    color:#fff;
+    background-color: green;
+}
+.del{
+    color:#fff;
+    background-color: red;
+}
 /* 表格分页 */
 
 .table-wrap .page-toolbar {

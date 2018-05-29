@@ -1,21 +1,29 @@
 .main{
     .header{height: 3.90625rem;position: relative; background:yellow;  display:flex;/*Flex布局*/
     display: -webkit-flex; /* Safari */
+    background:url(./1.jpg) no-repeat;
     align-items:center;/*指定垂直居中*/
      justify-content:center;
         .cont{background-color:#fff;width:3.90625rem;
             .ull{
                 height:0.625rem;display:flex;justify-content:space-between;
-              li{
+              li{flex:1;
                 text-align:center;line-height: 0.625rem;
                 font-size:16px;position:relative;
-                .t1{font-size:20px;padding-left: 0.078125rem
+                .t1{font-size:20px;padding-left: 0.46875rem
                     ;
 
                 }
                 b{
-                    font-size:60px;position:absolute;top:-0.15625rem;left:0.15625rem;
+                    font-size:60px;position:absolute;top:-0.15625rem;left:0.15625rem;color:#959595;
                 }
+                i{
+                    color:#959595;
+                }
+                .zhuce{
+                    color:#959595;
+                }
+
 
               }
                 li:nth-child(1){
@@ -62,12 +70,15 @@
                 display:flex;justify-content:space-between;                border-bottom:0.015625rem solid #F0F0F0;
                 span{
                     padding-left: 0.15625rem;
+                    i{
+                        padding-right: 0.125rem;color:#969696;font-size:14px;
+                    }
                     
 
                 }
                 b{
                     padding-right: 0.15625rem;
-                    line-height:0.625rem; 
+                    line-height:0.625rem; color:#959595;
                 }
                  
 
@@ -110,13 +121,17 @@
         }
     }
     .b_main{
-        height: 0.78125rem;border-top:0.109375rem solid #F0F0F0;border-bottom:1.875rem solid #F0F0F0;
+        height: 0.78125rem;border-top:0.109375rem solid #F0F0F0;border-bottom:2.8125rem solid #F0F0F0;
         p{background:#fff;line-height: 0.78125rem;color:#ADADAD;text-align:center;font-size:18px;
             i{
                 padding-left:0.625rem;
             }
 
         }
+        .tui{
+            margin-top: 0.15625rem;color:#FF0000;
+        }
+
     }
 
 }
