@@ -328,10 +328,6 @@
                 setTimeout(function(){
                     // 移除元素
                     $flyImg.remove();
-                    item.price = item.price[0];
-                    item.spec = item.spec[0];
-                    // 用户添加的默认商品
-                    console.log(item);
                 },1000);
             },
             // 获取商品id并跳转到详情页
