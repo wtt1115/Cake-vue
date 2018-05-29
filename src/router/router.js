@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
 
+import addsite from '../components/users/address/addsite/addsite.vue'
+
 import users from '../components/users/users.vue'
 import index from '../components/index/index.vue'
 import classfiy from '../components/classfiy/classfiy.vue'
@@ -33,6 +35,7 @@ const router = new VueRouter({
         {path: '/register', component: register, name: 'register'},
         {path: '/login', component: login, name: 'login'},
         {path: '/address', component: address, name: 'address'},
+        {path:'/addsite',component:addsite, name:'addsite'},
         {path: '/order', component: order, name: 'order'},
         {path: '/', component: index, name: 'index'},
         {path: '/classfiy', component: classfiy, name: 'classfiy'},

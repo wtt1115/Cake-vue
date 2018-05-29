@@ -2,40 +2,52 @@
     <div id="classfiy">
         <div class="k-header">
             <ul class="Htop">
-                <li><i class="fa fa-bars"></i></li>
+                <li @click="zhezao()"><i class="fa fa-bars"></i></li>
                 <li><img src="http://static.21cake.com/themes/wap/img/logo.png" /></li>
                 <li><i class="fa fa-shopping-cart"></i></li>
             </ul>
         </div>
-        <div class="k-nav">
+        <div class="zhezao">
+            <h1>筛选</h1>
             <ul>
-                <li @click="cut('cake')">蛋糕</li>
-                <li @click="cut('Ice')">冰淇淋</li>
+                <li>蛋糕</li>
+                <li>冰淇淋</li>
                 <li>小切块</li>
                 <li>咖啡</li>
                 <li>常温蛋糕</li>
                 <li>设计师礼品</li>
             </ul>
+            <button @click="fanhui()">返回</button>
+        </div>
+        <div class="k-nav">
+            <ul class="Nav">
+                <li @click="cut('cake')" class="k-active">蛋糕</li>
+                <li @click="cut('Ice')">冰淇淋</li>
+                <li @click="cut('Dice')">小切块</li>
+                <li @click="cut('Coffee')">咖啡</li>
+                <li @click="cut('Ccake')">常温蛋糕</li>
+                <li @click="cut('Gift')">设计师礼品</li>
+            </ul>
         </div>
         <div class="k-main">
             <div class="k-Tmain">
-                <ul>
-                    <li v-for="(item,idx) in data">
+                <ul class="Main">
+                    <li v-for="(item,idx) in data" @click="Chuan(item)">
                         <img :src="item.img_url">
-                        <p>{{item.en_name}}</p>
+                        <p> {{item.en_name}}</p>
                         <p>{{item.name}}</p>
-                        <span>￥{{item.price}}/{{item.spec[0]}}</span>
+                        <span>￥{{item.price[0]}}/{{item.spec[0]}}</span>
                         <i class="fa fa-cart-plus"></i>
                     </li>
                 </ul>
             </div>
-            <div class="k-Bmain">
+            <div class="k-Bmain"  v-show="show">
                 <div class="title">
                     <p>季节性下线</p>
                     <span>在合适的季节，吃恰当的食物</span>
                 </div>
                 <div class="look">
-                    <ul>
+                    <ul class="Look">
                         <li>
                             <img src="http://10.3.133.73:88/cake1.jpg" />
                             <p>The Moon Cake</p>
@@ -66,11 +78,20 @@
     
     import footComponent from '../foot/foot.vue'
     import './classfiy.scss'
+    import http from '../../utils/httpclient.js'
+    import router from '../../router/router.js'
 
     export default{
         data(){
             return {
-                data:[]
+                data:[],
+                Cake:[],
+                Ice:[],
+                Dice:[],
+                Coffee:[],
+                Ccake:[],
+                Gift:[],
+                show:'true'
             }
         },
         components: {
@@ -78,11 +99,78 @@
         },
         methods:{
             cut(type){
-            
-                console.log(type)
+                console
+                if(type == 'cake'){
+
+                    this.data = this.Cake;
+                    this.show = true
+
+                } else if(type == 'Ice'){
+
+                    this.data = this.Ice;
+                    this.show = false
+
+                } else if(type == 'Dice'){
+
+                    this.data = this.Dice;
+                    this.show = false
+
+                } else if(type == 'Coffee'){
+
+                    this.data = this.Coffee;
+                    this.show = false
+
+                } else if(type == 'Ccake'){
+
+                    this.data = this.Ccake;
+                    this.show = false
+
+                } else if(type == 'Gift'){
+
+                    this.data = this.Gift;
+                    this.show = false
+                }
+            },
+            zhezao(){
+                $('.zhezao').css("width","300px")
+            },
+            fanhui(){
+                $('.zhezao').css("width","0")
+            },
+            Chuan(item){
+
+                this.$router.push({path:'details',params:{product_id:item.product_id}})
             }
+        },
+        mounted(){
+            http.post('getProduct',{}).then((res) =>{
+
+                if(res.status){
+                    for(var i=0;i<res.data.length;i++){
+                        if(res.data[i].type == '蛋糕'){
+                            this.data.push(res.data[i]);
+                            this.Cake.push(res.data[i]);
+
+                        } else if(res.data[i].type == '冰淇淋'){
+                            this.Ice.push(res.data[i]);
+
+                        } else if(res.data[i].type == '小切块'){
+                            this.Dice.push(res.data[i]);
+
+                        } else if(res.data[i].type == '咖啡'){
+                            this.Coffee.push(res.data[i]);
+
+                        } else if(res.data[i].type == '常温蛋糕'){
+                            this.Ccake.push(res.data[i]);
+
+                        } else if(res.data[i].type == '设计师作品'){
+                            this.Gift.push(res.data[i]);
+                            
+                        }
+                    }
+                }
+            })
         }
     }
-    
-    
+
 </script>
