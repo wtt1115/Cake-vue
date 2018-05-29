@@ -182,7 +182,7 @@ export default {
          this.hourArr.push('')
         var mySwiper = new Swiper('.swiper-container_c',{
             direction:'horizontal',
-            slidesPerView:3,
+            slidesPerView:3.08,
             freeMode : true
         })
         var timeSwiper = new Swiper('.swiper-container_time',{
@@ -199,7 +199,7 @@ export default {
                         for (let i = 0; i < currentTimes.length; i++) {
                             currentTimes[i].style.fontWeight = 'normal'
                         }
-                        this.prevTime = this.dateArr[timeSwiper[0].activeIndex+1]+'  '+this.hourArr[timeSwiper[1].activeIndex+1]
+                        this.prevTime = this.dateArr[timeSwiper[0].activeIndex+1]+' '+this.hourArr[timeSwiper[1].activeIndex+1]
                         currentTimes1[timeSwiper[0].activeIndex+1].style.fontWeight = '800'
                         currentTimes2[timeSwiper[1].activeIndex+1].style.fontWeight = '800'
                     }
