@@ -122,6 +122,7 @@
     import footComponent from '../foot/foot.vue'
     import Swiper from 'swiper';
     import $ from 'jquery';
+import { log } from 'util';
     export default{
         data(){
             return {
@@ -453,6 +454,32 @@
                 });
                 $('body').append($flyImg);  
                 $flyImg.animate({top:620,left:185,width:5,height:5,opacity:0.5},1000);
+                    // 本地购物车
+                    let nativeCarlist = window.localStorage.getItem('nativeCarlist');
+                    if(nativeCarlist == null || nativeCarlist == '') {
+                        nativeCarlist = [];
+                    }else{
+                        nativeCarlist = JSON.parse(nativeCarlist)
+                    }
+                    if(nativeCarlist.length == 0){
+                        item.qty = 1;
+                        nativeCarlist.push(item);
+                    }else{
+                        let hasIdx;
+                        let isHas = nativeCarlist.some((goods,idx) => {
+                            hasIdx = idx
+                            return item.product_id == goods.product_id;
+                        });
+                        if(isHas){
+                            nativeCarlist[hasIdx].qty ++;
+                        }else{
+                            item.qty = 1;
+                            nativeCarlist.push(item);
+                        }
+                    }
+                    window.localStorage.setItem('nativeCarlist',JSON.stringify(nativeCarlist))
+                    console.log(JSON.parse(window.localStorage.getItem('nativeCarlist')));
+                
                 setTimeout(function(){
                     // 移除元素
                     $flyImg.remove();
