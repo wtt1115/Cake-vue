@@ -5,12 +5,15 @@
             display:flex;
             a{color:#000;
                 i{
-                font-size:40px;line-height:0.78125rem;  padding-right: 0.15625rem;
+                font-size:35px;line-height:0.78125rem;  padding-right: 0.15625rem;
 
                 }
                 i:nth-child(1){
                     padding-left: 0.15625rem;
                 }
+            }
+            a:nth-child(3){
+              padding-right: 0.15625rem;font-size:18px;padding-top:0.15625rem;
             }
            span{
                 text-align:center;line-height:0.46875rem;
