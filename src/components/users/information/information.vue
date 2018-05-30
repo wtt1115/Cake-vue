@@ -2,7 +2,8 @@
 
 <template>
         <div>
-            <h1>我的账号</h1> 
+            <h1>我的账号</h1>
+
         </div>
         
 </template>

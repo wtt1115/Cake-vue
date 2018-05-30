@@ -97,6 +97,7 @@ module.exports = {
             // 调用数据库模块
             let result = await db.select('user');
             let totals = result.data.length;
+            console.log(totals)
             res.send(apiResult(result.status,result.data,'',totals));
         });
         // 获取用户登陆状态
