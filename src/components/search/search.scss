@@ -1,6 +1,97 @@
+// 主题颜色
+%color{color:#442818;}
 .f-search{
     height:100%;
     display:flex;
     flex-direction:column;
-    
+    .search-header{
+        background:#fff;
+        box-shadow: 0.0rem 0.026667rem 0.053333rem 0.0rem rgba(0,0,0,0.10);
+        .header-ul{
+            display:flex;
+            height:0.666667rem;
+            li{
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                text-align:center;
+            }
+            li:first-child{
+                width:0.6rem;
+                margin:0 0.15rem;
+                i{
+                    font-size:0.453333rem;
+                }
+            }
+            li:nth-child(2){
+                flex:1;
+                position:relative;
+                .fdj{
+                    position:absolute;
+                    left:0.133333rem;
+                    top:0.2rem;
+                    @extend %color;
+                    font-size:0.213333rem;
+                }
+                .header-input{
+                    width:100%;
+                    height:0.346667rem;
+                    border:0 none;
+                    border-bottom:0.013333rem solid #442818;
+                    padding:0  0 0px 0.4rem;
+                    font-size:0.24rem;
+                }
+                input::-webkit-input-placeholder{
+                    @extend %color;
+                }
+            }
+            li:last-child{
+                width:0.573333rem;
+                margin:0 0.266667rem;
+                span{
+                    font-size:0.266667rem;
+                    @extend %color;
+                }
+            }
+        }
+    }
+    .search-main{
+        flex:1;
+        .search-title{
+            font-size:0.24rem;
+            padding-left:0.2rem;
+            line-height:0.4rem;
+            margin:0.133333rem 0;
+        }
+        .search-img{
+            height:1.866667rem;
+            img{
+                width:100%;
+                height:100%;
+            }
+        }
+        .search-content{
+            display:flex;
+            flex-wrap:wrap;
+            padding: 0.133333rem 0 0 0.2rem;
+            li{
+                text-align:center;
+                height:0.4rem;
+                line-height:0.4rem;
+                margin:1.5%;
+                span{
+                    display:block;
+                    font-size:0.213333rem;
+                    padding:0 0.133333rem;
+                    @extend %color;
+                }
+            }
+            li:nth-child(2n+1){
+                background:#d2e6c4;
+            }
+            li:nth-child(2n){
+                background:#e6dac4;
+            }
+        }
+    }
 }

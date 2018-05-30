@@ -1,0 +1,111 @@
+// 主题颜色
+%color{color:#442818;}
+.f-list{
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    .list-header{
+        background:#fff;
+        box-shadow: 0.0rem 0.026667rem 0.053333rem 0.0rem rgba(0,0,0,0.10);
+        .header-ul{
+            height:0.666667rem;
+            display:flex;
+            align-items:center;
+            li{
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items:center;
+            }
+            li:first-child{
+                width:0.6rem;
+                i{
+                    font-size:34px;
+                    @extend %color;
+                }
+            }
+            li:nth-child(2){
+                flex:1;
+                span{
+                    font-size:20px;
+                    @extend %color;
+                }
+            }
+            li:last-child{
+                width:0.6rem;
+                margin-right:10px;
+                i{
+                    font-size:22px;
+                    @extend %color;
+                }
+            }
+        }
+    }
+    .list-main{
+        flex:1;
+        overflow-x:hidden;
+        background:#f2f2f2;
+        .main-product{
+            display:flex;
+            flex-direction:column;
+            li{
+                display:flex;
+                background:#fff;
+                margin-top:0.133333rem;
+                .product-img{
+                    height:1.6rem;
+                    width:40%;
+                    img{
+                        width:100%;
+                        height:100%;
+                    }
+                }
+                .product-info{
+                    padding:0.133333rem 0 0 0.133333rem;
+                    p{
+                        line-height:0.4rem;
+                    }
+                    .info-en_name{
+                        font-size:0.293333rem;
+                        font-weight:bold;
+                        font-family: Helvetica;
+                    }
+                    .info-name{
+                        font-size:0.24rem;
+                        @extend %color;
+                    }
+                    .info-price{
+                        font-size:0.266667rem;
+                        color:red;
+                        .info-spec{
+                            font-size:0.186667rem;
+                            color:#333;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .show-tips{
+        padding-top:1.333333rem;
+        text-align:center;
+        p{
+            font-size:0.213333rem;
+            color:#666;
+            span{
+                color:red;
+                padding:0 0.133333rem;
+            }
+        }
+        .tipsImg{
+            width:1.333333rem;
+            margin:0 auto;
+            margin-bottom:0.666667rem;
+           img{
+                width:100%;
+            } 
+
+        }
+        
+    }
+}

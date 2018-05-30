@@ -15,6 +15,7 @@ import community from '../components/community/community.vue'
 
 import details from '../components/details/details.vue';
 import search from '../components/search/search.vue';
+import list from '../components/list/list.vue';
 
 import register from '../components/users/register/register.vue'
 import login from '../components/users/login/login.vue'
@@ -49,6 +50,7 @@ const router = new VueRouter({
         {path: '/order', component: order, name: 'order'},
         {path:'/details',component:details,name:'details'},
         {path:'/search',component:search,name:'search'},
+        {path:'/list',component:list,name:'list'},
 
 
         // 服务端路由
