@@ -19,7 +19,7 @@
                        <span v-show="showname">{{username}}</span>
                     </li>
                     <li>
-                        <router-link to="/infor">
+                        <router-link to="/account">
                             <i class="fa fa-angle-right t1"></i>
                         </router-link>
                     </li>
