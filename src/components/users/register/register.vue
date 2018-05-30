@@ -18,14 +18,15 @@
                         <input type="text" placeholder="手机号码" v-model="data.username"/>
                     </li>
                     <li> 
-                        <input type="text" placeholder="密码:8~20字符，需同时包含英文和数字"v-model="data.password"/>
+                        <input type="password" placeholder="密码:8~20字符，需同时包含英文和数字"v-model="data.password"/>
                     </li>
                      <li> 
-                        <input type="text" placeholder="确认密码"v-model="pwd"/>
+                        <input type="password" placeholder="确认密码"v-model="pwd"/>
                     </li>
                     <li>
-                        <input type="text" placeholder="请输入图片字符" id="code_input"/>
-                        <h1 id="v_container" class="codes"></h1> 
+                        <input type="text" placeholder="请输入图片字符" id="code_input" v-model="yzm"/>
+                        <h1 id="v_container" class="codes" v-model="vv"></h1>
+                        <i id="tb">lala</i> 
                     </li>
                     <li>
                         <input type="text" placeholder="请选择生日" id="demo1" />
@@ -35,7 +36,8 @@
                     </li>
                     
                     <li>
-                    <router-link to="/login"><button id="btn">注&nbsp;册</button></router-link> 
+                  <button id="btn" @click="reg">注&nbsp;册</button>
+                 <!--<router-link to="/login">    </router-link>  -->
                     </li>
                 </ul>
                 <p class="xieyi">使用未注册的手机号码登录时，将自动注册21cake账号，且认为您已同意<i class="tip">《21cake用户协议》</i></p>
@@ -57,34 +59,41 @@ import router from '../../../router/router.js'
                     username:'',
                     password:''
                 },
-                show:false,
+                show:true,
                 errot:'',
                 pwd:'',
-                showl:false  
+                showl:false,
+                yzm:'' ,
+                vv:''
             }  
         },
         mounted(){
             var calendar = new datePicker();
-calendar.init({
-    'trigger': '#demo1', /*按钮选择器，用于触发弹出插件*/
-    'type': 'date',/*模式：date日期；datetime日期时间；time时间；ym年月；*/
-    'minDate':'1900-1-1',/*最小日期*/
-    'maxDate':'2100-12-31',/*最大日期*/
-    'onSubmit':function(){/*确认时触发事件*/
-        var theSelectData=calendar.value;
-    },
-    'onClose':function(){/*取消时触发事件*/
-    }
-});
-              
-        
-             
-              var verifyCode = new GVerify("v_container");
-              document.getElementById('btn').onclick=()=>{
-                console.log(document.getElementById("code_input").value)
-                var rest = verifyCode.validate(document.getElementById("code_input").value);
+            calendar.init({
+                'trigger': '#demo1', /*按钮选择器，用于触发弹出插件*/
+                'type': 'date',/*模式：date日期；datetime日期时间；time时间；ym年月；*/
+                'minDate':'1900-1-1',/*最小日期*/
+                'maxDate':'2100-12-31',/*最大日期*/
+                'onSubmit':function(){/*确认时触发事件*/
+                    var theSelectData=calendar.value;
+                },
+                'onClose':function(){/*取消时触发事件*/
+                }
+            });
 
-                let reg = /^1[34578]\d{9}$/;
+
+
+            var verifyCode = new GVerify("v_container");
+              document.getElementById('tb').onclick=()=>{
+                console.log(document.getElementById("code_input").value)
+                var vv = verifyCode.validate(document.getElementById("code_input").value);
+
+
+              }
+        },
+        methods:{
+            reg(){
+            let reg = /^1[34578]\d{9}$/;
                 if(!reg.test(this.data.username)){
                     this.show = true;
                     this.errot = '请输入正确手机号码';
@@ -102,26 +111,30 @@ calendar.init({
                     this.errot = '请输入相同的密码！';
                     return false;
                 }
+                // if(this.yzm ==''){
+                //    
+                //     this.show = true;
+                //     this.errot = '验证码不能为空！'
+                // }
 
                  http.post('register',this.data).then((res)=>{
                         console.log(res)
+                        if(res.status){
+                           router.push({name:'login'});
+                      
+                        } else {
+                            this.show=true;
+                            this.errot = '注册失败';
+                            return false;
+                        }
                    
                 })
 
-                
-              }
-               
-        },
+     
 
-        // methods:{s
-
-            
-        //     code(event){
-            
-        //         console.log(event.target)
-
-        //     }
-        // } 
+            }
+           
+        } 
 
     }
     
