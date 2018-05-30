@@ -276,56 +276,30 @@
                 });
                 $('body').append($flyImg);  
                 $flyImg.animate({top:620,left:185,width:5,height:5,opacity:0.5},1000);
-                    // 本地购物车
-                    let nativeCarlist = window.localStorage.getItem('nativeCarlist');
-
-                    let hasUser = window.localStorage.hasOwnProperty('user')
-
-                    if(!hasUser){
-                        if(nativeCarlist == null || nativeCarlist == '') {
-                            nativeCarlist = [];
-                        }else{
-                            try{
-                                nativeCarlist = JSON.parse(nativeCarlist)
-                            }catch(err){
-                                nativeCarlist = [];
-                            }
-                        }
-                        if(nativeCarlist.length == 0){
-                            item.qty = 1;
+                setTimeout(() =>{
+                    let userName = window.localStorage.getItem('userName');
+                    // userName = 'admin'
+                    if(userName){
+                        let _item = Object.assign({},item);
+                            _item.price = _item.price[0]
+                            _item.spec = _item.spec[0]
+                            _item.qty = 1
+                            _item.username = userName
+                            console.log(_item);
                             
-                            item.price = item.price[0];
-                            item.spec = item.spec[0];
-                            nativeCarlist.push(item);
-                        }else{
-                            let hasIdx;
-                            let isHas = nativeCarlist.some((goods,idx) => {
-                                hasIdx = idx
-                                return item.product_id == goods.product_id && item.spec == goods.spec;
-                            });
-                            if(isHas){
-                                nativeCarlist[hasIdx].qty ++;
-                            }else{
-                                item.qty = 1;
-                                nativeCarlist.push(item);
+                        http.post('addProductCar',_item).then((res) => {
+                            console.log(res);
+                            
+                            if(res){  
+
+                                this.$store.commit('updateCarLen',1); 
                             }
-                        }
-                        window.localStorage.setItem('nativeCarlist',JSON.stringify(nativeCarlist))
+                        })
                     }else{
-                        if(nativeCarlist !=null && nativeCarlist != ''){
-                            try{
-                                nativeCarlist = JSON.parse(nativeCarlist);
-                            }catch(err){
-                                nativeCarlist = [];
-                            }
-                            if(nativeCarlist.length > 1){
-                                
-                            }
-                            
-                        }
+                        this.$store.commit('addCar',item);   
+                        this.$store.commit('updateCarLen',1); 
+
                     }
-                
-                setTimeout(function(){
                     // 移除元素
                     $flyImg.remove();
                     item.price = item.price[0];

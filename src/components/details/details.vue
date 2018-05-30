@@ -59,7 +59,7 @@
             <ul class="footer-button">
                 <li @click="toCar">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <span>{{this.carQty}}</span>
+                    <span>{{this.$store.state.carListLen}}</span>
                 </li>
                 <li @click="showMasked({type:'cart'})">
                     <span>立即购买</span>
@@ -174,8 +174,16 @@
                     })
                 }
             })
+             
             
         },
+        // computed:{
+        //     count :{
+        //         get(){
+        //             return this.$store.state.carListLen;
+        //         }
+        //     }
+        // },
         methods:{
             // 封一个深度克隆数据的函数
             deepClone(){
@@ -200,6 +208,7 @@
                     
                     // 获取用户名
                     let userName = window.localStorage.getItem('userName');
+                    // let userName = 'admin'
                     console.log(this.userProduct);
                     if(userName){
                         this.userProduct.username = userName;
@@ -219,24 +228,28 @@
                     // 调用深度克隆函数
                     this.deepClone();
                     let userName = window.localStorage.getItem('userName');
+                    // userName = 'admin'
                     console.log(this.userProduct);
                     if(userName){
                         this.userProduct.username = userName;
                         this.showTips = true;
+                        console.log(this.userProduct);
+                        
                         http.post('addProductCar',this.userProduct).then(res=>{
                             if(res){
                                 setTimeout(()=>{
                                     this.showTips = false;
+                                    this.$store.commit('updateCarLen',1);
                                 },500);
                             }
                         })
                     }else{
                         // 加入：保存到本地存储
-                        this.$store.commit('addCar',this.userProduct);
                         this.showTips = true;
-
                         setTimeout(()=>{
                             this.showTips = false;
+                            this.$store.commit('addCar',this.userProduct);
+                            this.$store.commit('updateCarLen',1);
                         },500);
                     }
                     this.hideMasked();

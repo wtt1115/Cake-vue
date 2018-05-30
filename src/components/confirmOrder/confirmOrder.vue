@@ -8,59 +8,19 @@
         <div class="orderCenter_c">
             <div class="address_c">
                 <p></p>
-                <p>选择收货地址</p>
+                <p @click="pickAddress">选择收货地址</p>
                 <p></p>
             </div>
             <div class="orderBanner_c">
                  <div class="swiper-container_c">
                     <ul class="swiper-wrapper">
-                        <li class="swiper-slide">
-                            <img src="http://static.21cake.com/public/images/91/57/75/c9c2df9e4fac3c22d34b1de18c317a98.jpg">
+                        <li class="swiper-slide" v-for="(obj,idx) in orderData" :key="idx">
+                            <img :src="obj.img_url">
                             <div>
-                                <p>2.0磅</p>
+                                <p>{{obj.spec}}</p>
                                 <p>
-                                    <span>199.00</span>
-                                    <span>*4</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li class="swiper-slide">
-                            <img src="http://static.21cake.com/public/images/91/57/75/c9c2df9e4fac3c22d34b1de18c317a98.jpg">
-                            <div>
-                                <p>2.0磅</p>
-                                <p>
-                                    <span>199.00</span>
-                                    <span>*4</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li class="swiper-slide">
-                            <img src="http://static.21cake.com/public/images/91/57/75/c9c2df9e4fac3c22d34b1de18c317a98.jpg">
-                            <div>
-                                <p>2.0磅</p>
-                                <p>
-                                    <span>199.00</span>
-                                    <span>*4</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li class="swiper-slide">
-                            <img src="http://static.21cake.com/public/images/91/57/75/c9c2df9e4fac3c22d34b1de18c317a98.jpg">
-                            <div>
-                                <p>2.0磅</p>
-                                <p>
-                                    <span>199.00</span>
-                                    <span>*4</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li class="swiper-slide">
-                            <img src="http://static.21cake.com/public/images/91/57/75/c9c2df9e4fac3c22d34b1de18c317a98.jpg">
-                            <div>
-                                <p>2.0磅</p>
-                                <p>
-                                    <span>199.00</span>
-                                    <span>*4</span>
+                                    <span>{{obj.price}}</span>
+                                    <span>x {{obj.qty}}</span>
                                 </p>
                             </div>
                         </li>
@@ -113,8 +73,8 @@
         <div class="orderBot_c">
             <p></p>
             <p>
-                <span>共￥<i>2292.00</i></span>
-                <span>下单</span>
+                <span>共<i>￥{{totalPrice}}.00</i></span>
+                <span @click="addOrder">下单</span>
             </p>
             
         </div>
@@ -122,7 +82,7 @@
     </div>
 </template>
 <script>
-import './order.scss'
+import './confirmOrder.scss'
 import '../../../node_modules/swiper/dist/css/swiper.css';
 import Swiper from 'swiper'
 export default {
@@ -131,6 +91,10 @@ export default {
             isSelect:false,
             hourArr : [],
             dateArr : [],
+            orderData : [],
+            totalPrice : 0,
+            address :'address',
+            totalnums:0,
             prevTime:'',
             currentTime:''
         }
@@ -138,7 +102,6 @@ export default {
     methods:{
         selectTime(){
             this.isSelect = true;
-            
         },
         hideSelectTime(){
             this.isSelect = false;
@@ -154,12 +117,39 @@ export default {
             }
             this.isSelect = false;
             
+        },
+        pickAddress(){
+            this.$router.push({name:'address'})
+        },
+        addOrder(){
+            if(this.currentTime == '' || this.address == ''){
+                return;
+            }
+            let username = window.localStorage.getItem('userName');
+            let orderNum = 'GI' + Date.now();
+            let order = {
+                username:username,
+                ordernumber: orderNum,
+                ispay : false,
+                time :'',
+                totalprice: this.totalPrice,
+                totalnums: this.totalnums,
+                address:  '',
+                taketime: this.currentTime,
+                products: this.orderData
+            }
+            this.$router.push('/orderDet/'+orderNum);
         }
     },
 
     mounted(){
 
-
+        this.orderData = JSON.parse(window.localStorage.getItem('pushOrder'));
+        this.orderData.forEach(order => {
+            this.totalPrice += order.qty * order.price
+            this.totalnums += order.qty;
+        });
+        
         let  date = new Date(Date.now());
         let week = ['周日','周一','周二','周三','周四','周五','周六'];
         this.dateArr.push('')
@@ -180,31 +170,35 @@ export default {
             this.hourArr.push(timeArr)
         }
          this.hourArr.push('')
-        var mySwiper = new Swiper('.swiper-container_c',{
-            direction:'horizontal',
-            slidesPerView:3.08,
-            freeMode : true
-        })
-        var timeSwiper = new Swiper('.swiper-container_time',{
-            direction:'vertical',
-                slidesPerView:3,
-                observer:true,//修改swiper自己或子元素时，自动初始化swiper
-                observeParents:true,
-                on:{
-                    slideChangeTransitionStart:(e) =>{
-                    var currentTimes = document.querySelectorAll('.currentTime');
-                    var currentTimes1 = document.querySelectorAll('.currentTime1');
-                    var currentTimes2 = document.querySelectorAll('.currentTime2');
 
-                        for (let i = 0; i < currentTimes.length; i++) {
-                            currentTimes[i].style.fontWeight = 'normal'
-                        }
-                        this.prevTime = this.dateArr[timeSwiper[0].activeIndex+1]+' '+this.hourArr[timeSwiper[1].activeIndex+1]
-                        currentTimes1[timeSwiper[0].activeIndex+1].style.fontWeight = '800'
-                        currentTimes2[timeSwiper[1].activeIndex+1].style.fontWeight = '800'
-                    }
-                }
-        })
+         this.$nextTick(() => {
+             var mySwiper = new Swiper('.swiper-container_c',{
+                 direction:'horizontal',
+                 slidesPerView:3.08,
+                 freeMode : true
+             })
+             var timeSwiper = new Swiper('.swiper-container_time',{
+                 direction:'vertical',
+                     slidesPerView:3,
+                     observer:true,//修改swiper自己或子元素时，自动初始化swiper
+                     observeParents:true,
+                     on:{
+                         slideChangeTransitionStart:(e) =>{
+                         var currentTimes = document.querySelectorAll('.currentTime');
+                         var currentTimes1 = document.querySelectorAll('.currentTime1');
+                         var currentTimes2 = document.querySelectorAll('.currentTime2');
+     
+                             for (let i = 0; i < currentTimes.length; i++) {
+                                 currentTimes[i].style.fontWeight = 'normal'
+                             }
+                             this.prevTime = this.dateArr[timeSwiper[0].activeIndex+1]+' '+this.hourArr[timeSwiper[1].activeIndex+1]
+                             currentTimes1[timeSwiper[0].activeIndex+1].style.fontWeight = '800'
+                             currentTimes2[timeSwiper[1].activeIndex+1].style.fontWeight = '800'
+                         }
+                     }
+             })
+
+         })
 
 
     }

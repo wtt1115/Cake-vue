@@ -7,7 +7,7 @@
         <li ref="classfiy"><i class="fa fa-bars"></i><span>分类</span></li>
         </router-link>
         <router-link to="/car">
-        <li ref="car"><i class="fa fa-shopping-cart"></i><span>购物车</span></li>
+        <li ref="car"><i class="fa fa-shopping-cart"></i><span>购物车</span><span class="carCount">{{this.$store.state.carListLen}}</span></li>
         </router-link>
         <router-link to="/community">
         <li ref="community"><i class="fa fa-envelope-o"></i><span>社区</span></li>
