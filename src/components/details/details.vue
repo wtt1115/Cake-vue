@@ -181,10 +181,10 @@
             deepClone(){
                 // 用户数组
                 // let userName = window.localStorage.getItem('userName');
-                let userName = 'admin';
+                // let userName = 'admin';
                 let _userProduct = JSON.stringify(this.productData[0]);
                 this.userProduct = JSON.parse(_userProduct);
-                this.userProduct.username = userName;
+                // this.userProduct.username = userName;
                 this.userProduct.spec = this.defaultSpec;
                 this.userProduct.price = this.defaultPrice;
             },
@@ -206,15 +206,29 @@
                 }else{
                     // 调用深度克隆函数
                     this.deepClone();
-                    // 加入：保存到本地存储
-                    // console.log(this.userProduct);
-                    this.$store.commit('addCar',this.userProduct);
-                    // window.localStorage.setItem('userProduct',JSON.stringify(this.userProduct));
-                    // http.post('addProduct',{this.userProduct}).then(res=>{})
-                    this.showTips = true;
-                    setTimeout(()=>{
-                        this.showTips = false;
-                    },500);
+                    // let userName = window.localStorage.getItem('userName');
+                    let userName = 'admin';
+                    
+                    if(userName){
+                        this.userProduct.username = userName;
+                        this.userProduct.qty = 1;
+                        this.showTips = true;
+                        http.post('addProductCar',this.userProduct).then(res=>{
+                            console.log(res)
+                            if(res){
+                                setTimeout(()=>{
+                                    this.showTips = false;
+                                },500);
+                            }
+                        })
+                    }else{
+                        // 加入：保存到本地存储
+                        this.$store.commit('addCar',this.userProduct);
+                        this.showTips = true;
+                        setTimeout(()=>{
+                            this.showTips = false;
+                        },500);
+                    }
                     this.hideMasked();
                 }
             },
