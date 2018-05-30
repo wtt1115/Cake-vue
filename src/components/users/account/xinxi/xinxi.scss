@@ -1,6 +1,5 @@
 .hole{
       .head{
-       
         .box1{
             display:flex;height: 0.46875rem;margin-top: 0.15625rem;border-bottom:1px solid #ccc;
             li{
@@ -14,7 +13,7 @@
             }
         }
     }
-    .box2{
+    .box2{position:relative;
         .box4{
             li{
                 height:0.625rem;border-bottom:1px solid #ccc;
@@ -29,6 +28,15 @@
         li:nth-child(1) i{
             font-size:14px;
         }
+        .t1,.t2{
+                height:0.9375rem;width:1.5625rem;background:
+                #ccc;z-index:1000;line-height:0.9375rem;
+                position:fixed;top:1.5625rem;left:1.796875rem;
+                border-radius:0.09375rem;display:none;
+            p{
+                font-size:16px;text-align:center;color:#fff;
+            }
+        }
     }
     .bao{
         .cun{
@@ -37,4 +45,11 @@
             16px;color:#fff;border:none;
         }
     }
+   
+    //  .t2{
+    //     height:1.5625rem;width:1.5625rem;background:#ccc;display:none;
+    //     p{
+    //         font-size:16px;
+    //     }
+    // }
 }
