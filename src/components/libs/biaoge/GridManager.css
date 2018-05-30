@@ -1083,3 +1083,20 @@ table[grid-manager].GridManager-ready {
   z-index: 9;
 }
 /*# sourceMappingURL=GridManager.css.map*/
+.w-tuichu{
+        display: none;
+        width: 200px;
+        height: 50px;
+        background:#000;
+        opacity:0.3;
+        position:fixed;
+        top: 10px;
+        left: 700px;
+        z-index:100;
+    }
+.w-tuichu p{
+            text-align:center;
+            line-height: 50px;
+            font-size: 14px;
+            color:#fff;
+        }   

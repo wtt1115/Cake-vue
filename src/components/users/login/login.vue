@@ -17,7 +17,7 @@
                         <input type="text" placeholder="手机号码"v-model="data.username">
                     </li>
                     <li> 
-                        <input type="text" placeholder="密码" v-model="data.password">
+                        <input type="password" placeholder="密码" v-model="data.password">
                     </li>
                     <li>
                          <input type="text" placeholder="图形验证码" id="code_input"/>
@@ -28,7 +28,7 @@
                     </li>
                     
                     <li >
-                        <router-link to="/users"><span id="btn">登录</span></router-link> 
+                       <span id="btn" @click="loginl">登录</span>
                     </li>
                 </ul>
                 <p class="xieyi">使用未注册的手机号码登录时，将自动注册21cake账号，且认为您已同意<i class="tip">《21cake用户协议》</i></p>
@@ -59,6 +59,11 @@ import router from '../../../router/router.js'
               document.getElementById('btn').onclick=()=>{
                 console.log(document.getElementById("code_input").value)
                 var rest = verifyCode.validate(document.getElementById("code_input").value);
+            }
+
+            },
+              methods: {
+                loginl(){
                 let reg = /^1[34578]\d{9}$/;
                 if(!reg.test(this.data.username)){
                     this.show = true;
@@ -78,7 +83,7 @@ import router from '../../../router/router.js'
                     if(res.status){
                          window.localStorage.setItem('token',res.data.token);
                         window.localStorage.setItem('username',res.data.username);
-                        // router.push({name:'users'});
+                        router.push({name:'users'});
                     } else {
                         this.show = true
                         this.errot = '手机号或密码错误！'
@@ -88,4 +93,4 @@ import router from '../../../router/router.js'
         }
     }
     
-</script>
+</script>s

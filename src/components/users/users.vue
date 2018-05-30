@@ -9,15 +9,17 @@
                     <li>
                     <span v-show="show"> 
                         <router-link to="/register">
-                            <span class="zhuce">注册</span>
+                            <span class="zhuce">注册</span></router-link>
+                            <router-link to="/login">
                         <span class="dl">登录</span>  
+                    </router-link>
 
-                         </router-link>
+                         
                         </span>
                        <span v-show="showname">{{username}}</span>
                     </li>
                     <li>
-                        <router-link to="/login">
+                        <router-link to="/infor">
                             <i class="fa fa-angle-right t1"></i>
                         </router-link>
                     </li>
@@ -93,12 +95,10 @@
         </div>
         <div class="b_main">
             <p>客服电话400 650 2121 <i class="fa fa-tty"></i></p>
-         <p class="tui" @click="tuc" >退出账号</p>
-         <!--     </router-link>    <router-link to="/"> -->
+        <!--  <p class="tui"  @click="tuc" v-show="showname">退出账号</p> -->
         </div>
         <footComponent></footComponent>
     </div>
-        
 </template>
 <script>
     import footComponent from '../foot/foot.vue'
@@ -110,40 +110,37 @@ import router from '../../router/router.js'
             return{
                 show:true,
                 showname:false,
-                username:'',
-                pl:'sdsss'
-              
+                username:''
             }
         },
         components: {
            footComponent
         },
         mounted(){
+            let username = window.localStorage.getItem('username');
             http.post('getStatus',{}).then((res) =>{
-                if(res.status){
-                    let uname = window.localStorage.getItem('username');
-                    console.log(uname)
-                    this.username = uname;
+                if(res.status && username){
+                    console.log(res)
+                     this.username = username;
                     this.show = false;
                     this.showname = true;
-
                 } 
             })
         },
 
-         methods:{
-             tuc(){
-                 let un = window.localStorage.removeItem('username');
-                // window.localStorage.removeItem('token');
-              console.log(un) 
-               this.show = true;
-               this.showname = false;
+         // methods:{
+         //     tuc(){
+         //         let un = window.localStorage.removeItem('username');
+         //        // window.localStorage.removeItem('token');
+         //      console.log(un) 
+         //       this.show = true;
+         //       this.showname = false;
 
 
 
-            }
+         //    }
 
-         }
+         // }
     }
     
     

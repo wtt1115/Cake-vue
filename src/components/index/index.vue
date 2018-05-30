@@ -18,7 +18,7 @@
                 </li>
                 <li>
                     <i class="fa fa-search fdj" aria-hidden="true"></i>
-                    <input type="text" class="header-input" placeholder="搜索商品"/>
+                    <input type="text" class="header-input" placeholder="搜索商品" @click="toSearch"/>
                 </li>
                 <li @click="showCity()">
                     <div class="header-location">
@@ -337,6 +337,10 @@
             // 获取商品id并跳转到详情页
             toDetails(type,product_id){
                 this.$router.push({name:'details',query:{type,product_id}});
+            },
+            // 跳转到搜索组件
+            toSearch(){
+                this.$router.push('/search');
             }
         }
     }

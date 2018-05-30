@@ -41,6 +41,7 @@
                     </li>
                 </ul>
             </div>
+            
        
             
         </div>
@@ -62,8 +63,8 @@
             $(document).keyup(function(event){
                  switch(event.keyCode) {
                  case 27:
-                 $(".w-head").show(800);
-                 $(".w-menu").show(800);
+                 $(".w-head").show(400);
+                 $(".w-menu").show(400);
                  $(".w-main").animate({left:'230px',top:"58px"},900);
                  
                   }
@@ -71,21 +72,23 @@
         },
         methods:{
              scaling1(){
-                $(".left").hide(1000);
-                $(".right").show(1000);
-                $(".w-menu").hide(800);
-                $(".w-main").animate({left:'30px'},900)
+                $(".left").hide(500);
+                $(".right").show(500);
+                $(".w-menu").hide(400);
+                $(".w-main").animate({left:'30px'},300)
              },
              scaling2(){
-                $(".left").show(1000);
-                $(".right").hide(1000);
-                $(".w-menu").show(800);
-                $(".w-main").animate({left:'230px'},900)
+                $(".left").show(500);
+                $(".right").hide(500);
+                $(".w-menu").show(400);
+                $(".w-main").animate({left:'230px'},300)
              },
              scaling3(){
-                $(".w-head").hide(800);
-                $(".w-menu").hide(800);
-                $(".w-main").animate({left:'30px',top:"30px"},900)
+                $(".w-head").hide(400);
+                $(".w-menu").hide(400);
+                $(".w-main").animate({left:'30px',top:"30px"},300)
+                $(".w-tuichu").show();
+                $(".w-tuichu").delay(3000).hide(0);
 
              },
              leave(){

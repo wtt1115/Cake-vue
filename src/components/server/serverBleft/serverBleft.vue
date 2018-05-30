@@ -1,9 +1,6 @@
 <template>
         <div class="serverBleft">
             <ul>
-                <li>
-                    <input type="text" placeholder="搜索"/>
-                </li>
                 <li v-for="obj in menus" :key="obj.path">
                     <router-link :to="obj.path">
                         {{obj.text}}

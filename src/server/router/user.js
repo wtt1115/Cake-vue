@@ -96,7 +96,9 @@ module.exports = {
         app.get('/getuser',async (req,res)=>{
             // 调用数据库模块
             let result = await db.select('user');
-            res.send(result);
+            let totals = result.data.length;
+            console.log(totals)
+            res.send(apiResult(result.status,result.data,'',totals));
         });
         // 获取用户登陆状态
         app.post('/getStatus', filter,(req,res)=>{
