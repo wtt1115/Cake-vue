@@ -57,9 +57,9 @@
         </main>
         <footer class="details-footer">
             <ul class="footer-button">
-                <li>
+                <li @click="toCar">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <span>50</span>
+                    <span>{{this.carQty}}</span>
                 </li>
                 <li @click="showMasked({type:'cart'})">
                     <span>立即购买</span>
@@ -98,14 +98,12 @@
     import Swiper from 'swiper';
     import $ from 'jquery';
     import http from '../../utils/httpclient.js';
+
     export default{
         data(){
             return {
                 productData:[],
-                bannerData:[
-                    // "http://m.21cake.com/upload/images/7baa87117f830d64d22b1ef255b13eea.jpg",
-                    // "http://m.21cake.com/upload/images/7baa87117f830d64d22b1ef255b13eea.jpg"
-                ],
+                bannerData:[],
                 paramsData:[
                     {
                         icon:'fa fa-square-o',
@@ -134,7 +132,9 @@
                 defaultSpec:'',
                 // 默认用户商品数组
                 userProduct :{},
-                showTips:false
+                showTips:false,
+                // 购物车总数量
+                carQty :0
 
             }
         },
@@ -180,13 +180,11 @@
             // 封一个深度克隆数据的函数
             deepClone(){
                 // 用户数组
-                // let userName = window.localStorage.getItem('userName');
-                // let userName = 'admin';
                 let _userProduct = JSON.stringify(this.productData[0]);
                 this.userProduct = JSON.parse(_userProduct);
-                // this.userProduct.username = userName;
                 this.userProduct.spec = this.defaultSpec;
                 this.userProduct.price = this.defaultPrice;
+                this.userProduct.qty = 1;
             },
             // 封一个显示参数面板的函数
             showMasked(opt){
@@ -196,25 +194,36 @@
                     let $maskedContent = $('.masked-content');
                     $maskedContent.animate({bottom:50},500);
                 }else if(opt.type == 'cart'){
-                    // 获取商品信息并跳转到购物车
+                    // 调用深度克隆函数
                     this.deepClone();
                     // 购买：插入数据库并跳转到购物车
+                    
+                    // 获取用户名
+                    let userName = window.localStorage.getItem('userName');
                     console.log(this.userProduct);
-
+                    if(userName){
+                        this.userProduct.username = userName;
+                        http.post('addProductCar',this.userProduct).then(res=>{
+                            if(res){
+                                // 跳转到购物车
+                                this.$router.push('/car');
+                            }
+                        })
+                    }else{
+                        alert('请登陆！');
+                        this.$router.push('/login');
+                    }
                     // 调用隐藏函数
                     this.hideMasked();
                 }else{
                     // 调用深度克隆函数
                     this.deepClone();
-                    // let userName = window.localStorage.getItem('userName');
-                    let userName = 'admin';
-                    
+                    let userName = window.localStorage.getItem('userName');
+                    console.log(this.userProduct);
                     if(userName){
                         this.userProduct.username = userName;
-                        this.userProduct.qty = 1;
                         this.showTips = true;
                         http.post('addProductCar',this.userProduct).then(res=>{
-                            console.log(res)
                             if(res){
                                 setTimeout(()=>{
                                     this.showTips = false;
@@ -225,6 +234,7 @@
                         // 加入：保存到本地存储
                         this.$store.commit('addCar',this.userProduct);
                         this.showTips = true;
+
                         setTimeout(()=>{
                             this.showTips = false;
                         },500);
@@ -248,6 +258,10 @@
             // 跳回首页
             toIndex(){
                 this.$router.push('/');
+            },
+            // 跳到购物车
+            toCar(){
+                this.$router.push('/car');
             }
         }
     }

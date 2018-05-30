@@ -13,8 +13,8 @@ import car from '../components/car/car.vue'
 import order from '../components/order/order.vue'
 import community from '../components/community/community.vue'
 
-import details from '../components/details/details.vue'
-
+import details from '../components/details/details.vue';
+import search from '../components/search/search.vue';
 
 import register from '../components/users/register/register.vue'
 import login from '../components/users/login/login.vue'
@@ -43,6 +43,8 @@ const router = new VueRouter({
         {path: '/community', component: community, name: 'community'},
         {path: '/order', component: order, name: 'order'},
         {path:'/details',component:details,name:'details'},
+        {path:'/search',component:search,name:'search'},
+
 
         // 服务端路由
         {path:'/serverlogin',component:serverlogin,name:'serverlogin'},
