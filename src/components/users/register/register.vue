@@ -77,7 +77,7 @@ import router from '../../../router/router.js'
 
             var verifyCode = new GVerify("v_container");
               document.getElementById('btn').onclick=()=>{
-                console.log(document.getElementById("code_input").value)
+              
                 var rest = verifyCode.validate(document.getElementById("code_input").value);
 
                   let reg = /^1[34578]\d{9}$/;
@@ -105,7 +105,7 @@ import router from '../../../router/router.js'
                       
                         } else {
                             this.show=true;
-                            this.errot = '注册失败';
+                            this.errot = '用户已存在';
                             return false;
                         }
                 })

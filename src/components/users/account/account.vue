@@ -60,15 +60,9 @@ import router from '../../../router/router.js'
           },
           mounted(){
             let username = window.localStorage.getItem('username');
-            http.post('getStatus',{}).then((res) =>{
-                if(res.status && username){
-                    console.log(res)
-                     this.username = username;
-                    
-                    this.shoe = true;
-                } 
-            })
-
+                    this.username = username;
+                        this.shoe = true;
+                         console.log( this.username)
           },
           methods:{
             tuc(){

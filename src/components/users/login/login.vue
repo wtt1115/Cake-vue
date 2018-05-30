@@ -57,7 +57,7 @@ import router from '../../../router/router.js'
         mounted(){
             var verifyCode = new GVerify("v_container");
               document.getElementById('btn').onclick=()=>{
-                console.log(document.getElementById("code_input").value)
+                
                 var rest = verifyCode.validate(document.getElementById("code_input").value);
             }
 
