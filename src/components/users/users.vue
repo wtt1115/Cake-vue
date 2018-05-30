@@ -93,7 +93,7 @@
         </div>
         <div class="b_main">
             <p>客服电话400 650 2121 <i class="fa fa-tty"></i></p>
-         <p class="tui" @click="tuc" >退出账号</p>
+         <p class="tui"  @click="tuc">退出账号</p>
          <!--     </router-link>    <router-link to="/"> -->
         </div>
         <footComponent></footComponent>
@@ -110,8 +110,8 @@ import router from '../../router/router.js'
             return{
                 show:true,
                 showname:false,
-                username:'',
-                pl:'sdsss'
+                username:''
+             
               
             }
         },
@@ -119,13 +119,22 @@ import router from '../../router/router.js'
            footComponent
         },
         mounted(){
+            let uname = window.localStorage.getItem('username');
+
             http.post('getStatus',{}).then((res) =>{
                 if(res.status){
-                    let uname = window.localStorage.getItem('username');
-                    console.log(uname)
-                    this.username = uname;
+                    
+                    console.log(res)
+                     this.username = uname;
                     this.show = false;
                     this.showname = true;
+                    // if(uname == 'null' || uname == 'undefined'){
+                    //     this.show = true;
+                    //     this.showname = false;
+
+                    //     return;
+                    // }
+                   
 
                 } 
             })
@@ -135,6 +144,7 @@ import router from '../../router/router.js'
              tuc(){
                  let un = window.localStorage.removeItem('username');
                 // window.localStorage.removeItem('token');
+                
               console.log(un) 
                this.show = true;
                this.showname = false;
