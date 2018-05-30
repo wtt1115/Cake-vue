@@ -1,9 +1,9 @@
-import Vue from 'vue'
 import Vuex from 'vuex'
-Vue.use(Vuex)
-const state = {
+
+let state = {
     carListLen : 0
 }
+
 const mutations = {
     addCar(state,_item){
         console.log(_item);
@@ -97,9 +97,6 @@ const mutations = {
     }
 }
 
-const store = new Vuex.Store({
-    state,
-    mutations
-})
-
-export default store;
+const actions = [
+    addCar(_)
+]
