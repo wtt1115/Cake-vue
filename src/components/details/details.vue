@@ -5,13 +5,13 @@
         </div>
         <header class="details-header">
             <ul class="header-wrap">
-                <li @click="toIndex">
+                <li @click="backRouter">
                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                 </li>
                 <li>
                     <span v-if="this.productData.length > 0">{{this.productData[0].name}}</span>
                 </li>
-                <li>
+                <li @click="toSearch">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </li>
             </ul>
@@ -255,13 +255,17 @@
                 this.defaultPrice = this.productData[0].price[idx];
                 this.defaultSpec = this.productData[0].spec[idx];
             },
-            // 跳回首页
-            toIndex(){
-                this.$router.push('/');
+            // 返回上一级
+            backRouter(){
+                this.$router.go(-1);
             },
             // 跳到购物车
             toCar(){
                 this.$router.push('/car');
+            },
+            // 跳到搜索页
+            toSearch(){
+                this.$router.push('/search');
             }
         }
     }
