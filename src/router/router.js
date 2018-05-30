@@ -19,7 +19,7 @@ import details from '../components/details/details.vue'
 import register from '../components/users/register/register.vue'
 import login from '../components/users/login/login.vue'
 import address from '../components/users/address/address.vue'
-import infor from '../components/users/information/information.vue'
+import infor from '../components/users/account/account.vue'
 // 后端
 import serverlogin from '../components/server/serverlogin/serverlogin.vue'
 import serverBackground from '../components/server/serverBackground/serverBackground.vue'
