@@ -21,12 +21,12 @@
         </div>
         <div class="k-nav">
             <ul class="Nav">
-                <li @click="cut('cake')" class="k-active">蛋糕</li>
-                <li @click="cut('Ice')">冰淇淋</li>
-                <li @click="cut('Dice')">小切块</li>
-                <li @click="cut('Coffee')">咖啡</li>
-                <li @click="cut('Ccake')">常温蛋糕</li>
-                <li @click="cut('Gift')">设计师礼品</li>
+                <li @click="cut('cake')" :class="{'k-active':Class.indexOf('cake') > -1}">蛋糕</li>
+                <li @click="cut('Ice')" :class="{'k-active':Class.indexOf('Ice') > -1}">冰淇淋</li>
+                <li @click="cut('Dice')" :class="{'k-active':Class.indexOf('Dice') > -1}">小切块</li>
+                <li @click="cut('Coffee')" :class="{'k-active':Class.indexOf('Coffee') > -1}">咖啡</li>
+                <li @click="cut('Ccake')" :class="{'k-active':Class.indexOf('Ccake') > -1}">常温蛋糕</li>
+                <li @click="cut('Gift')" :class="{'k-active':Class.indexOf('Gift') > -1}">设计师礼品</li>
             </ul>
         </div>
         <div class="k-main">
@@ -37,7 +37,7 @@
                         <p> {{item.en_name}}</p>
                         <p>{{item.name}}</p>
                         <span>￥{{item.price[0]}}/{{item.spec[0]}}</span>
-                        <i class="fa fa-cart-plus"></i>
+                        <i class="fa fa-cart-plus" @click="GoCar(item)"></i>
                     </li>
                 </ul>
             </div>
@@ -68,7 +68,38 @@
                 </div>
             </div>
         </div>
-        
+        <div class="k-content">
+            <p class="content-price">￥{{this.ProductPrice}}</p>
+            <i class="end" @click="end()">x</i>
+            <ul class="content-options">
+                <li>
+                    <i class="fa fa-square-o"></i> 
+                    <span>17x17cm</span>
+                </li>
+                <li>
+                    <i class="fa fa-square-o"></i> 
+                    <span>适合7-8人分享</span>
+                </li>
+                <li>
+                    <i class="fa fa-cutlery"></i> 
+                    <span>含10套餐具</span>
+                </li>
+                <li>
+                    <i class="fa fa-clock-o"></i> 
+                    <span>须提前5小时预订</span>
+                </li>
+            </ul>
+            <div class="content-img">
+                <img src="http://10.3.133.73:88/f-tips.jpg"/>
+            </div>
+            <p class="product-spec">商品规格</p>
+            <ul class="spec-text">
+                <li v-for="(obj,idx) in Curce.spec" @click="ativex(obj,idx)" :class="{'ative':ative.indexOf(idx) > -1}">
+                    <span class="spec-name">{{obj}}</span>
+                </li>
+            </ul>
+            <button class="btn">加入购物车(￥{{this.ProductPrice}})</button>
+        </div>
         <footComponent></footComponent>
     </div>
         
@@ -91,15 +122,22 @@
                 Coffee:[],
                 Ccake:[],
                 Gift:[],
-                show:'true'
+                show:'true',
+                Curce:[],
+                Class:['cake'],
+                ative:[],
+                ProductPrice:0
             }
         },
         components: {
            footComponent
         },
         methods:{
-            cut(type){
-                console
+            cut(type,e){
+                e = e || event;
+
+                this.Class = [type]
+
                 if(type == 'cake'){
 
                     this.data = this.Cake;
@@ -136,10 +174,34 @@
             },
             fanhui(){
                 $('.zhezao').css("width","0")
+                $('.zhezao').hide()
             },
             Chuan(item){
 
-                this.$router.push({path:'details',params:{product_id:item.product_id}})
+                this.$router.push({name:'details',query:{product_id:item.product_id}})
+            },
+            GoCar(item,e){
+                e = e || event;
+                e.stopPropagation();
+
+                $('.k-content').show();
+
+                this.ative = [0]
+
+                this.Curce = item;
+
+                this.ProductPrice = item.price[0]
+                console.log(this.ative)
+                
+            },
+            ativex(obj,idx){
+                this.ative = [idx]
+                
+                this.ProductPrice = this.Curce.price[idx]
+                
+            },
+            end(){
+                $('.k-content').hide()
             }
         },
         mounted(){

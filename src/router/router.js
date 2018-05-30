@@ -15,11 +15,16 @@ import community from '../components/community/community.vue'
 
 import details from '../components/details/details.vue';
 import search from '../components/search/search.vue';
+import list from '../components/list/list.vue';
+import myorder from '../components/myorder/myorder.vue';
 
 import register from '../components/users/register/register.vue'
 import login from '../components/users/login/login.vue'
 import address from '../components/users/address/address.vue'
 
+
+import account from '../components/users/account/account.vue'
+import xinxi from '../components/users/account/xinxi/xinxi.vue'
 // 后端
 import serverlogin from '../components/server/serverlogin/serverlogin.vue'
 import serverBackground from '../components/server/serverBackground/serverBackground.vue'
@@ -35,15 +40,23 @@ const router = new VueRouter({
         {path: '/register', component: register, name: 'register'},
         {path: '/login', component: login, name: 'login'},
         {path: '/address', component: address, name: 'address'},
+         {path: '/account', component: account, name: 'account'},
+
+        {path:'/xinxi',component:xinxi, name:'xinxi'},
         {path:'/addsite',component:addsite, name:'addsite'},
         {path: '/', component: index, name: 'index'},
         {path: '/classfiy', component: classfiy, name: 'classfiy'},
         {path: '/car', component: car, name: 'car'},
         {path: '/community', component: community, name: 'community'},
+
+
         {path: '/confirmOrder', component: confirmOrder, name: 'confirmOrder'},
         {path:'/details',component:details,name:'details'},
-        {path:'/search',component:search,name:'search'},
         {path:'/orderDet/:orderNum',component:orderDetails,name:'orderDet'},
+         
+        {path:'/search',component:search,name:'search'},
+        {path:'/list',component:list,name:'list'},
+        {path:'/myorder',component:myorder,name:'myorder'},
 
 
         // 服务端路由

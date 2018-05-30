@@ -59,7 +59,7 @@ module.exports = {
 
             let username = req.body.username;
 
-            let result = await db.select('ProductCar',{username});
+            let result = await db.select('productCar',{username});
 
             res.send(result);
         })
@@ -68,7 +68,7 @@ module.exports = {
             let p_id = req.body.id;
             p_id = Number(p_id);
 
-            let result = await db.delete('ProductCar',{p_id});
+            let result = await db.delete('productCar',{p_id});
 
             res.send(result);
         });
@@ -102,7 +102,7 @@ module.exports = {
 
             let type = req.body.type || '';
             
-            let resultuser = await db.select('ProductCar',{username})
+            let resultuser = await db.select('productCar',{username})
 
             let qty;
 
@@ -115,18 +115,18 @@ module.exports = {
                         if(type == "+"){
                             qty = Number(item.qty) + 1;
 
-                            let result = await db.update('ProductCar',{p_id},{qty})
+                            let result = await db.update('productCar',{p_id},{qty})
                             res.send(result.status);
 
                         } else if(type == "-"){
                             qty = Number(item.qty) - 1;
 
-                            let result = await db.update('ProductCar',{p_id},{qty})
+                            let result = await db.update('productCar',{p_id},{qty})
                             res.send(result.status);
 
                         } else if(typeof isSelected == "string"){
 
-                           let result = await db.update('ProductCar',{p_id},{isSelected})
+                           let result = await db.update('productCar',{p_id},{isSelected})
                             
                             res.send(result.status);
 
@@ -154,27 +154,22 @@ module.exports = {
             let en_name = req.body.en_name;
             let spec = req.body.spec;
             let price = req.body.price;
-            let qty = req.body.qty;
+            let qty = Number(req.body.qty);
 
-            let result_id = await db.select('productCar',{product_id});
+            let result_id = await db.select('productCar',{username,product_id,spec});
             if(result_id.status){
-                for(var i=0;i<result_id.data.length;i++){
-                    // id和spec相同：qty++
-                    if(result_id.data[i].product_id == product_id && result_id.data[i].spec==spec){
-                        console.log(result_id.data[i].product_id, product_id);
-                        let dataQty = result_id.data[i].qty;
-                        dataQty = Number(dataQty) + Number(qty);
-                        let resultcar = await db.update('productCar',{product_id},{qty:dataQty});
-                        res.send(resultcar.status);
-                    }else if(result_id.data[i].product_id == product_id && result_id.data[i].spec!=spec){
-                        // id相同，spec不同
-                        let result = await db.insert('productCar',{username,product_id,img_url,img_url1,name,en_name,price,spec,qty})
-                        if(result.status){
-                            res.send(result.status)
-                        } else {
-                            res.send(apiResult(false,result))
-                        }
-                    }
+                let dataQty = result_id.data[0].qty;
+                dataQty = dataQty+ qty;
+                console.log(dataQty,qty);
+                console.log(username,product_id,spec);
+             
+
+                let result = await db.update('productCar',{product_id,spec},{qty:dataQty});
+                console.log(result)
+                if(result.status){
+                    res.send(true);
+                }else{
+                    res.send(false);
                 }
             }else{
                 // spec和id不相同

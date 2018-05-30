@@ -1,7 +1,9 @@
 <template>
         <div>
             <vue-grid-manager></vue-grid-manager>
-            
+            <div class="w-tuichu">
+              <p>全屏可按ESC键退出</p>
+            </div>
         </div>
         
 </template>
@@ -21,7 +23,7 @@ import '../../libs/biaoge/GridManager.js'
     },{
         key: 'action',
         remind: 'the action',
-        width: '100px',
+        width: '90px',
         text: '操作',
         template: function(action, rowObject){
             return '<input type="button" class="plugin-action edit-action edit" learnLink-id="'+rowObject.id+'" value="编辑">'
@@ -31,7 +33,7 @@ import '../../libs/biaoge/GridManager.js'
 
     var option = {
         gridManagerName: "testVue",
-        height: "740px",
+        height: "680px",
         columnData: colData,
         supportRemind: true,
         isCombSorting:  true,

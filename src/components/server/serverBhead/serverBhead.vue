@@ -41,6 +41,7 @@
                     </li>
                 </ul>
             </div>
+            
        
             
         </div>
@@ -86,6 +87,8 @@
                 $(".w-head").hide(400);
                 $(".w-menu").hide(400);
                 $(".w-main").animate({left:'30px',top:"30px"},300)
+                $(".w-tuichu").show();
+                $(".w-tuichu").delay(3000).hide(0);
 
              },
              leave(){

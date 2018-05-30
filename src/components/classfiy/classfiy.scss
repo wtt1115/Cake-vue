@@ -41,6 +41,7 @@
         z-index:1001;
         opacity:0.97;
         transition:all 0.5s;
+        display:none;
         h1{
             font-size:18px;
             color:#fff;
@@ -188,6 +189,88 @@
                 }
             }
         }     
+    }
+    .k-content{
+        width: 4.6rem;
+        height: 5.6rem;
+        border:1px solid #333;
+        background-color:#fff;
+        position:absolute;
+        left: 50%;
+        top: 50%;
+        transform:translate(-50%,-50%);
+        padding:0.266667rem 0.306667rem;
+        display:none;
+        .end{
+            position:absolute;
+            right: 20px;
+            top: 5px;
+            color:#BEABA1;
+        }
+        p{
+            font-size:0.186667rem;
+            margin-bottom:0.2rem;
+            color:#2F2F2F;
+        }
+        .content-options{
+            display:flex;
+            flex-direction:row;
+            flex-wrap: wrap;
+            li{
+                width: 148px;
+                font-size:0.186667rem;
+                margin-bottom:0.133333rem;
+                span{
+                    color:#542818;
+                }
+                i{
+                    color:#939393;
+                }
+            }
+        }
+        img{
+            width: 100%;
+            margin-bottom:0.133333rem;
+        }
+        .product-spec{
+            color:#594133;
+        }
+        .spec-text{
+            display:flex;
+            flex-direction:row;
+            li{
+                width: 0.933333rem;
+                height: 0.466667rem;
+                font-size:0.186667rem;
+                margin-bottom:0.133333rem;
+                background-color:#F7F7F7;
+                line-height:0.466667rem;
+                text-align:center;
+                margin-left:0.066667rem;
+                span{
+                    color:#542818;
+                }
+                i{
+                    color:#939393;
+                }
+            }
+            li.ative{
+                border:1px solid #442818;
+                background: #fff url('http://m.21cake.com/themes/wap/img/icon_selected.png') no-repeat top left;
+                background-size: 12px 12px;
+            }
+        }
+        .btn{
+            display:block;
+            width: 2.88rem;
+            height: 0.573333rem;
+            background-color:#442818;
+            text-align:center;
+            line-height:0.573333rem;
+            border:none;
+            color:#fff;
+            margin:0.2rem 0 0 0.6rem;
+        }
     }
 
 }

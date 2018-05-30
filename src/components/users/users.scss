@@ -1,7 +1,7 @@
 .main{
     .header{
             height: 3.90625rem;position: relative;
-            background:yellow;  display:flex;/*Flex布局*/
+            display:flex;/*Flex布局*/
             display: -webkit-flex; /* Safari */
             background:url(./1.jpg) no-repeat;
             align-items:center;/*指定垂直居中*/
@@ -118,8 +118,8 @@
         }
     }
     .b_main{
-            height: 0.78125rem;border-top:0.109375rem solid #F0F0F0;
-            border-bottom:2.8125rem solid #F0F0F0;
+            height:0.625rem;border-top:0.15625rem solid #F0F0F0;
+            border-bottom:1.875rem solid #F0F0F0;
         p{
             background:#fff;line-height: 0.78125rem;color:#ADADAD;
             text-align:center;font-size:18px;
