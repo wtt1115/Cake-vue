@@ -276,8 +276,30 @@
                 });
                 $('body').append($flyImg);  
                 $flyImg.animate({top:620,left:185,width:5,height:5,opacity:0.5},1000);
-                this.$store.commit('addCar',item);   
-                setTimeout(function(){
+                setTimeout(() =>{
+                    let userName = window.localStorage.getItem('userName');
+                    // userName = 'admin'
+                    if(userName){
+                        let _item = Object.assign({},item);
+                            _item.price = _item.price[0]
+                            _item.spec = _item.spec[0]
+                            _item.qty = 1
+                            _item.username = userName
+                            console.log(_item);
+                            
+                        http.post('addProductCar',_item).then((res) => {
+                            console.log(res);
+                            
+                            if(res){  
+
+                                this.$store.commit('updateCarLen',1); 
+                            }
+                        })
+                    }else{
+                        this.$store.commit('addCar',item);   
+                        this.$store.commit('updateCarLen',1); 
+
+                    }
                     // 移除元素
                     $flyImg.remove();
                 },1000);

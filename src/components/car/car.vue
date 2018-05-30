@@ -13,8 +13,8 @@
                             <div class="goodsImg">
                                 <p class="labelContainer">
                                 <label>
-                                    <input type="checkbox" name="radioName" :id="item.product_id" @change="chosen(item)" hidden :checked="show == 'add-car' ? chosenItem.indexOf(item.product_id) > -1 : chosenDelItem.indexOf(item.product_id) > -1 "/>
-                                    <label :for="item.product_id" class="radio-beauty"></label>
+                                    <input type="checkbox" name="radioName" :id="item.carId" @change="chosen(item)" hidden :checked="show == 'add-car' ? chosenItem.indexOf(item.carId) > -1 : chosenDelItem.indexOf(item.carId) > -1 "/>
+                                    <label :for="item.carId" class="radio-beauty"></label>
                                 </label>
                                 </p>
                                 <img :src="item.img_url" />
@@ -84,6 +84,7 @@
     import footComponent from '../foot/foot.vue'
     import RecommendComponent from './recommend.vue'
     import './car.scss'
+    import http from '../../utils/httpclient.js';
     export default{
         components: {
            footComponent,
@@ -123,22 +124,37 @@
             add(idx){
                 if(idx >= 0){
                     this.carlist[idx].qty++;
+                    this.carlist[idx].type = "+"
+                    console.log(this.carlist[idx]);
+                    
                      // ajax
-                     this.getTotalPrice();
+                     http.post('upProductqty',this.carlist[idx]).then(res=>{
+                        if(res){
+                            this.getTotalPrice();
+                            this.$store.commit('updateCarLen',1);
+                        }
+                    })
                 }else{
                     this.currentQty++;
                 }
-                 
-                
             },
             // 减少商品数量
             sub(idx){
                 if(idx  >= 0){
                     this.carlist[idx].qty--;
-                    if(this.carlist[idx].qty <= 1){
+                    if(this.carlist[idx].qty < 1){
                         this.carlist[idx].qty = 1
                         return
                     }
+                    this.carlist[idx].type = "-"
+                    
+                     // ajax
+                     http.post('upProductqty',this.carlist[idx]).then(res=>{
+                        if(res){
+                            this.getTotalPrice();
+                            this.$store.commit('updateCarLen',-1);
+                        }
+                    })
                     this.getTotalPrice();
                     // ajax
                 }else{
@@ -154,21 +170,21 @@
             chosen(item){
                 // 添加可加入订单
                 if(this.show == 'add-car'){
-                    if(this.chosenItem.indexOf(item.product_id) < 0){
+                    if(this.chosenItem.indexOf(item.carId) < 0){
                     
-                        this.chosenItem.push(item.product_id)
+                        this.chosenItem.push(item.carId)
                     }else{
-                        this.chosenItem.splice(this.chosenItem.indexOf(item.product_id),1)
+                        this.chosenItem.splice(this.chosenItem.indexOf(item.carId),1)
                     }
                     this.getTotalPrice();
                 // 添加可删除
                 }else if(this.show == 'edit-car'){
                    
-                    if(this.chosenDelItem.indexOf(item.product_id) < 0){
+                    if(this.chosenDelItem.indexOf(item.carId) < 0){
                     
-                        this.chosenDelItem.push(item.product_id)
+                        this.chosenDelItem.push(item.carId)
                     }else{
-                        this.chosenDelItem.splice(this.chosenDelItem.indexOf(item.product_id),1)
+                        this.chosenDelItem.splice(this.chosenDelItem.indexOf(item.carId),1)
                     }
 
                 }
@@ -183,8 +199,8 @@
                     }else{
                         this.chosenItem = []
                         this.carlist.forEach(item => {
-                            if(this.chosenItem.indexOf(item.product_id) < 0){
-                                this.chosenItem.push(item.product_id)
+                            if(this.chosenItem.indexOf(item.carId) < 0){
+                                this.chosenItem.push(item.carId)
                             }
                         });
                     }
@@ -196,8 +212,8 @@
                     }else{
                         this.chosenDelItem = []
                         this.carlist.forEach(item => {
-                            if(this.chosenDelItem.indexOf(item.product_id) < 0){
-                                this.chosenDelItem.push(item.product_id)
+                            if(this.chosenDelItem.indexOf(item.carId) < 0){
+                                this.chosenDelItem.push(item.carId)
                             }
                         });
                     }
@@ -221,15 +237,28 @@
             },
             // 确认修改
             confirm(){
+                
+                if(this.currentQty == '' || !(typeof(this.currentQty) == 'number')){
+                    return;
+                }
+                let count = this.currentQty - this.carlist[this.currentIdx].qty;
+                this.carlist[this.currentIdx].type = "=";
+                console.log(this.carlist[this.currentIdx]);
                 this.carlist[this.currentIdx].qty = this.currentQty;
-                this.getTotalPrice();
-                this.isEdit = false;
+                http.post('upProductqty',this.carlist[this.currentIdx]).then(res=>{
+                    console.log(res);
+                    if(res){
+                        this.$store.commit('updateCarLen',count);
+                        this.getTotalPrice();
+                        this.isEdit = false;
+                    }
+                })
             },
             // 获取总价
             getTotalPrice(){
                 this.totalPrice = 0;
                 this.carlist.forEach(item => {
-                    if(this.chosenItem.indexOf(item.product_id) > -1){
+                    if(this.chosenItem.indexOf(item.carId) > -1){
                         this.totalPrice += item.price * item.qty;
                     }
                 })
@@ -247,21 +276,35 @@
 
             },
             // 确认删除
-            confirmDel(idx){
+            confirmDel(){
                 if(this.delIdx == -1){
                     this.chosenDelItem.forEach(item => {
                         this.carlist.forEach((item_car,idx_car) => {
                             console.log(666);
-                            if(this.chosenDelItem.indexOf(item_car.product_id) > -1){
-                                this.carlist.splice(idx_car,1)
+                            if(this.chosenDelItem.indexOf(item_car.carId) > -1){
+
+                                http.post('delProduct',this.carlist[idx_car]).then((res) => {
+                                    if(res){
+                                        this.carlist.splice(idx_car,1);
+                                        this.$store.commit('updateCarLen',-1);
+                                    }
+                                })
+                                
                             }
                         })
                     })
                 }else{
-                    this.carlist.splice(this.delIdx,1)
+                    console.log(this.carlist[this.delIdx]);
+                    let count = this.carlist[this.delIdx].qty;
+                    http.post('delProduct',this.carlist[this.delIdx]).then((res) => {
+                        if(res){
+                            this.carlist.splice(this.delIdx,1)
+                            this.$store.commit('updateCarLen', -count);
+                            this.delIdx = -1 ;
+                        }
+                    })
                 }
                 this.chosenDelItem = [];
-                this.delIdx = -1 ;
                 this.isDel = false;
             },
             // 取消删除
@@ -274,7 +317,16 @@
                 if(this.chosenItem.length <= 0){
                     return;
                 }
-                this.$router.push({name:'order'})
+                let pushOrder = window.localStorage.getItem('pushOrder');
+                
+                pushOrder = [];
+                this.carlist.forEach((item) => {
+                    if(this.chosenItem.indexOf(item.carId) > -1){
+                        pushOrder.push(item)
+                    }
+                })
+                window.localStorage.setItem('pushOrder',JSON.stringify(pushOrder))
+                this.$router.push({name:'confirmOrder'})
                 // alert('添加订单');
                 
             },
@@ -298,9 +350,26 @@
             }
         },
         mounted(){
+
+            // let hasUser = window.localStorage.getItem('userName');
+            let user = 'admin';
+            // if(hasUser != null && hasUser != ''){
+            // }
+                http.post('getProductCar',{
+                    username : user
+                }).then((res) => {
+                    console.log(res);
+                    
+                   
+                    if(res.status){
+                        this.carlist = res.data
+                        this.carlist.forEach((item,idx) => {
+                            item.carId = idx;
+                        })
+                    }
+                })
+                this.getTotalPrice();
             // ajax
-            this.getTotalPrice();
-            // this.isEmpty = false;
             
         },
         data(){
@@ -325,41 +394,42 @@
                 totalPrice : 0,
                 // 垃圾桶图标
                 delHtml : `<i class="fa fa-trash" aria-hidden="true"></i>`,
-                carlist : [
+                carlist : []
+                // [
                   
-                    {
-                        type: "normal",
-                        img_url: "http://static.21cake.com/public/images/91/57/75/c9c2df9e4fac3c22d34b1de18c317a98.jpg",
-                        name: "冻慕斯与焗芝士",
-                        en_name: "Cool&Hot ",
-                        product_id: "3092",
-                        tableware:"10",
-                        price: "198.00",
-                        spec: "3.0磅",
-                        qty:1
-                    },
-                    {
-                        type: "normal",
-                        img_url: "//static.21cake.com//upload/images/78ad114c07704d96ac2d8123d9ae480c.jpg",
-                        name: "冻慕斯与焗芝士",
-                        en_name: "Cool&Hot ",
-                        product_id: "3093",
-                        price: "200.00",
-                        spec: "2.0磅",
-                         qty:1
-                    },
-                    {
-                        type: "normal",
-                        img_url: "//static.21cake.com//upload/images/a5ead52bc79022ccf30c38be37f4ac04.jpg",
-                        name: "冻慕斯与焗芝士",
-                        en_name: "Cool&Hot ",
-                        tableware:"15",
-                        product_id: "3094",
-                        price: "298.00",
-                        spec: "2.5磅",
-                         qty:1
-                    }
-                ]
+                //     {
+                //         type: "normal",
+                //         img_url: "http://static.21cake.com/public/images/91/57/75/c9c2df9e4fac3c22d34b1de18c317a98.jpg",
+                //         name: "冻慕斯与焗芝士",
+                //         en_name: "Cool&Hot ",
+                //         carId: "3092",
+                //         tableware:"10",
+                //         price: "198.00",
+                //         spec: "3.0磅",
+                //         qty:1
+                //     },
+                //     {
+                //         type: "normal",
+                //         img_url: "//static.21cake.com//upload/images/78ad114c07704d96ac2d8123d9ae480c.jpg",
+                //         name: "冻慕斯与焗芝士",
+                //         en_name: "Cool&Hot ",
+                //         carId: "3093",
+                //         price: "200.00",
+                //         spec: "2.0磅",
+                //          qty:1
+                //     },
+                //     {
+                //         type: "normal",
+                //         img_url: "//static.21cake.com//upload/images/a5ead52bc79022ccf30c38be37f4ac04.jpg",
+                //         name: "冻慕斯与焗芝士",
+                //         en_name: "Cool&Hot ",
+                //         tableware:"15",
+                //         carId: "3094",
+                //         price: "298.00",
+                //         spec: "2.5磅",
+                //          qty:1
+                //     }
+                // ]
             }
         }
     }

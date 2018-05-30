@@ -10,7 +10,7 @@ import users from '../components/users/users.vue'
 import index from '../components/index/index.vue'
 import classfiy from '../components/classfiy/classfiy.vue'
 import car from '../components/car/car.vue'
-import order from '../components/order/order.vue'
+import confirmOrder from '../components/confirmOrder/confirmOrder.vue'
 import community from '../components/community/community.vue'
 
 import details from '../components/details/details.vue';
@@ -26,7 +26,7 @@ import serverBackground from '../components/server/serverBackground/serverBackgr
 import serverUser from '../components/server/serverUser/serverUser.vue'
 import serverProduct from '../components/server/serverProduct/serverProduct.vue'
 
-
+import orderDetails from '../components/confirmOrder/orderDetails'
 
 
 const router = new VueRouter({
@@ -36,14 +36,14 @@ const router = new VueRouter({
         {path: '/login', component: login, name: 'login'},
         {path: '/address', component: address, name: 'address'},
         {path:'/addsite',component:addsite, name:'addsite'},
-        {path: '/order', component: order, name: 'order'},
         {path: '/', component: index, name: 'index'},
         {path: '/classfiy', component: classfiy, name: 'classfiy'},
         {path: '/car', component: car, name: 'car'},
         {path: '/community', component: community, name: 'community'},
-        {path: '/order', component: order, name: 'order'},
+        {path: '/confirmOrder', component: confirmOrder, name: 'confirmOrder'},
         {path:'/details',component:details,name:'details'},
         {path:'/search',component:search,name:'search'},
+        {path:'/orderDet/:orderNum',component:orderDetails,name:'orderDet'},
 
 
         // 服务端路由

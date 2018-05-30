@@ -32,7 +32,29 @@
 
 
 #foot a li{list-style: none;}
-
+#foot{
+    a:nth-of-type(3){
+        li{
+            position: relative;
+            .carCount{
+                display: inline-block;
+                background: #333;
+                height: 0.266667rem;
+                line-height: 0.266667rem;
+                position: absolute;
+                top: -0.0667rem;
+                right: 0.106667rem;
+                font-size: 0.16rem;
+                color: #fff;
+                padding: 0 0.066667rem;
+                border-radius: 0.133333rem;
+                font-family: Arial;
+                font-weight: normal;
+                
+            }
+        }
+    }
+}
 .active{
     color:#442818;
 }
