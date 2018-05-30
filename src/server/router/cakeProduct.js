@@ -41,7 +41,9 @@ module.exports = {
             }else{
                 
                 let result = await db.select('productsCake');
-                res.send(apiResult(result.status,result.data,[] ,result.data.length));
+                // console.log(result.data)
+                let totals = result.data.length;
+                res.send(apiResult(result.status,result.data,'',totals));
 
             }
             
@@ -144,28 +146,40 @@ module.exports = {
 
             let username = req.body.username;
 
-            let p_id = Number(req.body.p_id);
-            let img = req.body.img;
-            let p_name = req.body.p_name;
-            let p_price = req.body.p_price;
-            let p_qty = req.body.qty;
-            let isSelected = req.body.isSelected;
+            let product_id = Number(req.body.product_id);
+            let img_url = req.body.img_url;
+            let img_url1 = req.body.img_url1;
 
-            let result_id = await db.select('ProductCar',{p_id});
+            let name = req.body.name;
+            let en_name = req.body.en_name;
+            let spec = req.body.spec;
+            let price = req.body.price;
+            let qty = req.body.qty;
 
+            let result_id = await db.select('productCar',{product_id});
             if(result_id.status){
-
-                let qty = result_id.data[0].qty;
-
-                qty = Number(p_qty) + Number(qty);
-
-                let resultcar = await db.update('ProductCar',{p_id},{qty});
-
-                res.send(resultcar.status);
+                for(var i=0;i<result_id.data.length;i++){
+                    // id和spec相同：qty++
+                    if(result_id.data[i].product_id == product_id && result_id.data[i].spec==spec){
+                        console.log(result_id.data[i].product_id, product_id);
+                        let dataQty = result_id.data[i].qty;
+                        dataQty = Number(dataQty) + Number(qty);
+                        let resultcar = await db.update('productCar',{product_id},{qty:dataQty});
+                        res.send(resultcar.status);
+                    }else if(result_id.data[i].product_id == product_id && result_id.data[i].spec!=spec){
+                        // id相同，spec不同
+                        let result = await db.insert('productCar',{username,product_id,img_url,img_url1,name,en_name,price,spec,qty})
+                        if(result.status){
+                            res.send(result.status)
+                        } else {
+                            res.send(apiResult(false,result))
+                        }
+                    }
+                }
             }else{
-
-                let result = await db.insert('ProductCar',{username,p_id,img,p_name,p_price,qty:p_qty,isSelected})
-
+                // spec和id不相同
+                let result = await db.insert('productCar',{username,product_id,img_url,img_url1,name,en_name,price,spec,qty})
+                    console.log(result)
                     if(result.status){
                         res.send(result.status)
                     } else {

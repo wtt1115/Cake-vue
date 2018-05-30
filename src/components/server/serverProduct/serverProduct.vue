@@ -44,9 +44,9 @@ import '../../libs/biaoge/GridManager.js'
 
     var option = {
         gridManagerName: "testVue",
-        height: "660px",
+        height: "680px",
         columnData: colData,
-        supportRemind: true,
+        supportRemind: true,//切换列
         isCombSorting:  true,
         supportAjaxPage: true,
         supportSorting: true,
@@ -56,6 +56,11 @@ import '../../libs/biaoge/GridManager.js'
         pageSize: 20
     };
    
+  
+        // if(document.getElementsByTagName('td').innerHTML == undefined){
+        //     document.getElementsByTagName('td').innerHTML='';
+        // }
+    
 export default{
 
     mounted(){
@@ -63,6 +68,13 @@ export default{
             var table = document.querySelector('table[grid-name="' + this.option.gridManagerName + '"]');
             table.GM(this.option);
             
+            // console.log(document.getElementsByTagName('td'))
+            var ww = document.querySelectorAll('td');
+            console.log(ww.length)
+            for(var i=0;i<ww.length;i++){
+                console.log(ww[i].innerText);
+            }
+           
       
     },
     data(){
@@ -81,6 +93,7 @@ export default{
                 }
             }
     }
+
 }
 
 

@@ -2094,7 +2094,7 @@ var GridManager = function () {
 			_Scroll2.default.init($table);
 
 			// 绑定右键菜单事件
-			_Menu2.default.bindRightMenuEvent($table);
+			// _Menu2.default.bindRightMenuEvent($table);
 
 			// 渲染tbodyDOM
 			_Core2.default.__refreshGrid($table);
@@ -3475,7 +3475,7 @@ var Order = function () {
 				width: '50px',
 				align: 'center',
 				template: function template(nodeData) {
-					return '<td gm-order="true" gm-create="true">' + nodeData + '</td>';
+					return '<td   gm-order="true" gm-create="true">' + nodeData + '</td>';
 				}
 			};
 		}
@@ -4319,9 +4319,9 @@ var Hover = function () {
 				$tr = $td.parent();
 
 				// row col 并未发生变化
-				if ($td.attr('col-hover') === 'true' && $tr.attr('row-hover') === 'true') {
-					return;
-				}
+				// if ($td.attr('col-hover') === 'true' && $tr.attr('row-hover') === 'true') {
+				// 	return;
+				// }
 
 				// row 发生变化
 				if ($tr.attr('row-hover') !== 'true') {
@@ -4329,11 +4329,11 @@ var Hover = function () {
 					$tr.attr('row-hover', 'true');
 				}
 
-				// col 发生变化
-				if ($tr.attr('col-hover') !== 'true') {
-					(0, _Base.$)('td[col-hover="true"]', $table).removeAttr('col-hover');
-					_Base.Base.getColTd($td).attr('col-hover', 'true');
-				}
+				// // col 发生变化
+				// if ($tr.attr('col-hover') !== 'true') {
+				// 	(0, _Base.$)('td[col-hover="true"]', $table).removeAttr('col-hover');
+				// 	_Base.Base.getColTd($td).attr('col-hover', 'true');
+				// }
 			});
 		}
 	}]);
