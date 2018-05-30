@@ -19,7 +19,7 @@ import search from '../components/search/search.vue';
 import register from '../components/users/register/register.vue'
 import login from '../components/users/login/login.vue'
 import address from '../components/users/address/address.vue'
-
+import infor from '../components/users/information/information.vue'
 // 后端
 import serverlogin from '../components/server/serverlogin/serverlogin.vue'
 import serverBackground from '../components/server/serverBackground/serverBackground.vue'
@@ -41,6 +41,7 @@ const router = new VueRouter({
         {path: '/classfiy', component: classfiy, name: 'classfiy'},
         {path: '/car', component: car, name: 'car'},
         {path: '/community', component: community, name: 'community'},
+         {path: '/infor', component: infor, name: 'infor'},
         {path: '/order', component: order, name: 'order'},
         {path:'/details',component:details,name:'details'},
         {path:'/search',component:search,name:'search'},

@@ -17,7 +17,7 @@
                        <span v-show="showname">{{username}}</span>
                     </li>
                     <li>
-                        <router-link to="/login">
+                        <router-link to="/information">
                             <i class="fa fa-angle-right t1"></i>
                         </router-link>
                     </li>
@@ -93,12 +93,10 @@
         </div>
         <div class="b_main">
             <p>客服电话400 650 2121 <i class="fa fa-tty"></i></p>
-         <p class="tui"  @click="tuc">退出账号</p>
-         <!--     </router-link>    <router-link to="/"> -->
+         <p class="tui"  @click="tuc" v-show="showname">退出账号</p>
         </div>
         <footComponent></footComponent>
     </div>
-        
 </template>
 <script>
     import footComponent from '../foot/foot.vue'
@@ -111,8 +109,6 @@ import router from '../../router/router.js'
                 show:true,
                 showname:false,
                 username:''
-             
-              
             }
         },
         components: {
@@ -120,22 +116,12 @@ import router from '../../router/router.js'
         },
         mounted(){
             let uname = window.localStorage.getItem('username');
-
             http.post('getStatus',{}).then((res) =>{
-                if(res.status){
-                    
+                if(res.status && uname){
                     console.log(res)
                      this.username = uname;
                     this.show = false;
                     this.showname = true;
-                    // if(uname == 'null' || uname == 'undefined'){
-                    //     this.show = true;
-                    //     this.showname = false;
-
-                    //     return;
-                    // }
-                   
-
                 } 
             })
         },
@@ -144,7 +130,6 @@ import router from '../../router/router.js'
              tuc(){
                  let un = window.localStorage.removeItem('username');
                 // window.localStorage.removeItem('token');
-                
               console.log(un) 
                this.show = true;
                this.showname = false;
