@@ -29,7 +29,6 @@
                     
                     <li >
                        <span id="btn" @click="loginl">登录</span>
-                   <!--      </router-link>  <router-link to="/users"> -->
                     </li>
                 </ul>
                 <p class="xieyi">使用未注册的手机号码登录时，将自动注册21cake账号，且认为您已同意<i class="tip">《21cake用户协议》</i></p>
@@ -94,4 +93,4 @@ import router from '../../../router/router.js'
         }
     }
     
-</script>
+</script>s

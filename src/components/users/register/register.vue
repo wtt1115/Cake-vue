@@ -1,6 +1,5 @@
 <template>
         <div class="zhuce">
-      
             <div class="nav">
                 <div class="nvt">
                     <router-link to="/users">
@@ -25,8 +24,8 @@
                     </li>
                     <li>
                         <input type="text" placeholder="请输入图片字符" id="code_input" v-model="yzm"/>
-                        <h1 id="v_container" class="codes" v-model="vv"></h1>
-                        <i id="tb">lala</i> 
+                        <h1 id="v_container" class="codes"></h1>
+                     <!--    <i id="tb" class="fa fa-refresh"></i> --> 
                     </li>
                     <li>
                         <input type="text" placeholder="请选择生日" id="demo1" />
@@ -34,11 +33,10 @@
                      <li> 
                        <span  v-text="errot" v-show="show" calss="fa fa-info-circle"></span>
                     </li>
-                    
                     <li>
-                  <button id="btn" @click="reg">注&nbsp;册</button>
-                 <!--<router-link to="/login">    </router-link>  -->
+                  <button id="btn" >注&nbsp;册</button>
                     </li>
+                  <!--   @click="reg" -->
                 </ul>
                 <p class="xieyi">使用未注册的手机号码登录时，将自动注册21cake账号，且认为您已同意<i class="tip">《21cake用户协议》</i></p>
             </div>
@@ -48,8 +46,6 @@
 import './register.scss'
 import '../../libs/date/gVerify.js'
 import '../../libs/date/datePicker.js'
-
-
 import http from '../../../utils/httpclient.js'
 import router from '../../../router/router.js'
     export default{
@@ -63,9 +59,9 @@ import router from '../../../router/router.js'
                 errot:'',
                 pwd:'',
                 showl:false,
-                yzm:'' ,
-                vv:''
-            }  
+                yzm:'' 
+          
+                }  
         },
         mounted(){
             var calendar = new datePicker();
@@ -81,19 +77,12 @@ import router from '../../../router/router.js'
                 }
             });
 
-
-
             var verifyCode = new GVerify("v_container");
-              document.getElementById('tb').onclick=()=>{
+              document.getElementById('btn').onclick=()=>{
                 console.log(document.getElementById("code_input").value)
-                var vv = verifyCode.validate(document.getElementById("code_input").value);
+                var rest = verifyCode.validate(document.getElementById("code_input").value);
 
-
-              }
-        },
-        methods:{
-            reg(){
-            let reg = /^1[34578]\d{9}$/;
+                  let reg = /^1[34578]\d{9}$/;
                 if(!reg.test(this.data.username)){
                     this.show = true;
                     this.errot = '请输入正确手机号码';
@@ -111,10 +100,10 @@ import router from '../../../router/router.js'
                     this.errot = '请输入相同的密码！';
                     return false;
                 }
-                // if(this.yzm ==''){
-                //    
+                // if(this.yzm !== rest){
                 //     this.show = true;
-                //     this.errot = '验证码不能为空！'
+                //     this.errot = '验证码错误！'
+                //     return false;
                 // }
 
                  http.post('register',this.data).then((res)=>{
@@ -130,11 +119,27 @@ import router from '../../../router/router.js'
                    
                 })
 
+
+
+
+
+
+
+
+
+
+
+              }
+        }
+        // methods:{
+        //     reg(){
+          
+
      
 
-            }
+        //     }
            
-        } 
+        // } 
 
     }
     
