@@ -128,20 +128,5 @@ import router from '../../router/router.js'
             })
         },
 
-         // methods:{
-         //     tuc(){
-         //         let un = window.localStorage.removeItem('username');
-         //        // window.localStorage.removeItem('token');
-         //      console.log(un) 
-         //       this.show = true;
-         //       this.showname = false;
-
-
-
-         //    }
-
-         // }
     }
-    
-    
 </script>

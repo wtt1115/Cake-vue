@@ -13,16 +13,17 @@
     </div>
     <div class="box2">
       <ul class="big" >
-        <li> 
-          <router-link to="/order"> 
+        <li >
+ <!--        @click="$router.push({path:'/account/xinxi'})  -->
+          <router-link to="/xinxi"> 
             <span>
               我的信息
             </span>
-              <b  class="fa fa-angle-right"></b>
+              <b class="fa fa-angle-right"></b>
           </router-link>
         </li>
         <li>
-          <router-link to="/address">
+          <router-link to="/">
             <span>
               绑定手机
               <i v-show="shoe" class="call">{{username}}</i>
@@ -47,7 +48,7 @@
 </template>
 <script>
 import './account.scss'
-  import http from '../../../utils/httpclient.js'
+import http from '../../../utils/httpclient.js'
 import router from '../../../router/router.js'
     export default{
          data(){

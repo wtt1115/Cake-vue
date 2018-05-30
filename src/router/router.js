@@ -22,7 +22,7 @@ import address from '../components/users/address/address.vue'
 
 
 import account from '../components/users/account/account.vue'
-
+import xinxi from '../components/users/account/xinxi/xinxi.vue'
 // 后端
 import serverlogin from '../components/server/serverlogin/serverlogin.vue'
 import serverBackground from '../components/server/serverBackground/serverBackground.vue'
@@ -39,6 +39,8 @@ const router = new VueRouter({
         {path: '/login', component: login, name: 'login'},
         {path: '/address', component: address, name: 'address'},
          {path: '/account', component: account, name: 'account'},
+
+        {path:'/xinxi',component:xinxi, name:'xinxi'},
         {path:'/addsite',component:addsite, name:'addsite'},
         {path: '/order', component: order, name: 'order'},
         {path: '/', component: index, name: 'index'},

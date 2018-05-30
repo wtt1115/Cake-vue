@@ -25,7 +25,6 @@
                     <li>
                         <input type="text" placeholder="请输入图片字符" id="code_input" v-model="yzm"/>
                         <h1 id="v_container" class="codes"></h1>
-                     <!--    <i id="tb" class="fa fa-refresh"></i> --> 
                     </li>
                     <li>
                         <input type="text" placeholder="请选择生日" id="demo1" />
@@ -36,7 +35,6 @@
                     <li>
                   <button id="btn" >注&nbsp;册</button>
                     </li>
-                  <!--   @click="reg" -->
                 </ul>
                 <p class="xieyi">使用未注册的手机号码登录时，将自动注册21cake账号，且认为您已同意<i class="tip">《21cake用户协议》</i></p>
             </div>
@@ -100,12 +98,6 @@ import router from '../../../router/router.js'
                     this.errot = '请输入相同的密码！';
                     return false;
                 }
-                // if(this.yzm !== rest){
-                //     this.show = true;
-                //     this.errot = '验证码错误！'
-                //     return false;
-                // }
-
                  http.post('register',this.data).then((res)=>{
                         console.log(res)
                         if(res.status){
@@ -116,31 +108,10 @@ import router from '../../../router/router.js'
                             this.errot = '注册失败';
                             return false;
                         }
-                   
                 })
-
-
-
-
-
-
-
-
-
-
 
               }
         }
-        // methods:{
-        //     reg(){
-          
-
-     
-
-        //     }
-           
-        // } 
-
     }
     
 </script>
