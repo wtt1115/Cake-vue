@@ -17,11 +17,11 @@
                 <label class="label">账号</label>
                     <input type="text"v-show="showl"/><i>{{username}}</i>
                 </li>
-                <li> <label class="label">生日</label>
+                <li> <label class="label">昵称</label>
                     <input type="text" /></li>
                 <li> <label class="label">性别</label>
                     <input type="text" /></li>
-                <li> <label class="label">昵称</label>
+                <li> <label class="label">生日</label>
                     <input type="text" /></li>
                 
             </ul>
