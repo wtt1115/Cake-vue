@@ -30,6 +30,43 @@ i{font-style:normal;}
 /*1.将整个页面设置成100%,设置成弹性盒，主轴是竖直向下*/
 body,html{height: 100%;}
 
+/*横向*/
+.animate-route{
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+  animation-name: fadeRoute;
+}
+
+@keyframes fadeRoute {
+  from {
+    opacity: 0;
+    transform:translateX(10.0rem);
+  }
+
+  to {
+    opacity: 1;
+    transform:translateX(0.0rem);
+  }
+}
+
+/*横向右*/
+.animate2-route{
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+  animation-name: fadeRoute2;
+}
+
+@keyframes fadeRoute2{
+  from {
+    opacity: 0;
+    transform:translateX(-10.0rem);
+  }
+
+  to {
+    opacity: 1;
+    transform:translateX(0.0rem);
+  }
+}
 
 /*-------------------------------------------*/
 
