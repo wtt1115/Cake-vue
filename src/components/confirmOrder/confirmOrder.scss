@@ -28,17 +28,40 @@
             flex-direction: column;
             height: 0.8rem;
             background-color: #fff;
-            p:nth-of-type(1),p:nth-of-type(3){
+            .t,.b{
                 height:0.0267rem;
                 width: 100%;
                 background:url("https://morder.jiuxian.com/ordernew/wap/images/addBor.png") repeat-x bottom ;
                 background-position: -0.0667rem 0;
             }
-            p:nth-of-type(2){
+            div{
                 flex:1;
+                width: 100%;
                 align-self: center;
-                line-height: 0.7467rem;
                 font-size: 0.2rem;
+                div{
+                    display:flex;
+                    justify-content: space-between;
+                    flex-direction: column;
+                    align-self: center;
+                    padding-top: 5px;
+                    p{
+                        padding: 0 15px;
+                        margin-bottom: 5px;
+                    }
+                    p:nth-of-type(1){
+                        display: flex;
+                        height: 100%;
+                        width: 100%;
+                        justify-content: space-between;
+                    }
+
+                }
+                .noaddress{
+                    padding-top: 0.2rem;
+                    text-align: center;
+                }
+               
             }
         }
         .orderBanner_c{

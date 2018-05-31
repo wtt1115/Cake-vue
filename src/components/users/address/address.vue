@@ -65,6 +65,7 @@
             }
         },
         mounted(){
+            
             let username = window.localStorage.getItem('username');
 
             http.post('getaddress',{username}).then((res) =>{
@@ -73,6 +74,13 @@
 
                 console.log(this.address)
             })
+        }
+        ,
+        beforeRouteEnter (to, from, next) {
+            // 在导航完成前获取数据
+            console.log(from.path);
+            next()
+            
         }
        
     }

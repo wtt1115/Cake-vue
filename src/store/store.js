@@ -4,7 +4,8 @@ import http from '../utils/httpclient'
 Vue.use(Vuex)
 const state = {
     carListLen : 0,
-    totalCarlist : []
+    totalCarlist : [],
+    address:''
 }
 const mutations = {
     addCar(state,_item){
