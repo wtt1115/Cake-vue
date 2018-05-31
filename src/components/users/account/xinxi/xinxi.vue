@@ -20,8 +20,7 @@
                 </li>
                 <li> 
                 <label class="label">昵称</label>
-                    <input type="text"v-model="data.nickname" />
-                    
+                    <input type="text"v-model="data.nickname" /> 
                 </li>
                 <li> 
                 <label class="label">性别</label>
@@ -59,6 +58,7 @@
                         gender:'',
                         type:'birthday'
                     },
+                 
                      show:true,
                      showl:false
                 }
@@ -66,14 +66,20 @@
             mounted(){
                 let username = window.localStorage.getItem('username');
                 this.data.username = username;
-                this.shoe = true;
-                console.log( this.username)
+                http.post('getbirthday',{username}).then((res) =>{
+                    let list = res.data;
+                  // console.log(list)
+                  for(var i=0;i<list.length;i++){
+                        // console.log(list[i])
+                    this.data.nickname = list[i].nickname;
+                    this.data. gender = list[i].gender;
+                    this.data.birthday = list[i].birthday;
+                  }
+                })
           },
             methods:{ 
                 baocun(){
-                    
-                    http.post('update',this.data).then((res) =>{
-                        console.log(res)
+                    http.post('update',this.data).then((res) =>{ 
                         if(res.status){
                             $(".t1").show();
                             $(".t1").delay(3000).hide(0);

@@ -24,14 +24,13 @@
     .yzm{
         .form{padding:0.21875rem;
             li{ display:flex;justify-content:space-between; 
-                height:0.703125rem;border-bottom:1px solid #ccc   ;
+                height:0.78125rem;border-bottom:1px solid #ccc   ;
                 input{width:100%;padding-top:0.3125rem;          
                     border:none;font-size:16px;
                 }
                 input:nth-child(5){
                     height: 0.703125rem;padding-top:none;          
                 }
-              
                 span{
                     color:red;font-size:14px;padding-top:0.1875rem;
 
@@ -45,6 +44,9 @@
                 width:0.46875rem;height:0.703125rem;background:#fff; border:1px solid #fff;color:#ccc;font-size:30px;padding: 0.0625rem;
               }
                 
+            }
+            #v_container{margin-top:-0.03125rem;height:0.3125rem;
+
             }
 
             li:nth-child(6){
