@@ -32,7 +32,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/">
+          <router-link to="/update">
             <span>
               修改密码
             </span>
@@ -55,7 +55,8 @@ import router from '../../../router/router.js'
             return {
               show:true,
               username:'',
-              shoe:false
+              shoe:false,
+              password:''
             }
           },
           mounted(){
@@ -67,6 +68,7 @@ import router from '../../../router/router.js'
           methods:{
             tuc(){
                  let username = window.localStorage.removeItem('username');
+                 let password = window.localStorage.removeItem('password');
                 // window.localStorage.removeItem('token');
                 console.log(username) 
                  this.show = false;
