@@ -52,10 +52,10 @@
             top:50%;
             transform:translate(-50%,-50%);
             .city-title{
-                font-size:20px;
+                font-size:0.266667rem;
                 font-weight:normal;
-                line-height:40px;
-                margin:20px 15px;
+                line-height:0.533333rem;
+                margin:0.266667rem 0.2rem;
                 @extend %color;
             }
             .city-content{
@@ -66,31 +66,31 @@
                     margin:1.5%;
                     text-align:center;
                     background:#f7f7f7;
-                    border:1px solid #f7f7f7;
+                    border:0.013333rem solid #f7f7f7;
                     .city-name{
                         display:block;
-                        font-size:14px;
-                        height:32px;
-                        line-height:32px;
+                        font-size:0.186667rem;
+                        height:0.426667rem;
+                        line-height:0.426667rem;
                         @extend %color;
                     }
                 }
                 li.active{
-                    border:1px solid #442818;
+                    border:0.013333rem solid #442818;
                     background: #fff url('http://m.21cake.com/themes/wap/img/icon_selected.png') no-repeat top left;
-                    background-size: 12px 12px;
+                    background-size: 0.16rem 0.16rem;
                 }
                 
             }
             .city-button{
                 background: #442818;
-                height: 35px;
-                line-height: 35px;
+                height: 0.466667rem;
+                line-height: 0.466667rem;
                 text-align: center;
                 color: #fff;
-                font-size: 15px;
-                width: 128px;
-                margin: 35px auto 12px;
+                font-size: 0.2rem;
+                width: 1.706667rem;
+                margin: 0.466667rem auto 0.16rem;
                 display: block;
             }
         }

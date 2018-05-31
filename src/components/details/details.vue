@@ -257,7 +257,7 @@
             hideMasked(){
                 this.status = false;
                 let $maskedContent = $('.masked-content');
-                $maskedContent.animate({bottom:-240},10);
+                $maskedContent.animate({bottom:-340},10);
             },
             // 封一个选择类名的函数
             selectActive(idx,e){
