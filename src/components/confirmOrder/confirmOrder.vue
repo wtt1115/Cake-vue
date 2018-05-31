@@ -7,9 +7,15 @@
         </div>
         <div class="orderCenter_c">
             <div class="address_c">
-                <p></p>
-                <p @click="pickAddress">选择收货地址</p>
-                <p></p>
+                <p class="t"></p>
+                <div @click="pickAddress">
+                    <div v-if="templateAddress!={}">
+                        <p><span>收货人:{{templateAddress.receiver}}</span><span>电话:{{templateAddress.recephone}}</span></p>
+                        <p>收货地址:{{templateAddress.address}} {{templateAddress.minute}}</p>
+                    </div>
+                    <p class="noaddress" v-else>请选择收货地址</p>
+                </div>
+                <p class="b"></p>
             </div>
             <div class="orderBanner_c">
                  <div class="swiper-container_c">
@@ -78,6 +84,10 @@
             </p>
             
         </div>
+
+        <transition name="orderFade">
+            <div class="orderTip" v-show="showTip">{{tip}}</div>
+        </transition>
         
     </div>
 </template>
@@ -85,15 +95,19 @@
 import './confirmOrder.scss'
 import '../../../node_modules/swiper/dist/css/swiper.css';
 import Swiper from 'swiper'
+import http from '../../utils/httpclient.js';
 export default {
     data(){
         return{
             isSelect:false,
+            showTip:false,
+            tip:'',
             hourArr : [],
             dateArr : [],
             orderData : [],
             totalPrice : 0,
-            address :'address',
+            address : {},
+            templateAddress:{},
             totalnums:0,
             prevTime:'',
             currentTime:''
@@ -123,32 +137,49 @@ export default {
         },
         addOrder(){
             if(this.currentTime == '' || this.address == ''){
+                this.tip = this.address == '' ? '请选择收货地址' : '请选择收货时间'; 
+                this.showTip = true;
+                setTimeout(() => {
+                    this.showTip = false;
+                }, 500);
                 return;
             }
-            let username = window.localStorage.getItem('userName');
+            
+            let username = window.localStorage.getItem('username');
             let orderNum = 'GI' + Date.now();
-            let order = {
+           
+            http.post('addorder',{
                 username:username,
                 ordernumber: orderNum,
                 ispay : false,
                 time :'',
                 totalprice: this.totalPrice,
                 totalnums: this.totalnums,
-                address:  '',
+                address:  JSON.stringify(this.templateAddress),
                 taketime: this.currentTime,
-                products: this.orderData
-            }
-            this.$router.push('/orderDet/'+orderNum);
+                products: JSON.stringify(this.orderData)
+            }).then((res) => {
+                if(res.status){
+                    this.$router.push('/orderDet/'+orderNum);
+                }   
+            })
         }
     },
 
     mounted(){
-
+        let username = window.localStorage.getItem('username');
         this.orderData = JSON.parse(window.localStorage.getItem('pushOrder'));
         this.orderData.forEach(order => {
             this.totalPrice += order.qty * order.price
             this.totalnums += order.qty;
         });
+
+        http.post('getaddress',{username:username,type:'default'}).then((res) => {
+            if(res.status){
+                this.templateAddress = res.data[0];
+            }
+             
+        })
         
         let  date = new Date(Date.now());
         let week = ['周日','周一','周二','周三','周四','周五','周六'];
@@ -169,36 +200,36 @@ export default {
             timeArr += (String(i).length > 1 ? i + ': 00 - ' : '0' + i + (': 00 - ')) + (String(i).length > 1 ? i + ': 30' : '0' + i +(': 30'));
             this.hourArr.push(timeArr)
         }
-         this.hourArr.push('')
+        this.hourArr.push('')
 
-         this.$nextTick(() => {
-             var mySwiper = new Swiper('.swiper-container_c',{
-                 direction:'horizontal',
-                 slidesPerView:3.08,
-                 freeMode : true
-             })
-             var timeSwiper = new Swiper('.swiper-container_time',{
-                 direction:'vertical',
-                     slidesPerView:3,
-                     observer:true,//修改swiper自己或子元素时，自动初始化swiper
-                     observeParents:true,
-                     on:{
-                         slideChangeTransitionStart:(e) =>{
-                         var currentTimes = document.querySelectorAll('.currentTime');
-                         var currentTimes1 = document.querySelectorAll('.currentTime1');
-                         var currentTimes2 = document.querySelectorAll('.currentTime2');
-     
-                             for (let i = 0; i < currentTimes.length; i++) {
-                                 currentTimes[i].style.fontWeight = 'normal'
-                             }
-                             this.prevTime = this.dateArr[timeSwiper[0].activeIndex+1]+' '+this.hourArr[timeSwiper[1].activeIndex+1]
-                             currentTimes1[timeSwiper[0].activeIndex+1].style.fontWeight = '800'
-                             currentTimes2[timeSwiper[1].activeIndex+1].style.fontWeight = '800'
-                         }
-                     }
-             })
+        this.$nextTick(() => {
+            var mySwiper = new Swiper('.swiper-container_c',{
+                direction:'horizontal',
+                slidesPerView:3.08,
+                freeMode : true
+            })
+            var timeSwiper = new Swiper('.swiper-container_time',{
+                direction:'vertical',
+                    slidesPerView:3,
+                    observer:true,//修改swiper自己或子元素时，自动初始化swiper
+                    observeParents:true,
+                    on:{
+                        slideChangeTransitionStart:(e) =>{
+                        var currentTimes = document.querySelectorAll('.currentTime');
+                        var currentTimes1 = document.querySelectorAll('.currentTime1');
+                        var currentTimes2 = document.querySelectorAll('.currentTime2');
+    
+                            for (let i = 0; i < currentTimes.length; i++) {
+                                currentTimes[i].style.fontWeight = 'normal'
+                            }
+                            this.prevTime = this.dateArr[timeSwiper[0].activeIndex+1]+' '+this.hourArr[timeSwiper[1].activeIndex+1]
+                            currentTimes1[timeSwiper[0].activeIndex+1].style.fontWeight = '800'
+                            currentTimes2[timeSwiper[1].activeIndex+1].style.fontWeight = '800'
+                        }
+                    }
+            })
 
-         })
+        })
 
 
     }
