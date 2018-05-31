@@ -207,7 +207,7 @@
                     // 购买：插入数据库并跳转到购物车
                     
                     // 获取用户名
-                    let userName = window.localStorage.getItem('userName');
+                    let userName = window.localStorage.getItem('username');
                     // let userName = 'admin'
                     console.log(this.userProduct);
                     if(userName){
@@ -227,7 +227,7 @@
                 }else{
                     // 调用深度克隆函数
                     this.deepClone();
-                    let userName = window.localStorage.getItem('userName');
+                    let userName = window.localStorage.getItem('username');
                     // userName = 'admin'
                     console.log(this.userProduct);
                     if(userName){

@@ -1,6 +1,7 @@
 .orderDet_c{
     display: flex;
     flex-direction: column;
+    background-color: #eee;
     .orderTop_c{
         width: 100%;
         height: 0.6667rem;
@@ -20,22 +21,26 @@
     }
     .orderList{
         flex: 1;
-        padding: 0 10px;
+        background-color: #fff;
         p{
             display: flex;
             justify-content: space-between;
             font-size: 15px;
             margin-bottom: 5px;
-
+            
+            padding: 0 10px;
         }
         ul{
+            padding: 0 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
             li{
                 div{
                     display: flex;
                     height: 100%;
                     img{
-                        width: 100px;
-                        height: 100px;
+                        width: 80px;
+                        height: 80px;
                         margin-right: 10px;
                     }
                     div{
@@ -50,6 +55,7 @@
                         }
                         i{
                             font-size: 13px;
+                            padding-left: 10px;
 
                         }
                     }
@@ -59,5 +65,56 @@
         .orderTotalPrice_c{
             justify-content: flex-end;
         }
+        .orderBtm_c{
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            background-color: rgba(245, 245, 245, 0.445);;
+            span{
+                font-size: 18px;
+            }
+            span:nth-of-type(2){
+                font-weight: 600;
+            }
+        }
+    }
+    .orderFoot{
+        background: #fff;
+        margin-top: 20px;
+        ul{
+            width: 100%;
+            padding: 20px;
+            li{
+                display: flex;
+                padding: 5px 0;
+
+                background-color: #fff;
+                span{
+                    font-size: 16px;
+                }
+                span:first-child{
+                    display: flex;
+                    width: 80px;
+                    justify-content: space-between;
+                    margin-right: 10px;
+                }
+                span:last-child{
+                    flex: 1;
+                }
+            }
+            li:nth-of-type(1){
+                padding: 10px 0;
+                border-bottom: 1px solid #eee;
+            }
+            li:last-child{
+                span:last-child{
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+            }
+        }
     }
 }
+

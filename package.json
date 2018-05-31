@@ -24,6 +24,7 @@
     "swiper": "^4.3.0",
     "vue": "^2.5.11",
     "vue-concise-slider": "^2.4.8",
+    "vue-pay-pop": "^1.1.8",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "ws": "^5.1.1"

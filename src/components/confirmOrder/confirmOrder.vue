@@ -78,6 +78,10 @@
             </p>
             
         </div>
+
+        <transition name="orderFade">
+            <div class="orderTip" v-show="showTip">{{tip}}</div>
+        </transition>
         
     </div>
 </template>
@@ -85,15 +89,18 @@
 import './confirmOrder.scss'
 import '../../../node_modules/swiper/dist/css/swiper.css';
 import Swiper from 'swiper'
+import { setTimeout } from 'timers';
 export default {
     data(){
         return{
             isSelect:false,
+            showTip:false,
+            tip:'',
             hourArr : [],
             dateArr : [],
             orderData : [],
             totalPrice : 0,
-            address :'address',
+            address :'',
             totalnums:0,
             prevTime:'',
             currentTime:''
@@ -123,8 +130,14 @@ export default {
         },
         addOrder(){
             if(this.currentTime == '' || this.address == ''){
+                this.tip = this.address == '' ? '请选择收货地址' : '请选择收货时间'; 
+                this.showTip = true;
+                setTimeout(() => {
+                    this.showTip = false;
+                }, 500);
                 return;
             }
+            
             let username = window.localStorage.getItem('userName');
             let orderNum = 'GI' + Date.now();
             let order = {

@@ -277,7 +277,7 @@
                 $('body').append($flyImg);  
                 $flyImg.animate({top:620,left:185,width:5,height:5,opacity:0.5},1000);
                 setTimeout(() =>{
-                    let userName = window.localStorage.getItem('userName');
+                    let userName = window.localStorage.getItem('username');
                     // userName = 'admin'
                     if(userName){
                         let _item = Object.assign({},item);
@@ -302,10 +302,6 @@
                     }
                     // 移除元素
                     $flyImg.remove();
-                    item.price = item.price[0];
-                    item.spec = item.spec[0];
-                    // 用户添加的默认商品
-                    console.log(item);
                 },1000);
             },
             // 获取商品id并跳转到详情页
