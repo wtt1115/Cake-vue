@@ -20,7 +20,10 @@
                 </div>
             </div>
             <div class="Sfoot">
-                <button @click="addSite()">添加</button>
+                <button @click="addSite()">{{btncount}}</button>
+            </div>
+            <div class="pop">
+                {{text}}
             </div>
         </div>
         
@@ -38,7 +41,9 @@
                 receiver:'',
                 recephone:'',
                 minute:'',
-                isSelected:false
+                isSelected:false,
+                text:'',
+                btncount:'添加'
             }
         },
         components: {
@@ -50,40 +55,54 @@
                 let username = window.localStorage.getItem('username');
 
                 if(this.receiver == ''){
-                    alert('收货人不能为空！');
+                    $('.pop').show().delay(2000).hide(0);
+                    this.text = '收货人不能为空';
                     return ;
                 }
 
                 let regu = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/;
                 if(!regu.test(this.recephone)){
-                    alert('请输入正确的手机格式！')
+                    $('.pop').show().delay(2000).hide(0);
+                    this.text = '请输入正确的手机格式';
                     return ;
                 }
 
                 if(address == '地区选择'){
-                    alert('请选择地区！');
+                    $('.pop').show().delay(2000).hide(0);
+                    this.text = '请选择地区';
 
                     return ;
                 }
 
                 if(this.minute == ''){
-                    alert('请填写详细地址！')
+                    $('.pop').show().delay(2000).hide(0);
+                    this.text = '请填写详细地址';
                     return ;
                 }
 
                 if(_id != undefined){
 
-                    let Address = {
+                    let upress = {
                         _id:_id,
+                        username:username,
                         receiver:this.receiver,
                         recephone:this.recephone,
                         address:address,
                         minute:this.minute,
                         moren:this.isSelected
                     }
+                    console.log(upress)
+                    http.post('upsite',upress).then((res) =>{
+                        
+                        if(res.status){
 
-                    http.post('upaddress',Address).then((res) =>{
-                        console.log(res)
+                            this.$router.push({path:'address'})
+
+                        } else {
+                            $('.pop').show().delay(2000).hide(0);
+                            this.text = '修改失败';
+                        }
+                        
                     })
 
                 } else {
@@ -101,7 +120,8 @@
                         if(res.status){
                             this.$router.push({path:'address'})
                         } else{
-                            alert('创建地址失败！')
+                            $('.pop').show().delay(2000).hide(0);
+                            this.text = '创建地址失败';
                         }
                     });
                 }
@@ -115,12 +135,15 @@
 
             if(_id != undefined){
 
+                this.btncount = '修改'
+
                 http.post('getaddress',{_id}).then((res) =>{
+                    console.log(res.data[0].moren)
                     if(res.status){
-                        this.receiver = res.receiver
-                        this.recephone = res.recephone
-                        this.minute = res.minute
-                        this.isSelected = res.isSelected
+                        this.receiver = res.data[0].receiver
+                        this.recephone = res.data[0].recephone
+                        this.minute = res.data[0].minute
+                        this.isSelected = res.data[0].moren
                     }
                 })
             }
