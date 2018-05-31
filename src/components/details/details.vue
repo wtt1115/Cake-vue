@@ -207,9 +207,7 @@
                     // 购买：插入数据库并跳转到购物车
                     
                     // 获取用户名
-                    let userName = window.localStorage.getItem('userName');
-                    // let userName = 'admin'
-                    console.log(this.userProduct);
+                    let userName = window.localStorage.getItem('username');
                     if(userName){
                         this.userProduct.username = userName;
                         http.post('addProductCar',this.userProduct).then(res=>{
@@ -219,17 +217,17 @@
                             }
                         })
                     }else{
-                        alert('请登陆！');
-                        this.$router.push('/login');
+                        this.$store.commit('addCar',this.userProduct);
+                        this.$store.commit('updateCarLen',1);
+                        this.$router.push('/car');
                     }
                     // 调用隐藏函数
                     this.hideMasked();
                 }else{
                     // 调用深度克隆函数
                     this.deepClone();
-                    let userName = window.localStorage.getItem('userName');
-                    // userName = 'admin'
-                    console.log(this.userProduct);
+                    let userName = window.localStorage.getItem('username');
+
                     if(userName){
                         this.userProduct.username = userName;
                         this.showTips = true;
