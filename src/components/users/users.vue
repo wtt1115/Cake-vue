@@ -13,8 +13,6 @@
                             <router-link to="/login">
                         <span class="dl">登录</span>  
                     </router-link>
-
-                         
                         </span>
                        <span v-show="showname">{{username}}</span>
                     </li>

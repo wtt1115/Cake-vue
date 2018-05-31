@@ -14,41 +14,40 @@
         <div class="box2">
             <ul class="box4">
                 <li>
-                <label class="label">账号</label>
-                    <input type="text"v-show="showl" />
-                    <i>{{data.username}}</i>
+                    <label class="label">账号</label>
+                        <input type="text"v-show="showl" />
+                        <i>{{data.username}}</i>
                 </li>
                 <li> 
-                <label class="label">昵称</label>
-                    <input type="text"v-model="data.nickname" /> 
+                    <label class="label">昵称</label>
+                        <input type="text"v-model="data.nickname" /> 
                 </li>
                 <li> 
-                <label class="label">性别</label>
-                    <input type="text" v-model="data.gender"/>
-                 
+                    <label class="label">性别</label>
+                        <input type="text" v-model="data.gender"/>
                 </li>
                 <li> 
-                <label class="label">生日</label>
-                    <input type="text"  v-model="data.birthday"/>
+                    <label class="label">生日</label>
+                        <input type="text"  v-model="data.birthday"/>
                 </li>
             </ul>
             <div class="t1">
                 <p>已保存</p>
             </div>
             <div class="t2">
-                <p >请填写信息</p>
+                <p>请填写信息</p>
             </div>
         </div>
         <div class="bao">
-        <input type="button"  value="保存"  class="cun" @click="baocun"/>
-    </div>
-   
+            <input type="button"  value="保存"  class="cun" @click="baocun"/>
+        </div>
     </div>
 </template>
     <script>
-    import $ from 'jquery'
-    import './xinxi.scss'
-    import http from '../../../../utils/httpclient.js'
+        import $ from 'jquery'
+        import './xinxi.scss'
+        import http from '../../../../utils/httpclient.js'
+        import router from '../../../../router/router.js'
         export default{
             data(){
                 return {
@@ -58,8 +57,7 @@
                         gender:'',
                         type:'birthday'
                     },
-                 
-                     show:true,
+                    // show:true,
                      showl:false
                 }
             },
@@ -80,19 +78,18 @@
             methods:{ 
                 baocun(){
                     http.post('update',this.data).then((res) =>{ 
+                        console.log(res)
                         if(res.status){
-                            $(".t1").show();
-                            $(".t1").delay(3000).hide(0);
-
-                        }else{
-                             $(".t2").show();
-                            $(".t2").delay(3000).hide(0);
+                                $(".t1").show().delay(3000).hide(0);
+                                router.push({name:'users'})
+                                  console.log($(".t1").display)
+                                // if($(".t1").display == 'none'){
+                                // }
+                               
                         }
-
-                    })
-                       
+                  
+                    }) 
                 }
             }
-
         }
     </script>
