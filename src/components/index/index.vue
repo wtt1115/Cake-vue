@@ -277,7 +277,7 @@
                 $('body').append($flyImg);  
                 $flyImg.animate({top:620,left:185,width:5,height:5,opacity:0.5},1000);
                 setTimeout(() =>{
-                    let userName = window.localStorage.getItem('userName');
+                    let userName = window.localStorage.getItem('username');
                     // userName = 'admin'
                     if(userName){
                         let _item = Object.assign({},item);

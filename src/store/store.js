@@ -3,7 +3,9 @@ import Vuex from 'vuex'
 import http from '../utils/httpclient'
 Vue.use(Vuex)
 const state = {
-    carListLen : 0
+    carListLen : 0,
+    totalCarlist : [],
+    address:''
 }
 const mutations = {
     addCar(state,_item){
@@ -21,18 +23,18 @@ const mutations = {
         // 本地购物车
         let nativeCarlist = window.localStorage.getItem('nativeCarlist');
         
-        let userName = window.localStorage.getItem('userName')
+        let userName = window.localStorage.getItem('username')
 
-        if(!userName){
-            if(nativeCarlist == null || nativeCarlist == '') {
+        if(nativeCarlist == null || nativeCarlist == '') {
+            nativeCarlist = [];
+        }else{
+            try{
+                nativeCarlist = JSON.parse(nativeCarlist)
+            }catch(err){
                 nativeCarlist = [];
-            }else{
-                try{
-                    nativeCarlist = JSON.parse(nativeCarlist)
-                }catch(err){
-                    nativeCarlist = [];
-                }
             }
+        }
+        if(!userName){
             // state.carListLen = nativeCarlist.length;
             if(nativeCarlist.length <= 0){
                 item.qty = 1;
@@ -62,34 +64,26 @@ const mutations = {
             // state.carListLen = totalQty;
             window.localStorage.setItem('nativeCarlist',JSON.stringify(nativeCarlist))
         }else{
-            if(nativeCarlist !=null && nativeCarlist != ''){
-                try{
-                    nativeCarlist = JSON.parse(nativeCarlist);
-                }catch(err){
-                    nativeCarlist = [];
-                }
-                if(nativeCarlist.length > 1){
-                    // 获取购物车的数据
-                    // ajax
-                    let carlist;
-                    let totalQty = 0;
+            if(nativeCarlist.length > 1){
+                // 获取购物车的数据
+                // ajax
+                let carlist;
+                let totalQty = 0;
 
-                    carlist.forEach((carItem,idx) => {
-                        nativeCarlist.forEach((nativeItem,nativeIdx) => {
-                            if(carItem.product_id == nativeItem.product_id && carItem.spec == nativeItem.spec){
-                                // 更新qty到数据库 
-                                let bothQty = carItem.qty + nativeItem.qty;
-                                totalQty += bothQty;
-                            }else{
-                                // 添加到数据库
-                            }
-                        })
+                carlist.forEach((carItem,idx) => {
+                    nativeCarlist.forEach((nativeItem,nativeIdx) => {
+                        if(carItem.product_id == nativeItem.product_id && carItem.spec == nativeItem.spec){
+                            // 更新qty到数据库 
+                            let bothQty = carItem.qty + nativeItem.qty;
+                            totalQty += bothQty;
+                        }else{
+                            // 添加到数据库
+                        }
                     })
-                    // state.carListLen = totalQty;
-                    // nativeCarlist = [];
-                }else{
-                    // 直接添加商品到数据库
-                }
+                })
+                // nativeCarlist = [];
+            }else{
+                // 直接添加商品到数据库
             }
         }
 
@@ -97,10 +91,10 @@ const mutations = {
     // 封一个获取用户购物车总数量的函数
     getCarQty(state){
         // 判断用户是否已经登陆
-        let userName = window.localStorage.getItem('userName');
+        let userName = window.localStorage.getItem('username');
         if(userName){
             http.post('',{}).then(res=>{
-                console.log(res);
+                // console.log(res);
                 if(res.status){
                 }
             })
@@ -119,18 +113,18 @@ const mutations = {
         // 本地购物车
         let nativeCarlist = window.localStorage.getItem('nativeCarlist');
 
-        let userName = window.localStorage.getItem('userName')
+        let userName = window.localStorage.getItem('username')
         // userName = 'admin'
-        if(!userName){
-            if(nativeCarlist == null || nativeCarlist == '') {
+        if(nativeCarlist == null || nativeCarlist == '') {
+            nativeCarlist = [];
+        }else{
+            try{
+                nativeCarlist = JSON.parse(nativeCarlist)
+            }catch(err){
                 nativeCarlist = [];
-            }else{
-                try{
-                    nativeCarlist = JSON.parse(nativeCarlist)
-                }catch(err){
-                    nativeCarlist = [];
-                }
             }
+        }
+        if(!userName){
             let totalQty = 0;
             nativeCarlist.forEach(item => {
                 totalQty += item.qty;
@@ -138,43 +132,31 @@ const mutations = {
             
             state.carListLen = totalQty;
         }else{
-            if(nativeCarlist !=null && nativeCarlist != ''){
-                try{
-                    nativeCarlist = JSON.parse(nativeCarlist);
-                }catch(err){
-                    nativeCarlist = [];
-                }
-                if(nativeCarlist.length >= 1){
-                    // 获取购物车的数据
-                    // ajax
-                    let carlist;
-                    http.post('getProductCar',{
-                        username : userName
-                    }).then((res) => {
-                       
-                        if(res.status){
-                           carlist = res.data
-                           console.log(carlist);
-                           let totalQty = 0;
-                       
-                           carlist.forEach((carItem,idx) => {
-                               nativeCarlist.forEach((nativeItem,nativeIdx) => {
-                                   if(carItem.product_id == nativeItem.product_id && carItem.spec == nativeItem.spec){
-                                       // 更新qty到数据库 
-                                       let bothQty = carItem.qty + nativeItem.qty;
-                                       totalQty += bothQty;
-                                   }else{
-                                       // 添加到数据库
-                                   }
-                               })
-                           })
-                           state.carListLen = totalQty;
-                           window.localStorage.removeItem('nativeCarlist')
-                        }
-                    })
-                }else{
-                    //
-                }
+            
+            if(nativeCarlist.length >= 1){
+                // 获取购物车的数据
+                // ajax
+                let carlist;
+                http.post('getProductCar',{
+                    username : userName
+                }).then((res) => {
+                    
+                    if(res.status){
+                        carlist = res.data
+                        let totalQty = 0;
+
+                        nativeCarlist.forEach((nativeItem,idx) => {
+                            totalQty += nativeItem.qty;
+                            
+                        })
+                        carlist.forEach((carItem) => {
+                            totalQty += carItem.qty;
+                        })
+                        state.carListLen = totalQty;
+                        // window.localStorage.removeItem('nativeCarlist')
+                    }
+                })
+                
             }else{
                let carlist ;
                 http.post('getProductCar',{
@@ -182,12 +164,12 @@ const mutations = {
                 }).then((res) => {
                   
                     if(res.status){
-                       carlist = res.data
-                       let totalQty = 0;
-                       carlist.forEach((item) => {
-                        totalQty += item.qty;
-                       })
-                       state.carListLen = totalQty;
+                        carlist = res.data
+                        let totalQty = 0;
+                        carlist.forEach((item) => {
+                            totalQty += item.qty;
+                        })
+                        state.carListLen = totalQty;
                        
                     }
                 })

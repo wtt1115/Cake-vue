@@ -227,7 +227,6 @@
                     // 调用深度克隆函数
                     this.deepClone();
                     let userName = window.localStorage.getItem('username');
-
                     if(userName){
                         this.userProduct.username = userName;
                         this.showTips = true;

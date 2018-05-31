@@ -122,18 +122,24 @@
         methods:{
             // 添加商品数量
             add(idx){
+                let username = window.localStorage.getItem('username');
                 if(idx >= 0){
-                    this.carlist[idx].qty++;
-                    this.carlist[idx].type = "+"
-                    console.log(this.carlist[idx]);
-                    
-                     // ajax
-                     http.post('upProductqty',this.carlist[idx]).then(res=>{
-                        if(res){
-                            this.getTotalPrice();
-                            this.$store.commit('updateCarLen',1);
-                        }
-                    })
+                    if(username){
+                        this.carlist[idx].qty++;
+                        this.carlist[idx].type = "+"
+                        console.log(this.carlist[idx]);
+                        
+                         // ajax
+                         http.post('upProductqty',this.carlist[idx]).then(res=>{
+                            if(res){
+                                this.getTotalPrice();
+                                this.$store.commit('updateCarLen',1);
+                            }
+                        })
+                    }else{
+                        this.$store.commit('addCar',this.carlist[idx]);
+                        this.$store.commit('updateCarLen',1);
+                    }
                 }else{
                     this.currentQty++;
                 }
@@ -141,21 +147,27 @@
             // 减少商品数量
             sub(idx){
                 if(idx  >= 0){
+                    let username = window.localStorage.getItem('username');
                     this.carlist[idx].qty--;
-                    if(this.carlist[idx].qty < 1){
-                        this.carlist[idx].qty = 1
-                        return
-                    }
-                    this.carlist[idx].type = "-"
-                    
-                     // ajax
-                     http.post('upProductqty',this.carlist[idx]).then(res=>{
-                        if(res){
-                            this.getTotalPrice();
-                            this.$store.commit('updateCarLen',-1);
+                    if(username){
+
+                        if(this.carlist[idx].qty < 1){
+                            this.carlist[idx].qty = 1
+                            return
                         }
-                    })
-                    this.getTotalPrice();
+                        this.carlist[idx].type = "-"
+                         // ajax
+                         http.post('upProductqty',this.carlist[idx]).then(res=>{
+                            if(res){
+                                this.getTotalPrice();
+                                this.$store.commit('updateCarLen',-1);
+                            }
+                        })
+                    }else{
+                        this.$store.commit('addCar',this.carlist[idx]);
+                        this.$store.commit('updateCarLen',-1);
+                        this.getTotalPrice();
+                    }
                     // ajax
                 }else{
                     this.currentQty--;
@@ -351,24 +363,54 @@
         },
         mounted(){
 
-            // let hasUser = window.localStorage.getItem('userName');
-            let user = 'admin';
-            // if(hasUser != null && hasUser != ''){
-            // }
-                http.post('getProductCar',{
-                    username : user
-                }).then((res) => {
-                    console.log(res);
-                    
-                   
-                    if(res.status){
-                        this.carlist = res.data
-                        this.carlist.forEach((item,idx) => {
-                            item.carId = idx;
-                        })
-                    }
+            let nativeCarlist = window.localStorage.getItem('nativeCarlist');
+            
+            let userName = window.localStorage.getItem('username')
+
+            if(nativeCarlist == null || nativeCarlist == '') {
+                nativeCarlist = [];
+            }else{
+                try{
+                    nativeCarlist = JSON.parse(nativeCarlist)
+                }catch(err){
+                    nativeCarlist = [];
+                }
+            }
+            // userName = 'admin';
+            if(!userName){
+                this.carlist = nativeCarlist;
+                this.carlist.forEach((item,idx) => {
+                    item.carId = idx;
                 })
-                this.getTotalPrice();
+            }else{
+                
+                http.post('getProductCar',{
+                    username : userName
+                    }).then((res) => {
+                        if(res.status){
+                            this.carlist = res.data
+                            if(nativeCarlist.length >= 1){
+                            
+                                nativeCarlist.forEach((nativeItem,nativeIdx) => {
+                                    let carQty = 0;
+                                    let isHas = this.carlist.some((carItem,carIdx) => {
+                                        carQty = carItem.qty;
+                                        return carItem.product_id == nativeItem.product_id && carItem.spec == nativeItem.spec;
+                                    })
+                                    if(isHas){
+                                        this.carlist.qty = carQty + nativeItem.qty;
+                                    }else{
+                                        this.carlist.push(nativeItem)
+                                    }
+                                })
+                            }
+                        }
+                    this.carlist.forEach((item,idx) => {
+                            item.carId = idx;
+                    })
+                })
+            }
+            this.getTotalPrice();
             // ajax
             
         },
@@ -395,41 +437,7 @@
                 // 垃圾桶图标
                 delHtml : `<i class="fa fa-trash" aria-hidden="true"></i>`,
                 carlist : []
-                // [
-                  
-                //     {
-                //         type: "normal",
-                //         img_url: "http://static.21cake.com/public/images/91/57/75/c9c2df9e4fac3c22d34b1de18c317a98.jpg",
-                //         name: "冻慕斯与焗芝士",
-                //         en_name: "Cool&Hot ",
-                //         carId: "3092",
-                //         tableware:"10",
-                //         price: "198.00",
-                //         spec: "3.0磅",
-                //         qty:1
-                //     },
-                //     {
-                //         type: "normal",
-                //         img_url: "//static.21cake.com//upload/images/78ad114c07704d96ac2d8123d9ae480c.jpg",
-                //         name: "冻慕斯与焗芝士",
-                //         en_name: "Cool&Hot ",
-                //         carId: "3093",
-                //         price: "200.00",
-                //         spec: "2.0磅",
-                //          qty:1
-                //     },
-                //     {
-                //         type: "normal",
-                //         img_url: "//static.21cake.com//upload/images/a5ead52bc79022ccf30c38be37f4ac04.jpg",
-                //         name: "冻慕斯与焗芝士",
-                //         en_name: "Cool&Hot ",
-                //         tableware:"15",
-                //         carId: "3094",
-                //         price: "298.00",
-                //         spec: "2.5磅",
-                //          qty:1
-                //     }
-                // ]
+                
             }
         }
     }
