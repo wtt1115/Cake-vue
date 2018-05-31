@@ -55,7 +55,7 @@
     .details-main{
         flex:1;
         overflow-x:hidden;
-        margin-bottom:50px;
+        margin-bottom:0.666667rem;
         .main-banner{
             height:4.0rem;
             img{
@@ -186,11 +186,11 @@
             }
             li:nth-child(2){
                 flex:1;
-                font-size:16px;
+                font-size:0.213333rem;
             }
             li:last-child{
                 flex:1;
-                font-size:16px;
+                font-size:0.213333rem;
                 background:#333;
                 color:#fff;
             }
@@ -208,71 +208,71 @@
             width:100%;
             background:#fff;
             position:absolute;
-            bottom:-200px;
+            bottom:-2.666667rem;
             left:0;
             z-index:-100;
-            box-shadow: 0px -2px 4px 0px rgba(0,0,0,0.1);
-            padding:10px 20px;
+            box-shadow: 0px -0.026667rem 0.053333rem 0px rgba(0,0,0,0.1);
+            padding:0.133333rem 0.266667rem;
             .content-price{
-                font-size:16px;
-                line-height:30px;
-                margin-bottom:10px;
+                font-size:0.213333rem;
+                line-height:0.4rem;
+                margin-bottom:0.133333rem;
                 color:red;
                 font-weight:bold;
             }
             .content-img{
                 display:flex;
                 img{
-                    width:180px;
-                    height:85px;
+                    width:2.4rem;
+                    height:1.133333rem;
                 }
                 .content-options{
-                    height:85px;
+                    height:1.133333rem;
                     display:flex;
                     flex-direction:column;
-                    padding-left:10px;
-                    margin-bottom:20px;
+                    padding-left:0.133333rem;
+                    margin-bottom:0.266667rem;
                     li{
-                        line-height:16px;
+                        line-height:0.213333rem;
                         i{
-                            font-size:16px;
+                            font-size:0.213333rem;
                             @extend %fontColor;
-                            margin-right:2px;
+                            margin-right:0.026667rem;
                         }
                         span{
-                            font-size:14px;
+                            font-size:0.186667rem;
                             @extend %color;
                         }
                     }
                 }
             }
             .product-spec{
-                font-size:16px;
-                line-height:30px;
-                margin-bottom:10px;
+                font-size:0.213333rem;
+                line-height:0.4rem;
+                margin-bottom:0.133333rem;
             }
             .spec-text{
                 display:flex;
                 flex-wrap:wrap;
-                margin-bottom:15px;
+                margin-bottom:0.2rem;
                 li{
                     width:22%;
                     margin:1.5%;
                     text-align:center;
                     background:#f7f7f7;
-                    border:1px solid #f7f7f7;
+                    border:0.013333rem solid #f7f7f7;
                     .spec-name{
                         display:block;
-                        font-size:16px;
-                        height:32px;
-                        line-height:32px;
+                        font-size:0.213333rem;
+                        height:0.426667rem;
+                        line-height:0.426667rem;
                         @extend %color;
                     }
                 }
                 li.active{
                     border:1px solid #442818;
                     background: #fff url('http://m.21cake.com/themes/wap/img/icon_selected.png') no-repeat top left;
-                    background-size: 12px 12px;
+                    background-size: 0.16rem 0.16rem;
                 }
             }
         }
@@ -287,12 +287,12 @@
         z-index:10001;
         .tips-text{
             display:block;
-            width:280px;
-            height:60px;
+            width:3.733333rem;
+            height:0.8rem;
             background:#fff;
-            font-size:16px;
-            height:50px;
-            line-height:50px;
+            font-size:0.213333rem;
+            height:0.666667rem;
+            line-height:0.666667rem;
             text-align:center;
             @extend %color;
             position:absolute;

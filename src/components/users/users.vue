@@ -39,7 +39,7 @@
          <div class="t_main">
             <ul class="big" >
                 <li> 
-                <router-link to="/order"> 
+                <router-link to="/myorder"> 
                    <span>
                         <i class="fa fa-check-square"></i>我的订单
                     </span>
