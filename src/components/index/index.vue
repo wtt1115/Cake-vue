@@ -31,7 +31,7 @@
         <main class="index-main">
             <div class="swiper-container " >
                 <div class="swiper-wrapper main-banner" >
-                    <div class="swiper-slide" v-if="bannerData.length > 0"  v-for="(obj,idx) in bannerData" :key="idx">
+                    <div class="swiper-slide" v-if="bannerData.length > 0"  v-for="(obj,idx) in bannerData" :key="idx" @click="toClassify">
                         <img :src="obj.img_url" />
                     </div>
                 </div>
@@ -311,6 +311,10 @@
             // 跳转到搜索组件
             toSearch(){
                 this.$router.push('/search');
+            },
+            // 跳转到分类组件
+            toClassify(){
+                this.$router.push('/classfiy');
             }
         }
     }

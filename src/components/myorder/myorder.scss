@@ -1,10 +1,11 @@
 // 主题颜色
 %color{color:#442818;}
 // margin
-%padding-20{padding:8px 20px;}
+%padding-20{padding:0.106667rem 0.266667rem;}
 // bottom
-%border-bottom{border-bottom:1px solid #ddd;}
-
+%border-bottom{border-bottom:0.013333rem solid #ddd;}
+// 弹性盒垂直居中
+%flex-center{display:flex;flex-direction:column;justify-content:center;}
 .f-myorder{
     height:100%;
     display:flex;
@@ -45,14 +46,14 @@
             li{
                 flex:1;
                 text-align:center;
-                padding-bottom:10px;
+                padding-bottom:0.133333rem;
                 span{
-                    font-size:16px;
+                    font-size:0.213333rem;
                     color:#888;
                 }
             }
             li.active{
-                border-bottom:2px solid #442818;
+                border-bottom:0.026667rem solid #442818;
                 span{
                     @extend %color;
                 }
@@ -67,7 +68,7 @@
             display:flex;
             flex-direction:column;
             .order-box{
-                margin:10px 0;
+                margin:0.133333rem 0;
                 background:#fff;
                 .order-title{
                     @extend %padding-20;
@@ -76,10 +77,10 @@
                     justify-content:space-between;
                     align-items:center;
                     span{
-                        font-size:12px;
+                        font-size:0.16rem;
                     }
                     span:nth-of-type(2){
-                        font-size:16px;
+                        font-size:0.213333rem;
                         color:red;
                     }
                 }
@@ -91,34 +92,37 @@
                         @extend %padding-20;
                         @extend %border-bottom;
                         .product-img{
-                            width:30%;
+                            width:20%;
+                            @extend %flex-center;
                             img{
-                                width:100%;
+                                width:60%;
                             }
                         }
                         .product-info{
-                            padding-left:10px;
-                            width:50%;
+                            padding-left:0.133333rem;
+                            width:60%;
+                            @extend %flex-center;
                             .info-name{
-                                font-size:18px;
+                                font-size:0.213333rem;
                                 @extend %color;
                             }
                             .info-spec{
-                                font-size:14px;
+                                font-size:0.186667rem;
                                 color:#333;
-                                line-height:30px;
+                                line-height:0.4rem;
                             }
                         }
                         .product-price{
                             width:20%;
                             text-align:right;
+                            @extend %flex-center;
                             .price{
-                                font-size:18px;
+                                font-size:0.24rem;
                                 @extend %color;
                             }
                             .qty{
-                                font-size:14px;
-                                line-height:30px;
+                                font-size:0.186667rem;
+                                line-height:0.4rem;
                                 @extend %color;
                             }
                         }
@@ -132,12 +136,11 @@
                         display:flex;
                         flex-direction:column;
                         li{
-                            font-size:14px;
+                            font-size:0.186667rem;
                             @extend %color;
                             span{
-                                font-size:16px;
-                                padding:0 6px;
-                                // @extend %color;
+                                font-size:0.213333rem;
+                                padding:0 0.08rem;
                             }
                         }
                         li:last-child{
@@ -156,21 +159,21 @@
                             flex-direction:column;
                             align-items:center;
                             border:0 none;
-                            border-radius:5px;
+                            border-radius:0.066667rem;
                             span{
-                                font-size:16px;
-                                padding:2px;
+                                font-size:0.213333rem;
+                                padding:0.026667rem;
                                 @extend %color;
                             }
                         }
                         li:first-child{
-                            border:1px solid red;
+                            border:0.013333rem solid red;
                             span{
                                 color:red;
                             }
                         }
                         li:last-child{
-                            border:1px solid #442818;
+                            border:0.013333rem solid #442818;
                         }
                     }
                 }
@@ -178,10 +181,46 @@
         }
     }
     #slide-wrapper{
+        .cancel-icon{
+            position:absolute;
+            left:0.2rem;
+            top:0.013333rem;
+            font-size:45px;
+            color:#E67E22;
+        }
+    }
+    .myorder-masked{
         position:fixed;
         left:0;
         top:0;
         right:0;
         bottom:0;
+        background:rgba(0,0,0,0.5);
+        .mask-content{
+            position:absolute;
+            left:50%;
+            top:50%;
+            transform:translate(-50%,-50%);
+            width:3.2rem;
+            height:2.4rem;
+            background:#fff;
+            @extend %padding-20;
+            text-align:center;
+            .content-title{
+                margin:0.266667rem 0;
+                font-size:0.32rem;
+                line-height:0.533333rem;
+                font-weight:normal;
+                @extend %color;
+            }
+            span{
+                display:inline-block;
+                margin:0.266667rem 0.133333rem 0 0.133333rem;
+                background:#ccc;
+                padding:0.066667rem 0.133333rem;
+                font-size:0.24rem;
+                @extend %color;
+            }
+        }
     }
 }
