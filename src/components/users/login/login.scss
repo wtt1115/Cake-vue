@@ -22,7 +22,7 @@
     .yzm{
         .form{padding:0.21875rem;
             li{ display:flex;justify-content:space-between; 
-                height:0.703125rem;border-bottom:1px solid #ccc   ;
+                height:0.78125rem;border-bottom:1px solid #ccc   ;
                 input{width:100%;padding-top:0.3125rem;          
                     border:none;font-size:16px;
                 }
@@ -36,6 +36,9 @@
                     }      
               
               
+            }
+            #v_container{margin-top:0.015625rem;height:0.75rem;
+
             }
             li:nth-child(4){
               border-bottom:none;height:0.46875rem; 
