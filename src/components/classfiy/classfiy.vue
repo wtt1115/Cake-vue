@@ -98,7 +98,7 @@
                     <span class="spec-name">{{obj}}</span>
                 </li>
             </ul>
-            <button class="btn">加入购物车(￥{{this.ProductPrice}})</button>
+            <button class="btn" @click="ToCar()">加入购物车(￥{{this.ProductPrice}})</button>
         </div>
         <footComponent></footComponent>
     </div>
@@ -202,6 +202,30 @@
             },
             end(){
                 $('.k-content').hide()
+            },
+            ToCar(){
+
+
+                let dataCar = {
+                    username:'lsk',
+                    product_id:this.Curce.product_id,
+                    img_url:this.Curce.img_url,
+                    img_url1:this.Curce.img_url1,
+                    name:this.Curce.name,
+                    en_name:this.Curce.en_name,
+                    spec:this.Curce.spec[this.ative[0]],
+                    price:this.Curce.price[this.ative[0]],
+                    qty:1
+                }
+
+                http.post('addProductCar',dataCar).then((res) =>{
+                    console.log(res)
+                    if(res.status){
+                        alert('ok')
+                    } else {
+                        alert('no')
+                    }
+                })
             }
         },
         mounted(){
