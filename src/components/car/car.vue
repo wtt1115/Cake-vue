@@ -51,7 +51,7 @@
             <div class="emptyCon">
                 <img src="http://static.21cake.com/themes/wap/img/cart-empty.png"/>
                 <p>您的购物车里还没有商品</p>
-                <span>去购物 >></span>
+                <span @click="goShop">去购物 >></span>
             </div>
         </div>
             <!-- <RecommendComponent></RecommendComponent> -->
@@ -120,6 +120,7 @@
            
         },
         methods:{
+
             // 添加商品数量
             add(idx){
                 let username = window.localStorage.getItem('username');
@@ -132,14 +133,15 @@
                         
                          // ajax
                          http.post('upProductqty',this.carlist[idx]).then(res=>{
-                            console.log(res);
-                            
+                           console.log(res);
+                           
                             if(res){
                                 this.getTotalPrice();
                                 this.$store.commit('updateCarLen',1);
                             }
                         })
                     }else{
+                        this.carlist[idx].qty++;
                         this.$store.commit('addCar',this.carlist[idx]);
                         this.$store.commit('updateCarLen',1);
                     }
@@ -161,9 +163,10 @@
                         this.carlist[idx].type = "-"
                          // ajax
                          http.post('upProductqty',this.carlist[idx]).then(res=>{
+                             
                             if(res){
-                                this.getTotalPrice();
                                 this.$store.commit('updateCarLen',-1);
+                                this.getTotalPrice();
                             }
                         })
                     }else{
@@ -258,8 +261,8 @@
                 }
                 let count = this.currentQty - this.carlist[this.currentIdx].qty;
                 this.carlist[this.currentIdx].type = "=";
-                console.log(this.carlist[this.currentIdx]);
                 this.carlist[this.currentIdx].qty = this.currentQty;
+                console.log(this.carlist[this.currentIdx]);
                 http.post('upProductqty',this.carlist[this.currentIdx]).then(res=>{
                     console.log(res);
                     if(res){
@@ -292,34 +295,87 @@
             },
             // 确认删除
             confirmDel(){
+                let username = window.localStorage.getItem('username');
+                
+                let nativeCarlist = window.localStorage.getItem('nativeCarlist');
+                if(nativeCarlist == null || nativeCarlist == '') {
+                    nativeCarlist = [];
+                }else{
+                    try{
+                        nativeCarlist = JSON.parse(nativeCarlist)
+                    }catch(err){
+                        nativeCarlist = [];
+                    }
+                }
                 if(this.delIdx == -1){
-                    this.chosenDelItem.forEach(item => {
-                        this.carlist.forEach((item_car,idx_car) => {
-                            console.log(666);
-                            if(this.chosenDelItem.indexOf(item_car.carId) > -1){
+                    
+                    let copyCarlist = JSON.parse(JSON.stringify(this.carlist))
 
-                                http.post('delProduct',this.carlist[idx_car]).then((res) => {
-                                    if(res){
-                                        this.carlist.splice(idx_car,1);
-                                        this.$store.commit('updateCarLen',-1);
-                                    }
-                                })
-                                
-                            }
-                        })
+                    let itemArr = [];
+                    this.carlist.forEach((item,idx) => {
+                        if(this.chosenDelItem.indexOf(item.carId) > -1){
+                            itemArr.push(item)
+                        }
                     })
+
+                    if(username){
+                        
+                        itemArr.forEach((item) => {
+                            http.post('delProduct',item).then((res) => {
+                                if(res){
+                                    this.$store.commit('updateCarLen',-item.qty);
+                                    console.log(this.carlist.indexOf(item));
+                                    
+                                    this.carlist.splice(this.carlist.indexOf(item),1)
+                                }
+                            })
+                        })
+    
+                    }else{
+                        itemArr.forEach((item) => {
+                            this.$store.commit('updateCarLen',-item.qty);
+                                
+                            let _item = Object.assign({},item);
+                            delete _item.carId;
+
+                            nativeCarlist.forEach((nativeItem,idx) => {
+                                if(JSON.stringify(_item) == JSON.stringify(nativeItem)){
+                                    
+                                    nativeCarlist.splice(idx,1)
+                                }
+                            })
+                            this.carlist.splice(this.carlist.indexOf(item),1)    
+                        }) 
+     
+                    }
+                    
+                    this.chosenDelItem = [];
                 }else{
                     console.log(this.carlist[this.delIdx]);
                     let count = this.carlist[this.delIdx].qty;
-                    http.post('delProduct',this.carlist[this.delIdx]).then((res) => {
-                        if(res){
-                            this.carlist.splice(this.delIdx,1)
-                            this.$store.commit('updateCarLen', -count);
-                            this.delIdx = -1 ;
-                        }
-                    })
+                    if(username){
+                        http.post('delProduct',this.carlist[this.delIdx]).then((res) => {
+                            if(res){
+                                this.carlist.splice(this.delIdx,1)
+                                this.$store.commit('updateCarLen', -count);
+                                this.delIdx = -1 ;
+                            }
+                        })
+                    }else{
+                        let _item = Object.assign({},this.carlist[this.delIdx]);
+                        delete _item.carId;
+                        nativeCarlist.forEach((nativeItem,idx) => {
+                            if(JSON.stringify(_item) == JSON.stringify(nativeItem)){
+                                
+                                nativeCarlist.splice(idx,1)
+                            }
+                        })
+                        this.carlist.splice(this.delIdx,1)
+                        this.$store.commit('updateCarLen', -count);
+                        this.delIdx = -1 ;
+                    }
                 }
-                this.chosenDelItem = [];
+               window.localStorage.setItem('nativeCarlist',JSON.stringify(nativeCarlist))
                 this.isDel = false;
             },
             // 取消删除
@@ -330,6 +386,11 @@
             // 添加订单
             addOrders(){
                 if(this.chosenItem.length <= 0){
+                    return;
+                }
+                let username = window.localStorage.getItem('username');
+                if(!username){
+                    this.$router.push({name:'login'})
                     return;
                 }
                 let pushOrder = window.localStorage.getItem('pushOrder');
@@ -362,6 +423,9 @@
             // 返回
             back(){
                 this.$router.go(-1)
+            },
+            goShop(){
+                this.$router.push({name:'index'})
             }
         },
         mounted(){
@@ -384,28 +448,16 @@
                 this.carlist.forEach((item,idx) => {
                     item.carId = idx;
                 })
-            }else{
+            }
+            else{
                 
                 http.post('getProductCar',{
                     username : userName
                     }).then((res) => {
+                        
                         if(res.status){
                             this.carlist = res.data
-                            if(nativeCarlist.length >= 1){
                             
-                                nativeCarlist.forEach((nativeItem,nativeIdx) => {
-                                    let carQty = 0;
-                                    let isHas = this.carlist.some((carItem,carIdx) => {
-                                        carQty = carItem.qty;
-                                        return carItem.product_id == nativeItem.product_id && carItem.spec == nativeItem.spec;
-                                    })
-                                    if(isHas){
-                                        this.carlist.qty = carQty + nativeItem.qty;
-                                    }else{
-                                        this.carlist.push(nativeItem)
-                                    }
-                                })
-                            }
                         }
                     this.carlist.forEach((item,idx) => {
                             item.carId = idx;

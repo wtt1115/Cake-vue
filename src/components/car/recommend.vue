@@ -42,18 +42,18 @@
                 setTimeout(() =>{
                     let userName = window.localStorage.getItem('username');
                     // userName = 'admin'
+                    let _item = Object.assign({},item);
+                    _item.price = _item.price[0]
+                    _item.spec = _item.spec[0]
+                    _item.qty = 1;
+                    _item.carId = this.carlist.length;
+                    _item.username = userName
                     if(userName){
-                        let _item = Object.assign({},item);
-                        _item.price = _item.price[0]
-                        _item.spec = _item.spec[0]
-                        _item.qty = 1
-                        _item.carId = this.carlist.length;
-                        _item.username = userName
                         http.post('addProductCar',_item).then((res) => {
                         
                             if(res){  
                                 let currentIdx;
-                               let isHas = this.carlist.some((commend,cIdx) => {
+                                let isHas = this.carlist.some((commend,cIdx) => {
                                    currentIdx = cIdx;
                                     return commend.product_id == _item.product_id && commend.spec == _item.spec;
                                 })
@@ -67,7 +67,17 @@
                             }
                         })
                     }else{
-                        this.$store.commit('addCar',item);   
+                        let currentIdx;
+                        let isHas = this.carlist.some((commend,cIdx) => {
+                            currentIdx = cIdx;
+                            return commend.product_id == _item.product_id && commend.spec == _item.spec;
+                        })
+                        if(isHas){
+                            this.carlist[currentIdx].qty ++ ;
+                        }else{
+                            this.carlist.push(_item);
+                            this.$store.commit('addCar',item);   
+                        }
                         this.$store.commit('updateCarLen',1); 
 
                     }
