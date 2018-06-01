@@ -76,13 +76,17 @@
                     http.post('update',userdata).then((res) =>{ 
                         console.log(res)
                         if(res.status){
-                            // if(this.pwd == userdata.newpassword){
-                            //     $(".t1").show().delay(3000).hide(0);
-                            //      router.push({name:'users'});  
-                            // } else{
 
-                            //     $(".t2").show().delay(3000).hide(0);
-                            // }
+                            if(this.pwd == userdata.newpassword){
+
+                                $(".t1").show().delay(2000).hide(0);
+                                    setTimeout(function(){
+                                        router.push({name:'users'})
+                                    },1000)
+                            }else{
+                                 $(".t2").show().delay(3000).hide(0);
+                                 return;
+                            }
                         }
                     }) 
                 }

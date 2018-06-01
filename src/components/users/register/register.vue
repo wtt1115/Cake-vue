@@ -23,8 +23,8 @@
                         <input type="password" placeholder="确认密码"v-model="pwd"/>
                     </li>
                     <li>
-                        <input type="text" placeholder="请输入图片字符" id="code_input" v-model="yzm"/>
-                        <h1 id="v_container" class="codes"></h1>
+                        <input type="text" placeholder="请输入图片字符" id="code_input" v-model="code_input"/>
+                        <h1 id="v_container" class="codes" v-model="v_container"></h1>
                     </li>
                     <li>
                         <input type="text" placeholder="请选择生日" id="demo1" />
@@ -57,8 +57,10 @@ import router from '../../../router/router.js'
                 errot:'',
                 pwd:'',
                 showl:false,
-                yzm:'' 
-          
+                yzm:'' ,
+               v_container:'',
+                code_input:'',
+                 verifyCode:{}
                 }  
         },
         mounted(){
@@ -79,6 +81,10 @@ import router from '../../../router/router.js'
               document.getElementById('btn').onclick=()=>{
               
                 var rest = verifyCode.validate(document.getElementById("code_input").value);
+                console.log('hah'+rest)
+                  console.log('我的'+verifyCode)
+                  // console.log( this.verifyCode)
+
 
                   let reg = /^1[34578]\d{9}$/;
                 if(!reg.test(this.data.username)){
@@ -98,6 +104,12 @@ import router from '../../../router/router.js'
                     this.errot = '请输入相同的密码！';
                     return false;
                 }
+                if(this.pwd !== this.data.password){
+                    this.show = true;
+                    this.errot = '请输入相同的密码！';
+                    return false;
+                }
+               
                  http.post('register',this.data).then((res)=>{
                         console.log(res)
                         if(res.status){
@@ -108,9 +120,12 @@ import router from '../../../router/router.js'
                             this.errot = '用户已存在';
                             return false;
                         }
+                
                 })
 
               }
+
+                 9
         }
     }
     

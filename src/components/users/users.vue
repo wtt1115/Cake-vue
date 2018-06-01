@@ -46,14 +46,14 @@
                         </b>
                     </router-link>
                 </li>
-               <li>
-                <router-link to="/address">
+               <li @click="dizhi">
+             
                     <span>
                         <i class="fa fa-truck"></i>地址管理
                     </span>
                    
                         <b class="fa fa-angle-right"></b>
-                    </router-link>
+              
                </li>
                 <li>
                     <span>
@@ -114,12 +114,18 @@ import router from '../../router/router.js'
         components: {
            footComponent
         },
+        methods:{
+            dizhi(){
+                this.$router.push({name:'address',query:{type:'users'}})
+            }
+        },
         mounted(){
-            let username = window.localStorage.getItem('username');
+         
             http.post('getStatus',{}).then((res) =>{
-                if(res.status && username){
+                if(res.status ){
+                    let username = window.localStorage.getItem('username');
                     console.log(res)
-                     this.username = username;
+                    this.username = username;
                     this.show = false;
                     this.showname = true;
                 } 

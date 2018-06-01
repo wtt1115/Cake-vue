@@ -80,9 +80,17 @@
                     http.post('update',this.data).then((res) =>{ 
                         console.log(res)
                         if(res.status){
-                                $(".t1").show().delay(3000).hide(0);
+                                $(".t1").show().delay(2000).hide(0);
+                                setTimeout(function(){
+
                                 router.push({name:'users'})
-                                  console.log($(".t1").display)
+
+                                },1000)
+                              
+
+                                
+                                // router.push({name:'users'})
+                                //   console.log($(".t1").display)
                                 // if($(".t1").display == 'none'){
                                 // }
                                
