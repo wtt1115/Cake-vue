@@ -50,9 +50,9 @@
                 // 将关键字发送给列表页
                 this.$router.push({name:'list',query:{keyWord}});
             },
-            // 封一个跳转到首页的函数
+            // 封一个退回路由的函数
             toIndex(){
-                this.$router.push('/');
+                this.$router.go(-1);
             },
             // 封一个获取关键字的函数
             getText(e){

@@ -14,7 +14,7 @@
         <header class="index-header">
             <ul class="header-ul">
                 <li>
-                    <img src="http://10.3.133.250:88/logo.png" />
+                    <img src="http://192.168.0.114:88/logo.png" />
                 </li>
                 <li>
                     <i class="fa fa-search fdj" aria-hidden="true"></i>
@@ -44,7 +44,7 @@
                         <span>{{obj.name}}</span>
                     </li>
                 </ul>
-                <ul class="wrap-nav">
+                <ul class="wrap-nav" @click="toClassify">
                     <li v-for="(obj,idx) in navData" :key="idx">
                         <img :src="obj.img_url" />
                         <span>{{obj.name}}</span>
@@ -103,7 +103,7 @@
                         </span>
                     </div>
                     <ul class="swiper-wrapper manazine-box">
-                        <li class="swiper-slide" v-for="(item,index) in obj.data" :key="index">
+                        <li class="swiper-slide" v-for="(item,index) in obj.data" :key="index" @click="toCommunity">
                             <img v-if="item.img_url" :src="item.img_url" />
                             <p class="manazine-info">{{item.name}}</p>
                         </li>
@@ -315,6 +315,10 @@
             // 跳转到分类组件
             toClassify(){
                 this.$router.push('/classfiy');
+            },
+            // 跳转到社区组件
+            toCommunity(){
+                this.$router.push('/community');
             }
         }
     }
