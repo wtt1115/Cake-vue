@@ -49,7 +49,7 @@
                 <div class="look">
                     <ul class="Look">
                         <li>
-                            <img src="http://10.3.133.250:88/cake1.jpg" />
+                            <img src="http://192.168.0.114:88/cake1.jpg" />
                             <p>The Moon Cake</p>
                             <p>中秋坚果芝士慕斯</p>
                             <span>￥268.00/1.0磅</span>
@@ -57,7 +57,7 @@
                             <h2>敬请期待</h2>
                         </li>
                         <li>
-                            <img src="http://10.3.133.250:88/cake39.jpg" />
+                            <img src="http://192.168.0.114:88/cake39.jpg" />
                             <p>Birthday Cake</p>
                             <p>21cake生日奶油蛋糕</p>
                             <span>￥498.00/0.5磅</span>
@@ -90,7 +90,7 @@
                 </li>
             </ul>
             <div class="content-img">
-                <img src="http://10.3.133.250:88/f-tips.jpg"/>
+                <img src="http://192.168.0.114:88/f-tips.jpg"/>
             </div>
             <p class="product-spec">商品规格</p>
             <ul class="spec-text">
@@ -223,7 +223,7 @@
                 }
 
                 http.post('addProductCar',dataCar).then((res) =>{
-                    console.log(res)
+                    
                     if(res){
                         $('.pop').show().delay(2000).hide(0);
                         this.text = '加入购物车成功';
