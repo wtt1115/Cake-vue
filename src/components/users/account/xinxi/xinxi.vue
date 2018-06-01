@@ -87,13 +87,6 @@
 
                                 },1000)
                               
-
-                                
-                                // router.push({name:'users'})
-                                //   console.log($(".t1").display)
-                                // if($(".t1").display == 'none'){
-                                // }
-                               
                         }
                   
                     }) 

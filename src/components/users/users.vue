@@ -53,7 +53,6 @@
                     </span>
                    
                         <b class="fa fa-angle-right"></b>
-              
                </li>
                 <li>
                     <span>
@@ -93,7 +92,6 @@
         </div>
         <div class="b_main">
             <p>客服电话400 650 2121 <i class="fa fa-tty"></i></p>
-        <!--  <p class="tui"  @click="tuc" v-show="showname">退出账号</p> -->
         </div>
         <footComponent></footComponent>
     </div>

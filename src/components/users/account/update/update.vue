@@ -20,15 +20,11 @@
                 <li> 
                     <label class="label">新密码</label>
                         <input type="password" placeholder="输入新密码" v-model="data.newpassword"/>
-                     
                 </li>
                 <li> 
                     <label class="label">再次输入</label>
                         <input type="password" placeholder="再次输入新密码" v-model="pwd"/>
                 </li>
-                <!-- <li> 
-                       <span  v-text="errot" v-show="show" calss="fa fa-info-circle"></span>
-                </li> -->
             </ul>
             <div class="t1">
                 <p>修改成功</p>
@@ -76,9 +72,7 @@
                     http.post('update',userdata).then((res) =>{ 
                         console.log(res)
                         if(res.status){
-
                             if(this.pwd == userdata.newpassword){
-
                                 $(".t1").show().delay(2000).hide(0);
                                     setTimeout(function(){
                                         router.push({name:'users'})

@@ -85,7 +85,6 @@ import router from '../../../router/router.js'
                   console.log('我的'+verifyCode)
                   // console.log( this.verifyCode)
 
-
                   let reg = /^1[34578]\d{9}$/;
                 if(!reg.test(this.data.username)){
                     this.show = true;
@@ -120,12 +119,8 @@ import router from '../../../router/router.js'
                             this.errot = '用户已存在';
                             return false;
                         }
-                
                 })
-
               }
-
-                 9
         }
     }
     
