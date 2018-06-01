@@ -14,7 +14,6 @@ module.exports = {
             let _id = req.body._id;
 
             let result = await db.delete('productsCake',{_id:new ObjectId(_id)})
-            console.log(result)
             if(result.status){
                  res.send(apiResult(true))
             }else{
@@ -22,7 +21,7 @@ module.exports = {
             }
            
         });
-        // //修改后台页面商品
+         //修改后台页面商品
         app.post('/editpro',async (req,res)=>{
             let id = req.body.id;
             let name = req.body.name;
@@ -33,7 +32,6 @@ module.exports = {
             let type = req.body.type;
 
             let result = await db.update('productsCake',{_id:new ObjectId(id)},{name,en_name,price,spec,img_url,type})
-            console.log(result)
             if(result.status){
                 res.send(apiResult(true))
             }else{

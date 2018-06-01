@@ -51,7 +51,7 @@
                         <input type="text" v-model="editDetail.spec" name="spec" value="" placeholder="规格" /><br />
                         <input type="text" v-model="editDetail.img_url" name="img_url" value="" placeholder="图片" /><br />
                         <input type="text" v-model="editDetail.type" name="type" value="" placeholder="类型" /><br />
-                        <button @click="update" class="edit" >更新</button>
+                        <button @click="update" class="edit update" >更新</button>
                         <button @click="editlist=false" class="delete">取消</button>
                     </div>
                 </div>
@@ -61,8 +61,15 @@
               <p>全屏可按ESC键退出</p>
             </div>
             <!-- 分页 -->
-            <div>
-                
+            <div class="w-paging">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
             </div>
         </div>
         
@@ -70,6 +77,7 @@
 <script type="text/javascript">
 import '../../css/server.css'
 import http from '../../../utils/httpclient.js'
+import $ from 'jquery'
     export default{
         data(){
             return {
@@ -91,7 +99,7 @@ import http from '../../../utils/httpclient.js'
             deletelist(_id) {
                 console.log(_id)
                 // this.dataset.splice(i, 1);
-                //这边可以传id给服务端进行删除  ID = id
+                //这边可以传id给服务端进行删除 这个_id是从数据库传过来的，应用到此处
                 http.post('delPro',{_id}).then((res) =>{
                        
                        if(res.status){
@@ -108,7 +116,7 @@ import http from '../../../utils/httpclient.js'
             edit(item) {
             //     console.log(item)
                 this.editDetail = {
-                    // _id 数据库id
+                    // id 任意定义    _id 数据库id
                     id:item._id,
                     name: item.name,
                     en_name: item.en_name,
@@ -117,8 +125,9 @@ import http from '../../../utils/httpclient.js'
                     img_url: item.img_url,
                     type: item.type,
                 }
-                this.editlist = true
-                // this.editid = item.id
+                this.editlist = true;
+                $('#mask').show()
+
                 
              },
              //确认更新
@@ -132,7 +141,8 @@ import http from '../../../utils/httpclient.js'
                        }else{
                             alert('修改不成功')
                        }         
-                })
+                });
+                $('#mask').hide()
                
                 
             }
