@@ -83,7 +83,7 @@ import router from '../../../router/router.js'
                     if(res.status){
                          window.localStorage.setItem('token',res.data.token);
                         window.localStorage.setItem('username',res.data.username);
-                       
+                       this.$store.commit('setCarlistLen')
                         router.push({name:'users'});
                     } else {
                         this.show = true

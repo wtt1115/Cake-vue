@@ -114,7 +114,7 @@ import router from '../../router/router.js'
         },
         methods:{
             dizhi(){
-                this.$router.push({name:'address',query:{type:'users'}})
+                this.$router.push({name:'address'})
             }
         },
         mounted(){

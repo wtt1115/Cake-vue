@@ -126,37 +126,39 @@ module.exports = {
         app.post('/upProductqty',async (req,res) =>{
 
             let username = req.body.username;
-
+            
             let product_id = Number(req.body.product_id);
+            let spec = req.body.spec;
 
 
             let type = req.body.type || '';
             
             let resultuser = await db.select('productCar',{username})
-            // console.log(resultuser)
+            console.log(resultuser)
             let qty;
 
             if(resultuser.status){
 
                 resultuser.data.map(async (item) =>{
               
-                    if(item.product_id == product_id){
+                    if(item.product_id == product_id && item.spec == spec){
 
                         if(type == "+"){
                             qty = Number(item.qty) + 1;
+                            spec = item.spec;
+                            let result = await db.update('productCar',{username,product_id,spec},{qty})
 
-                            let result = await db.update('productCar',{product_id},{qty})
                             res.send(result.status);
 
                         } else if(type == "-"){
                             qty = Number(item.qty) - 1;
 
-                            let result = await db.update('productCar',{product_id},{qty})
+                            let result = await db.update('productCar',{username,product_id,spec},{qty})
                             res.send(result.status);
 
                         }else if(type == "="){
                             qty = Number(item.qty);
-                            let result = await db.update('productCar',{product_id,qty},{qty})
+                            let result = await db.update('productCar',{username,product_id,spec},{qty})
                             console.log(result)
                             res.send(result.status);
                         }

@@ -6,7 +6,7 @@
                 <input type="button" value="搜索" class="w-search"/>
             </div>
             <!-- 表格 -->
-            <table>
+            <table >
                 <thead>
                     <tr>
                         <th>名称</th>
@@ -18,7 +18,7 @@
                         <th>操作</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     <tr v-for="(obj,idx) in dataset">
                         <td>{{obj.name}}</td>
                         <td>{{obj.en_name}}</td>
@@ -61,16 +61,18 @@
               <p>全屏可按ESC键退出</p>
             </div>
             <!-- 分页 -->
-            <div class="w-paging">
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
-                <span>6</span>
-                <span>7</span>
-                <span>8</span>
-            </div>
+            <div class="w-paging" id="demoContent">
+                <ul id="ul">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                    <li>6</li>
+                    <li>7</li>
+                    <li>8</li>
+                </ul>
+            </div> 
         </div>
         
 </template>
@@ -78,6 +80,8 @@
 import '../../css/server.css'
 import http from '../../../utils/httpclient.js'
 import $ from 'jquery'
+import '../../libs/fenye/js/pagination.js'
+
     export default{
         data(){
             return {
@@ -90,9 +94,36 @@ import $ from 'jquery'
         },
          mounted(){
             http.post("getProduct",{}).then(res=>{
-                console.log(res)
                 this.dataset = res.data;
+
+                //分页
+            var dataArr = this.dataset;
+           
+            var page1 = dataArr.slice(0,10);
+            var page2 = dataArr.slice(11,20);
+            var page3 = dataArr.slice(21,30);
+            var page4 = dataArr.slice(31,40);
+            var page5 = dataArr.slice(41,50);
+            var page6 = dataArr.slice(51,60);
+            var page7 = dataArr.slice(61,70);
+            var page8 = dataArr.slice(71,77);
+
+            var ul = document.getElementById("ul");
+            var li = ul.children;
+            for(var i=0;i<li.length;i++){
+                li[i].onclick = function(){
+                    console.log(66)
+                }
+
+            }
+
+
+            
             })
+            
+
+            
+            
         },
         methods:{
             //删除
@@ -148,4 +179,5 @@ import $ from 'jquery'
             }
         }
     }
+    
 </script>

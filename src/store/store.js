@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import http from '../utils/httpclient'
+import { log } from 'util';
 Vue.use(Vuex)
 const state = {
     carListLen : 0,
@@ -137,6 +138,13 @@ const mutations = {
                 // 获取购物车的数据
                 // ajax
                 let carlist;
+                nativeCarlist.forEach((nativeItem,idx) => {
+                    nativeItem.username = userName
+                    http.post('addProductCar',nativeItem).then((res) => {
+                        console.log(res);
+                        
+                    })
+                })
                 http.post('getProductCar',{
                     username : userName
                 }).then((res) => {
@@ -145,15 +153,11 @@ const mutations = {
                         carlist = res.data
                         let totalQty = 0;
 
-                        nativeCarlist.forEach((nativeItem,idx) => {
-                            totalQty += nativeItem.qty;
-                            
-                        })
                         carlist.forEach((carItem) => {
                             totalQty += carItem.qty;
                         })
                         state.carListLen = totalQty;
-                        // window.localStorage.removeItem('nativeCarlist')
+                        
                     }
                 })
                 
@@ -175,10 +179,13 @@ const mutations = {
                 })
             }
         }
+        window.localStorage.setItem('nativeCarlist','')
     },
     updateCarLen(state,qty){
+        
         state.carListLen += qty;
-    }
+    },
+
 }
 
 const store = new Vuex.Store({

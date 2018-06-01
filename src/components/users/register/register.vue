@@ -81,6 +81,7 @@ import router from '../../../router/router.js'
               document.getElementById('btn').onclick=()=>{
               
                 var rest = verifyCode.validate(document.getElementById("code_input").value);
+
                 console.log('hah'+rest)
                   console.log('我的'+verifyCode)
                   // console.log( this.verifyCode)
@@ -119,6 +120,7 @@ import router from '../../../router/router.js'
                             this.errot = '用户已存在';
                             return false;
                         }
+                
                 })
               }
         }
