@@ -4,6 +4,7 @@
             <div class="w-sousuo">
                 <input type="text" class="w-input"/>
                 <input type="button" value="搜索" class="w-search"/>
+                <input @click="add" class="w-search add" value="新增">
             </div>
             <!-- 表格 -->
             <table >
@@ -60,6 +61,28 @@
             <div class="w-tuichu">
               <p>全屏可按ESC键退出</p>
             </div>
+            <!-- 新增 -->
+             
+            <div id="mask" v-if="editlist">
+                <div class="mask">
+                    <div class="title">
+                        <span class="title-head">新增</span>
+                        <span @click="editlist=false" class="guanbi">
+                            X
+                        </span>
+                    </div>
+                    <div class="content">
+                        <input type="text" v-model="editDetail.name" name="name" value="" placeholder="名称" /><br />
+                        <input type="text" v-model="editDetail.en_name" name="en_name" value="" placeholder="描述" /><br />
+                        <input type="text" v-model="editDetail.price" name="price" value="" placeholder="价格" /><br />
+                        <input type="text" v-model="editDetail.spec" name="spec" value="" placeholder="规格" /><br />
+                        <input type="text" v-model="editDetail.img_url" name="img_url" value="" placeholder="图片" /><br />
+                        <input type="text" v-model="editDetail.type" name="type" value="" placeholder="类型" /><br />
+                        <button @click="update1" class="edit update" >更新</button>
+                        <button @click="editlist=false" class="delete">取消</button>
+                    </div>
+                </div>
+            </div>
             <!-- 分页 -->
             <div class="w-paging" id="demoContent">
                 <ul id="ul">
@@ -97,25 +120,19 @@ import '../../libs/fenye/js/pagination.js'
                 this.dataset = res.data;
 
                 //分页
-            var dataArr = this.dataset;
-           
-            var page1 = dataArr.slice(0,10);
-            var page2 = dataArr.slice(11,20);
-            var page3 = dataArr.slice(21,30);
-            var page4 = dataArr.slice(31,40);
-            var page5 = dataArr.slice(41,50);
-            var page6 = dataArr.slice(51,60);
-            var page7 = dataArr.slice(61,70);
-            var page8 = dataArr.slice(71,77);
+                var dataArr = this.dataset;
+               
+                var page1 = dataArr.slice(0,15);
+                var page2 = dataArr.slice(16,31);
+                var page3 = dataArr.slice(32,47);
+                var page4 = dataArr.slice(48,63);
+                var page5 = dataArr.slice(64,77);
 
-            var ul = document.getElementById("ul");
-            var li = ul.children;
-            for(var i=0;i<li.length;i++){
-                li[i].onclick = function(){
-                    console.log(66)
+                var ul = document.getElementById("ul");
+                var li = ul.children;
+                li[1].onclick = function(){
+
                 }
-
-            }
 
 
             
@@ -126,6 +143,7 @@ import '../../libs/fenye/js/pagination.js'
             
         },
         methods:{
+
             //删除
             deletelist(_id) {
                 console.log(_id)
@@ -161,7 +179,29 @@ import '../../libs/fenye/js/pagination.js'
 
                 
              },
-             //确认更新
+             //新增
+             add(){
+                this.editlist = true;
+                
+               
+             },
+             //新增确认更新
+             update1(){
+                console.log(666)
+                console.log(this.editDetail)
+                http.post("addProduct",this.editDetail).then((res)=>{
+                     // if(res.status){
+                     //        alert('新增成功')
+                     //        http.post("getProduct",{}).then(res=>{
+                     //            this.dataset = res.data;
+                     //        })
+                     //   }else{
+                     //        alert('新增不成功')
+                     //   }         
+                });
+                $('#mask').hide()
+             },
+             //编辑确认更新
             update() {
                 http.post("editpro",this.editDetail).then((res)=>{
                      if(res.status){

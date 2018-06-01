@@ -5,7 +5,23 @@ const ObjectId = require('mongodb').ObjectId;
 module.exports = {
     edit(app){
         //插入商品
-        app.post('/addProduct',async (req,res) =>{
+        app.post('/addProduct',async (req,res) =>{  
+            console.log(req.body)
+
+            let img_url = req.body.img_url;           
+            let name = req.body.name;
+            let en_name = req.body.en_name;
+            let spec = req.body.spec;
+            let price = req.body.price;
+            let type = req.body.type;
+
+            let result = await db.insert('productCar',{img_url,name,en_name,price,spec,type})
+                    console.log(result)
+                    if(result.status){
+                        res.send(apiResult(true))
+                    } else {
+                        res.send(apiResult(false))
+                    }
 
         });
         //删除后台页面商品

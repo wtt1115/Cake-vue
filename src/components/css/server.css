@@ -66,6 +66,10 @@ table tbody td span{
 .delete{
     background-color: red;
 }
+.add{
+    text-align: center;
+    background-color: skyblue;
+}
 /*.w-tupian{
      text-align: center;
 }*/
@@ -137,7 +141,8 @@ table tbody td span{
 }
 /*分页*/
 .w-paging{
-    
+    margin-top: 10px;
+    margin-right: 10px;
     position:absolute;
     top: 0;
     right: 0;
