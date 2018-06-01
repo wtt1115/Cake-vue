@@ -175,7 +175,9 @@ export default {
         });
 
         http.post('getaddress',{username:username,type:'default'}).then((res) => {
+            console.log(res);
             if(res.status){
+                
                 this.templateAddress = res.data[0];
             }
              

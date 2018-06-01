@@ -54,21 +54,23 @@
                 margin-top:0.133333rem;
                 .product-img{
                     height:1.6rem;
-                    width:40%;
+                    width:30%;
                     img{
                         width:100%;
                         height:100%;
                     }
                 }
                 .product-info{
+                    flex:1;
                     padding:0.133333rem 0 0 0.133333rem;
                     p{
                         line-height:0.4rem;
                     }
                     .info-en_name{
-                        font-size:0.293333rem;
+                        font-size:0.266667rem;
                         font-weight:bold;
                         font-family: Helvetica;
+                        @extend %color;
                     }
                     .info-name{
                         font-size:0.24rem;
