@@ -126,7 +126,7 @@ module.exports = {
         app.post('/upProductqty',async (req,res) =>{
 
             let username = req.body.username;
-
+            
             let product_id = Number(req.body.product_id);
             let spec = req.body.spec;
 
