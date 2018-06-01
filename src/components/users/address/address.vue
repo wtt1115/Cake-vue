@@ -30,6 +30,9 @@
                     </ul>
                 </div>
             </div>
+            <div class="pop">
+                {{text}}
+            </div>
             <div class="Sfoot">
                 <button @click="Xsite()">添加新地址</button>
             </div>
@@ -45,7 +48,8 @@
     export default{
         data(){
             return {
-                address:[]
+                address:[],
+                text:''
             }
         },
         components: {
@@ -60,7 +64,18 @@
             delsite(item){
                 let _id = item._id
                 http.post('delsite',{_id}).then((res) =>{
-                    console.log(res);
+                    if(res.status){
+                        $('.pop').show().delay(2000).hide(0);
+                        this.text = '删除成功';
+
+                        let username = window.localStorage.getItem('username');
+
+                        http.post('getaddress',{username}).then((res) =>{
+                        
+                            this.address = res.data
+
+                        })
+                    }
                 })
             }
         },
@@ -72,7 +87,6 @@
             
                 this.address = res.data
 
-                console.log(this.address)
             })
         }
         ,

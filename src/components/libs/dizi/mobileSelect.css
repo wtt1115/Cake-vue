@@ -33,6 +33,7 @@
   transition: all 0.4s;
   bottom: -350px;
   left: 0;
+  margin: 0;
   background: white;
 }
 .mobileSelect .content .fixWidth {

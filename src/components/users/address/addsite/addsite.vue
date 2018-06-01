@@ -16,7 +16,7 @@
                 </ul>
                 <div class="Mdefault">
                     设为默认
-                    <i :class="{'i':isSelected}" @click="type()"></i>
+                    <i :class="{'i':isSelected == 'true'}" @click="type()"></i>
                 </div>
             </div>
             <div class="Sfoot">
@@ -41,7 +41,7 @@
                 receiver:'',
                 recephone:'',
                 minute:'',
-                isSelected:false,
+                isSelected:'false',
                 text:'',
                 btncount:'添加'
             }
@@ -127,7 +127,11 @@
                 }
             },
             type(){
-                this.isSelected = !this.isSelected;
+                if(this.isSelected == 'false'){
+                    this.isSelected = 'true'
+                } else {
+                    this.isSelected = 'false'
+                }
             }
         },
         mounted(){
