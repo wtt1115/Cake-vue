@@ -2094,7 +2094,7 @@ var GridManager = function () {
 			_Scroll2.default.init($table);
 
 			// 绑定右键菜单事件
-			// _Menu2.default.bindRightMenuEvent($table);
+			 // _Menu2.default.bindRightMenuEvent($table
 
 			// 渲染tbodyDOM
 			_Core2.default.__refreshGrid($table);
@@ -3446,7 +3446,7 @@ var Order = function () {
 	_createClass(Order, [{
 		key: 'getThString',
 		value: function getThString(settings, thVisible) {
-			return '<th th-name="' + this.key + '" th-visible="' + thVisible + '" gm-order="true" gm-create="true">' + _I18n2.default.i18nText(settings, 'order-text') + '</th>';
+			return '<th  id="shuhao" th-name="' + this.key + '" th-visible="' + thVisible + '" gm-order="true" gm-create="true">' + _I18n2.default.i18nText(settings, 'order-text') + '</th>';
 		}
 
 		/**

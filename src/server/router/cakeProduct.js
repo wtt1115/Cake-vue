@@ -5,9 +5,40 @@ const ObjectId = require('mongodb').ObjectId;
 module.exports = {
     edit(app){
         //插入商品
-        app.post('/addProduct',(req,res) =>{
+        app.post('/addProduct',async (req,res) =>{
 
         });
+        //删除后台页面商品
+        app.post('/delPro',async (req,res)=>{
+
+            let _id = req.body._id;
+
+            let result = await db.delete('productsCake',{_id:new ObjectId(_id)})
+            if(result.status){
+                 res.send(apiResult(true))
+            }else{
+                res.sed(apiResult(false))
+            }
+           
+        });
+         //修改后台页面商品
+        app.post('/editpro',async (req,res)=>{
+            let id = req.body.id;
+            let name = req.body.name;
+            let en_name =req.body.en_name;
+            let price =req.body.price;
+            let spec = req.body.spec;
+            let img_url = req.body.img_url;
+            let type = req.body.type;
+
+            let result = await db.update('productsCake',{_id:new ObjectId(id)},{name,en_name,price,spec,img_url,type})
+            if(result.status){
+                res.send(apiResult(true))
+            }else{
+                res.send(apiResult(false))
+            }
+        });
+
         //有id获取详情页的，没有id则获取全部商品
         app.post('/getProduct',async (req,res) =>{
             if(req.body.id && !req.body.type){
@@ -65,10 +96,12 @@ module.exports = {
         })
         //删除商品
         app.post('/delProduct',async (req,res) =>{
-            let p_id = req.body.id;
-            p_id = Number(p_id);
+            let product_id = req.body.product_id;
+            let username = req.body.username;
+            let spec = req.body.spec;
+            product_id = Number(product_id);
 
-            let result = await db.delete('productCar',{p_id});
+            let result = await db.delete('productCar',{username,product_id,spec});
 
             res.send(result);
         });
@@ -89,47 +122,43 @@ module.exports = {
             res.send(result);
         })
 
-        //修改商品qty/isSelected    
+        //修改商品qty   
         app.post('/upProductqty',async (req,res) =>{
 
             let username = req.body.username;
 
-            let p_id = Number(req.body.id);
+            let product_id = Number(req.body.product_id);
 
-            let isSelected = req.body.ischecked;
-
-            console.log(typeof isSelected);
 
             let type = req.body.type || '';
             
             let resultuser = await db.select('productCar',{username})
-
+            // console.log(resultuser)
             let qty;
 
             if(resultuser.status){
 
                 resultuser.data.map(async (item) =>{
               
-                    if(item.p_id == p_id){
+                    if(item.product_id == product_id){
 
                         if(type == "+"){
                             qty = Number(item.qty) + 1;
 
-                            let result = await db.update('productCar',{p_id},{qty})
+                            let result = await db.update('productCar',{product_id},{qty})
                             res.send(result.status);
 
                         } else if(type == "-"){
                             qty = Number(item.qty) - 1;
 
-                            let result = await db.update('productCar',{p_id},{qty})
+                            let result = await db.update('productCar',{product_id},{qty})
                             res.send(result.status);
 
-                        } else if(typeof isSelected == "string"){
-
-                           let result = await db.update('productCar',{p_id},{isSelected})
-                            
+                        }else if(type == "="){
+                            qty = Number(item.qty);
+                            let result = await db.update('productCar',{product_id,qty},{qty})
+                            console.log(result)
                             res.send(result.status);
-
                         }
                         
                     }
@@ -160,11 +189,11 @@ module.exports = {
             if(result_id.status){
                 let dataQty = result_id.data[0].qty;
                 dataQty = dataQty+ qty;
-                console.log(dataQty,qty);
+                // console.log(dataQty,qty);
                 console.log(username,product_id,spec);
              
 
-                let result = await db.update('productCar',{product_id,spec},{qty:dataQty});
+                let result = await db.update('productCar',{username,product_id,spec},{qty:dataQty});
                 console.log(result)
                 if(result.status){
                     res.send(true);
@@ -201,20 +230,25 @@ module.exports = {
 
             let username = req.body.username;
 
-            let isPay = req.body.isPay;
+            let ispay = req.body.ispay;
 
+            console.log(JSON.parse(req.body.products))
             let products = JSON.parse(req.body.products);
 
             let time = '';
 
-            let totalPrice = req.body.totalPrice;
+            let totalprice = req.body.totalprice;
 
-            let totalNums = req.body.totalNums;
+            let address = req.body.address;
 
-            // 生成订单号
-            let orderNumber = 0;
+            let totalnums = req.body.totalnums;
+
+            let taketime = req.body.taketime;
+            let ordernumber = req.body.ordernumber;
+
+            console.log(ispay,totalprice,totalnums,taketime);
+
             if(username){
-                orderNumber = parseInt(Math.random() * 10000000000);
                 
                 let d = new Date();
 
@@ -234,7 +268,8 @@ module.exports = {
 
             }
 
-            let result = await db.insert('order',{username,orderNumber,isPay,time,totalPrice,totalNums,products});
+            let result = await db.insert('order',{username,ordernumber,ispay,time,totalprice,totalnums,address,taketime,products});
+            console.log(result)
 
             if(result.status){
                 res.send(apiResult(true))
@@ -247,8 +282,15 @@ module.exports = {
         app.post('/getorder',async (req,res) =>{
 
             let username = req.body.username;
+            let ordernumber = req.body.ordernumber;
+            let result;
+            if(ordernumber == undefined){
+                result = await db.select('order',{username});
 
-            let result = await db.select('order',{username});
+            }else{
+                result = await db.select('order',{username,ordernumber});
+            }
+
 
             if(result.status){
                 res.send(result)
@@ -269,17 +311,17 @@ module.exports = {
         //修改订单
         app.post('/alterorder',async (req,res) =>{
 
-            let isPay = req.body.isPay;
-
+            let ispay = req.body.ispay;
+            // 订单的id
             let id = req.body.id;
 
-            if(isPay == 'false'){
+            if(ispay == 'false'){
 
-                isPay = 'true'
+                ispay = 'true'
 
             }
-
-            let result = await db.update('order',{_id:new ObjectId(id)},{isPay})
+            // new ObjectId(id) 数据库的实例化id
+            let result = await db.update('order',{_id:new ObjectId(id)},{ispay})
 
             res.send(apiResult(true));
         })

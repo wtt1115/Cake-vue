@@ -210,6 +210,7 @@
 
 .grid-menu[grid-master] {
   color: #000;
+  background-color: #fff;
   display: none;
   width: 200px;
   max-height: 200px;
@@ -360,7 +361,7 @@ table[grid-manager].GridManager-ready {
     border-radius: 10px;
 }
 .edit{
-    color:#fff;
+    color:#fff !important;
     background-color: green;
 }
 .del{
@@ -698,11 +699,11 @@ table[grid-manager].GridManager-ready {
 }
 
 .table-wrap .table-div table[grid-manager] th[remind] .th-wrap {
-  padding-left: 24px;
+  padding-left: 12px;
 }
 
 .table-wrap .table-div table[grid-manager] th[sorting] .th-wrap {
-  padding-right: 24px;
+  padding-right: 12px;
 }
 
 .table-wrap .table-div table[grid-manager] th[gm-create="true"] {
@@ -715,7 +716,7 @@ table[grid-manager].GridManager-ready {
 
 .table-wrap .table-div table[grid-manager] th .th-wrap {
   /*减去的1px 为border-right. 原因是table元素存在特殊性, thead浮动后border的宽度不会计算到th内,而是会在原基础上将th的宽加1. */
-  width: calc(100% - 1px);
+  width: 100%;
   height: 100%;
   position: relative;
   padding: 6px;
@@ -756,8 +757,8 @@ table[grid-manager].GridManager-ready {
 
 .table-wrap .table-div table[grid-manager] th .th-wrap .remind-action .ra-area {
   display: none;
-  min-width: 150px;
-  max-width: 300px;
+  min-width: 90px;
+  max-width: 100px;
   position: absolute;
   top: 80%;
   left: 80%;
@@ -1083,20 +1084,3 @@ table[grid-manager].GridManager-ready {
   z-index: 9;
 }
 /*# sourceMappingURL=GridManager.css.map*/
-.w-tuichu{
-        display: none;
-        width: 200px;
-        height: 50px;
-        background:#000;
-        opacity:0.3;
-        position:fixed;
-        top: 10px;
-        left: 700px;
-        z-index:100;
-    }
-.w-tuichu p{
-            text-align:center;
-            line-height: 50px;
-            font-size: 14px;
-            color:#fff;
-        }   

@@ -2,6 +2,7 @@
         <div class="serverBhead">
             <div class="w-logo">
                 <img src="http://10.3.133.73:88/cake.png" />
+                <span>后台管理系统</span>
             </div>
             <div class="gongneng1">
                 <ul>
@@ -75,7 +76,7 @@
                 $(".left").hide(500);
                 $(".right").show(500);
                 $(".w-menu").hide(400);
-                $(".w-main").animate({left:'30px'},300)
+                $(".w-main").animate({left:'100px'},300)
              },
              scaling2(){
                 $(".left").show(500);
@@ -86,7 +87,7 @@
              scaling3(){
                 $(".w-head").hide(400);
                 $(".w-menu").hide(400);
-                $(".w-main").animate({left:'30px',top:"30px"},300)
+                $(".w-main").animate({left:'100px',top:"30px"},300)
                 $(".w-tuichu").show();
                 $(".w-tuichu").delay(3000).hide(0);
 
