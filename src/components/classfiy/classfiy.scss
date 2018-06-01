@@ -3,6 +3,7 @@
     height: 100%;
     flex-direction:column;
     overflow:hidden;
+    position:relative;
     .k-header{
         width: 100%;
         .Htop{
@@ -88,7 +89,7 @@
         width: 100%;
         display:flex;
         flex-direction:column;
-        overflow:auto;
+        overflow-x:hidden;
         margin-bottom:30px;
         .k-Tmain{
              .Main{
@@ -201,6 +202,7 @@
         transform:translate(-50%,-50%);
         padding:0.266667rem 0.306667rem;
         display:none;
+        z-index:10000;
         .end{
             position:absolute;
             right: 20px;
@@ -273,6 +275,21 @@
             font-size:0.186667rem;
         }
     }
-
+    .pop{
+        position:absolute;
+        top:36%;
+        left: 50%;
+        transform:translate(-50%,0);
+        width:200px;
+        height: 50px;
+        background-color:#AB825F;
+        color:#fff;
+        opacity:0.7;
+        text-align:center;
+        line-height:0.666667rem;
+        display:none;
+        font-size:0.186667rem;
+        z-index:100000;
+    }
 }
 
