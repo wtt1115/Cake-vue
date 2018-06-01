@@ -14,7 +14,7 @@
         <header class="index-header">
             <ul class="header-ul">
                 <li>
-                    <img src="http://10.3.133.73:88/logo.png" />
+                    <img src="http://10.3.133.250:88/logo.png" />
                 </li>
                 <li>
                     <i class="fa fa-search fdj" aria-hidden="true"></i>

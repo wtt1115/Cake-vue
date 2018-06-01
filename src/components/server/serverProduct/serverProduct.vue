@@ -1,102 +1,151 @@
 <template>
         <div>
-            <vue-grid-manager></vue-grid-manager>
+            <!-- 搜索 -->
+            <div class="w-sousuo">
+                <input type="text" class="w-input"/>
+                <input type="button" value="搜索" class="w-search"/>
+            </div>
+            <!-- 表格 -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>描述</th>
+                        <th>价格</th>
+                        <th>规格</th>
+                        <th>图片</th>
+                        <th>类型</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(obj,idx) in dataset">
+                        <td>{{obj.name}}</td>
+                        <td>{{obj.en_name}}</td>
+                        <td>{{obj.price}}</td>
+                        <td>{{obj.spec}}</td>
+                        <td class="w-tupian">{{obj.img_url}}</td>
+                        <td>{{obj.type}}</td>
+                        <td>
+                           
+                            <span class="edit" @click="edit(obj)">编辑</span>
+                            <span @click="deletelist(obj._id)" class="delete">删除</span>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 编辑、删除 -->
+            <div id="mask" v-if="editlist">
+                <div class="mask">
+                    <div class="title">
+                        <span class="title-head">编辑</span>
+                        <span @click="editlist=false" class="guanbi">
+                            X
+                        </span>
+                    </div>
+                    <div class="content">
+                        <input type="text" v-model="editDetail.name" name="name" value="" placeholder="名称" /><br />
+                        <input type="text" v-model="editDetail.en_name" name="en_name" value="" placeholder="描述" /><br />
+                        <input type="text" v-model="editDetail.price" name="price" value="" placeholder="价格" /><br />
+                        <input type="text" v-model="editDetail.spec" name="spec" value="" placeholder="规格" /><br />
+                        <input type="text" v-model="editDetail.img_url" name="img_url" value="" placeholder="图片" /><br />
+                        <input type="text" v-model="editDetail.type" name="type" value="" placeholder="类型" /><br />
+                        <button @click="update" class="edit update" >更新</button>
+                        <button @click="editlist=false" class="delete">取消</button>
+                    </div>
+                </div>
+            </div>
+            <!-- esc键提示 -->
             <div class="w-tuichu">
               <p>全屏可按ESC键退出</p>
+            </div>
+            <!-- 分页 -->
+            <div class="w-paging">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
             </div>
         </div>
         
 </template>
 <script type="text/javascript">
-import '../../libs/biaoge/GridManager.css'
-import '../../libs/biaoge/GridManager.js'
-// 请求数据渲染表头以及下面的表体
- var colData = [
-        {
-            key: 'name',
-            remind: 'the name',
-            text: '产品名称',
-        },{
-            key: 'en_name',
-            remind: 'the en_name',
-            text: '产品描述'
-        },{
-            key: 'price',
-            remind: 'the price',
-            text: '产品价格'
-        },{
-            key: 'img_url',
-            remind: 'the img_url',
-            text: '产品图片'
-        },{
-            key: 'spec',
-            remind: 'the spec',
-            text: '规格'
-        },{
-            key: 'action',
-            remind: 'the action',
-            width: '90px',
-            text: '操作',
-            template: function(action, rowObject){
-                return '<input type="button" class="plugin-action edit-action edit" learnLink-id="'+rowObject.id+'" value="编辑">'
-                        +'<input type="button" class="plugin-action del-action del" learnLink-id="'+rowObject.id+'" value="删除">';
+import '../../css/server.css'
+import http from '../../../utils/httpclient.js'
+import $ from 'jquery'
+    export default{
+        data(){
+            return {
+                editlist: false,
+                editDetail: {},
+                dataset:[],
+                page:[]
+
             }
-        }];
-
-    var option = {
-        gridManagerName: "testVue",
-        height: "680px",
-        columnData: colData,
-        supportRemind: true,//切换列
-        isCombSorting:  true,
-        supportAjaxPage: true,
-        supportSorting: true,
-        ajax_url: "http://10.3.133.73:88/getProduct",
-        ajax_type: "POST",
-        query: {pluginId: 1},
-        pageSize: 20
-    };
-   
-  
-        // if(document.getElementsByTagName('td').innerHTML == undefined){
-        //     document.getElementsByTagName('td').innerHTML='';
-        // }
-    
-export default{
-
-    mounted(){
-
-            var table = document.querySelector('table[grid-name="' + this.option.gridManagerName + '"]');
-            table.GM(this.option);
-            
-            // console.log(document.getElementsByTagName('td'))
-            var ww = document.querySelectorAll('td');
-            console.log(ww.length)
-            for(var i=0;i<ww.length;i++){
-                console.log(ww[i].innerText);
-            }
-           
-      
-    },
-    data(){
-        return{
-            name: "testVue",
-            option: option
-        }  
-    },
-    components: {
-            'vue-grid-manager': {
-                template: '<table v-bind:grid-name="name"></table>',
-                data: function () {
-                    return {
-                        name: option.gridManagerName
-                    }
+        },
+         mounted(){
+            http.post("getProduct",{}).then(res=>{
+                console.log(res)
+                this.dataset = res.data;
+            })
+        },
+        methods:{
+            //删除
+            deletelist(_id) {
+                console.log(_id)
+                // this.dataset.splice(i, 1);
+                //这边可以传id给服务端进行删除 这个_id是从数据库传过来的，应用到此处
+                http.post('delPro',{_id}).then((res) =>{
+                       
+                       if(res.status){
+                            alert('删除成功')
+                            http.post("getProduct",{}).then(res=>{
+                                this.dataset = res.data;
+                            })
+                       }else{
+                            alert('删除不成功')
+                       }              
+                })
+            },
+            //编辑
+            edit(item) {
+            //     console.log(item)
+                this.editDetail = {
+                    // id 任意定义    _id 数据库id
+                    id:item._id,
+                    name: item.name,
+                    en_name: item.en_name,
+                    price: item.price,
+                    spec: item.spec,
+                    img_url: item.img_url,
+                    type: item.type,
                 }
+                this.editlist = true;
+                $('#mask').show()
+
+                
+             },
+             //确认更新
+            update() {
+                http.post("editpro",this.editDetail).then((res)=>{
+                     if(res.status){
+                            alert('修改成功')
+                            http.post("getProduct",{}).then(res=>{
+                                this.dataset = res.data;
+                            })
+                       }else{
+                            alert('修改不成功')
+                       }         
+                });
+                $('#mask').hide()
+               
+                
             }
+        }
     }
-
-}
-
-
-
 </script>
