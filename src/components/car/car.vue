@@ -124,6 +124,7 @@
             add(idx){
                 let username = window.localStorage.getItem('username');
                 if(idx >= 0){
+                   
                     if(username){
                         this.carlist[idx].qty++;
                         this.carlist[idx].type = "+"
@@ -131,6 +132,8 @@
                         
                          // ajax
                          http.post('upProductqty',this.carlist[idx]).then(res=>{
+                            console.log(res);
+                            
                             if(res){
                                 this.getTotalPrice();
                                 this.$store.commit('updateCarLen',1);
@@ -376,7 +379,6 @@
                     nativeCarlist = [];
                 }
             }
-            // userName = 'admin';
             if(!userName){
                 this.carlist = nativeCarlist;
                 this.carlist.forEach((item,idx) => {

@@ -291,7 +291,6 @@
                             console.log(res);
                             
                             if(res){  
-
                                 this.$store.commit('updateCarLen',1); 
                             }
                         })
