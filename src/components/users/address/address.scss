@@ -5,20 +5,21 @@
     overflow:hidden;
     .Stop{
         width: 100%;
-        border-bottom:1px solid #ddd;
+        border-bottom:0.013333rem solid #ddd;
         .StopUl{
             width: 100%;
             height: 0.6rem;
             display:flex;
             padding:0.133333rem 0;
-            border-bottom:1px solid #FCFCFC;
+            border-bottom:0.013333rem solid #FCFCFC;
+            align-items:center;
             li{
                 width:20%;
                 text-align:center;
                 a{
                     color:#5A4133;
                     i{
-                        font-size:0.293333rem;
+                        font-size:0.32333rem;
                     }
                 } 
             }
@@ -39,7 +40,7 @@
         flex:1;
         width: 100%;
         background-color:#F6F6F6;
-        
+        position:relative;
         .have{
             ul{
                 width: 100%;
@@ -85,8 +86,8 @@
                             right: -0.666667rem;
                             top: 0;
                             display:block;
-                            width: 50px;
-                            height:70px;
+                            width: 0.666667rem;
+                            height:0.933333rem;
                             background-color:#F75448;
                             font-size:0.213333rem;
                             text-align:center;
@@ -97,30 +98,44 @@
                 }
             }
         }
+        .kong{
+            position:absolute;
+            width: 100%;
+            text-align:center;
+            top:30%;
+            color:#939393;
+            i{
+                font-size:0.746667rem;
+                display:block;
+            }
+            span{
+                font-size:0.24rem;
+            }
+        }
         .Msite{
             margin-top:0.036667rem;
-            padding-left:10px;
+            padding-left:0.133333rem;
             background-color:#fff;
             li{
                 width: 100%;
-                height: 50px;
-                line-height:40px;
-                border-bottom:1px solid #F4F4F4;
+                height: 0.666667rem;
+                line-height:0.533333rem;
+                border-bottom:0.013333rem solid #F4F4F4;
                 label{
                     display:inline-block;
-                    width: 50px;
-                    font-size:14px;
+                    width: 0.666667rem;
+                    font-size:0.186667rem;
                     margin-right:0.133333rem;
                 }
                 input{
                     border:none;
-                    width:300px;
-                    color:#D9BFA7;
+                    width:4.0rem;
+                    color:#684029;
                     font-size:0.186667rem;
                 }
                 #trigger4{
                     display:inline-block;
-                    width: 300px;
+                    width: 4.0rem;
                     height: 100%;
                     font-size:0.186667rem;
                     color:#684029;
@@ -138,8 +153,8 @@
             position:relative;
             i{
                 display:block;
-                width: 35px;
-                height: 25px;
+                width: 0.466667rem;
+                height: 0.333333rem;
                 position:absolute;
                 right: 0.2rem;
                 top: 0.186667rem;
@@ -165,17 +180,54 @@
     }
     .pop{
         position:absolute;
-        top:36%;
+        top:35%;
         left: 50%;
         transform:translate(-50%,0);
-        width:200px;
-        height: 50px;
+        width:2.666667rem;
+        height: 0.666667rem;
         background-color:#AB825F;
         color:#fff;
-        opacity:0.7;
+        display:none;
         text-align:center;
         line-height:0.666667rem;
-        display:none;
         font-size:0.186667rem;
+        z-index:100;
+    }
+    .popo{
+        position:absolute;
+        top:35%;
+        left: 50%;
+        transform:translate(-50%,0);
+        width:4.0rem;
+        height:1.6rem;
+        background-color:#FFF;
+        color:#333;
+        text-align:center;
+        line-height:0.666667rem;
+        font-size:0.186667rem;
+        box-shadow: 0 0 0 999px rgba(0,0,0,0.5);
+        z-index:100;
+        display:none;
+        span{
+            display:block;
+            width: 100%;
+            text-align:center;
+            font-size:0.24rem;
+        }
+        em{
+            display:inline-block;
+            width:1.333333rem;
+            height: 0.4rem;
+            line-height:0.4rem;
+        }
+        em:nth-child(2){
+            background-color:#F5F5F5;
+            color:#442818;
+            margin-right:0.266667rem;
+        }
+        em:nth-child(3){
+            background-color:#442818;
+            color:#fff;
+        }
     }
 }
