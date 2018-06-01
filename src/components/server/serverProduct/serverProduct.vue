@@ -2,8 +2,8 @@
         <div>
             <!-- 搜索 -->
             <div class="w-sousuo">
-                <input type="text" class="w-input"/>
-                <input type="button" value="搜索" class="w-search"/>
+                <input type="text" class="w-input" v-model="keyword"/>
+                <input type="button" value="搜索" class="w-search" @click="searchs()"/>
                 <input @click="add" class="w-search add" value="新增">
             </div>
             <!-- 表格 -->
@@ -63,11 +63,11 @@
             </div>
             <!-- 新增 -->
              
-            <div id="mask" v-if="editlist">
+            <div id="mask1" v-if="editlist1">
                 <div class="mask">
                     <div class="title">
                         <span class="title-head">新增</span>
-                        <span @click="editlist=false" class="guanbi">
+                        <span @click="editlist1=false" class="guanbi">
                             X
                         </span>
                     </div>
@@ -79,21 +79,18 @@
                         <input type="text" v-model="editDetail.img_url" name="img_url" value="" placeholder="图片" /><br />
                         <input type="text" v-model="editDetail.type" name="type" value="" placeholder="类型" /><br />
                         <button @click="update1" class="edit update" >更新</button>
-                        <button @click="editlist=false" class="delete">取消</button>
+                        <button @click="editlist1=false" class="delete">取消</button>
                     </div>
                 </div>
             </div>
             <!-- 分页 -->
             <div class="w-paging" id="demoContent">
                 <ul id="ul">
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>6</li>
-                    <li>7</li>
-                    <li>8</li>
+                    <li @click="allshow('1')">1</li>
+                    <li @click="allshow('2')">2</li>
+                    <li @click="allshow('3')">3</li>
+                    <li @click="allshow('4')">4</li>
+                    <li @click="allshow('5')">5</li>
                 </ul>
             </div> 
         </div>
@@ -109,24 +106,31 @@ import '../../libs/fenye/js/pagination.js'
         data(){
             return {
                 editlist: false,
+                editlist1: false,
                 editDetail: {},
                 dataset:[],
-                page:[]
+                alldata:[],
+                page1:[],
+                page2:[],
+                page3:[],
+                page4:[],
+                page5:[],
+                keyword:''
 
             }
         },
          mounted(){
             http.post("getProduct",{}).then(res=>{
                 this.dataset = res.data;
-
+                this.alldata = res.data;
                 //分页
                 var dataArr = this.dataset;
                
-                var page1 = dataArr.slice(0,15);
-                var page2 = dataArr.slice(16,31);
-                var page3 = dataArr.slice(32,47);
-                var page4 = dataArr.slice(48,63);
-                var page5 = dataArr.slice(64,77);
+                this.page1 = dataArr.slice(0,15);
+                this.page2 = dataArr.slice(16,31);
+                this.page3 = dataArr.slice(32,47);
+                this.page4 = dataArr.slice(48,63);
+                this.page5 = dataArr.slice(64,77);
 
                 var ul = document.getElementById("ul");
                 var li = ul.children;
@@ -175,37 +179,41 @@ import '../../libs/fenye/js/pagination.js'
                     type: item.type,
                 }
                 this.editlist = true;
-                $('#mask').show()
+                
 
                 
              },
              //新增
              add(){
-                this.editlist = true;
+                this.editDetail = {}
+                this.editlist1 = true;
                 
                
              },
              //新增确认更新
              update1(){
-                console.log(666)
-                console.log(this.editDetail)
+                
                 http.post("addProduct",this.editDetail).then((res)=>{
-                     // if(res.status){
-                     //        alert('新增成功')
-                     //        http.post("getProduct",{}).then(res=>{
-                     //            this.dataset = res.data;
-                     //        })
-                     //   }else{
-                     //        alert('新增不成功')
-                     //   }         
+                   
+                     if(res.status){
+                            alert('新增成功')
+                            this.editlist1 = false;
+                            http.post("getProduct",{}).then(res=>{
+                                this.dataset = res.data;
+                            })
+                       }else{
+                            alert('新增不成功')
+                       }         
                 });
-                $('#mask').hide()
+                // $('#mask').hide()
+                
              },
              //编辑确认更新
             update() {
                 http.post("editpro",this.editDetail).then((res)=>{
                      if(res.status){
                             alert('修改成功')
+                            this.editlist = false;
                             http.post("getProduct",{}).then(res=>{
                                 this.dataset = res.data;
                             })
@@ -213,9 +221,35 @@ import '../../libs/fenye/js/pagination.js'
                             alert('修改不成功')
                        }         
                 });
-                $('#mask').hide()
+                
                
                 
+            },
+            allshow(i){
+
+                if(i == '1'){
+                   this.dataset = this.page1;
+                }else if(i == '2'){
+                    this.dataset = this.page2;
+                }else if(i == '3'){
+                    this.dataset = this.page3;
+                }else if(i == '4'){
+                    this.dataset = this.page4;
+                }else if(i == '5'){
+                    this.dataset = this.page5;
+                }
+            },
+            searchs(){
+                if(this.keyword == ''){
+                    alert('搜索框不能为空')
+                }
+                http.post('searchProduct',{keyword:this.keyword}).then((res)=>{
+                    
+                    if(res.status){
+                        
+                        this.dataset = res.data;
+                    }
+                })
             }
         }
     }

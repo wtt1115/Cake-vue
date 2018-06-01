@@ -8,6 +8,7 @@
             </div>
             <div class="w-main">
                 <router-view></router-view>
+                <user></user>
             </div>
        
             
@@ -18,6 +19,7 @@
     import './serverBackground.scss'
     import hd from '../serverBhead/serverBhead.vue'
     import mn from '../serverBleft/serverBleft.vue'
+    import user from'../serverUser/serverUser.vue'
    
 
 
@@ -25,6 +27,7 @@
          components:{
             hd,
             mn,
+            user
             
         },
        
