@@ -112,9 +112,9 @@
                             <li>商品总数:<span>{{obj.totalnums}} 件</span></li>
                             <li>实付金额:<span>{{obj.totalprice}} 元</span></li>
                         </ul>
-                        <ul class="footer-right" v-if="obj.ispay == 'false'">
+                        <ul class="footer-right" >
                             <li @click="deleteOrder({id:obj._id})" ><span>取消订单</span></li>
-                            <li @click="finishOrder({id:obj._id,ispay:obj.ispay})" ><span>完成订单</span></li>
+                            <li @click="finishOrder({id:obj._id,ispay:obj.ispay})" v-if="obj.ispay == 'false'"><span>完成订单</span></li>
                         </ul>
                     </div>
                 </div>
@@ -183,7 +183,8 @@
                 // 已完成订单数据
                 let finish = [];
 
-                http.post('getorder',{username:'admin'}).then(res=>{
+                http.post('getorder',{username}).then(res=>{
+                    console.log(res)
                     if(res.status){
                         for(var i =0;i<res.data.length;i++){
                             if(res.data[i].ispay == 'false'){
@@ -204,7 +205,7 @@
                     }else{
                         this.unfinishOrderData = [];
                         this.finishedOrderData = [];
-                        this.allOrderData = []
+                        this.allOrderData = [];
                     }
                 })
             },
@@ -220,7 +221,7 @@
                             // 调用后台修改订单
                             http.post('alterorder',options).then(res=>{
                                 if(res.status){
-                                    this.getOrderData(this.username);
+                                    this.getOrderData(this.userName);
                                     this.showSlider = false;
                                     slider.reset();
                                 }else{
@@ -256,7 +257,7 @@
                     http.post('delorder',this.deleteId).then(res=>{
                         if(res.status){
                             this.showMasked = false;
-                            this.getOrderData(this.username);
+                            this.getOrderData(this.userName);
                         }else{
                             this.showMasked = false;
                         }

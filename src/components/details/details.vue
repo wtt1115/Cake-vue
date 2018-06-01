@@ -73,7 +73,7 @@
             <div class="masked-content">
                 <p class="content-price">￥{{this.defaultPrice}}</p>
                 <div class="content-img">
-                    <img src="http://10.3.133.73:88/f-tips.jpg"/>
+                    <img src="http://10.3.133.250:88/f-tips.jpg"/>
                     <ul class="content-options">
                         <li v-for="(obj,idx) in paramsData">
                             <i :class="obj.icon" aria-hidden="true"></i> 
