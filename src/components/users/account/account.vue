@@ -14,7 +14,6 @@
     <div class="box2">
       <ul class="big" >
         <li >
- <!--        @click="$router.push({path:'/account/xinxi'})  -->
           <router-link to="/xinxi"> 
             <span>
               我的信息
