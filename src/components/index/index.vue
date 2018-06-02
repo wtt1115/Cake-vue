@@ -14,7 +14,7 @@
         <header class="index-header">
             <ul class="header-ul">
                 <li>
-                    <img src="http://192.168.0.114:88/logo.png" />
+                    <img src="http://192.168.0.110:88/logo.png" />
                 </li>
                 <li>
                     <i class="fa fa-search fdj" aria-hidden="true"></i>
@@ -162,7 +162,6 @@
             // 城市
             var city = [];
             http.post('getProduct',{}).then(res=>{
-                console.log(res)
                 if(res.status){
                     for(var i=0;i<res.data.length;i++){
                         let type = res.data[i].type;
@@ -271,24 +270,20 @@
                     position:'absolute',
                     left:x-20,
                     top:y-10,
-                    zIndex:9999,
                     borderRadius:20
                 });
                 $('body').append($flyImg);  
-                $flyImg.animate({top:620,left:185,width:5,height:5,opacity:0.5},1000);
+                $flyImg.animate({top:'8.266667rem',left:'2.4rem',width:5,height:5,opacity:0.5},1000);
                 setTimeout(() =>{
                     let userName = window.localStorage.getItem('username');
-                    // userName = 'admin'
                     if(userName){
                         let _item = Object.assign({},item);
                             _item.price = _item.price[0]
                             _item.spec = _item.spec[0]
                             _item.qty = 1
                             _item.username = userName
-                            console.log(_item);
                             
                         http.post('addProductCar',_item).then((res) => {
-                            console.log(res);
                             
                             if(res){  
                                 this.$store.commit('updateCarLen',1); 
