@@ -56,7 +56,8 @@
             return {
                 address:[],
                 text:'删除成功',
-                _id:''
+                _id:'',
+                aa:''
             }
         },
         components: {
@@ -105,18 +106,30 @@
                 this.$router.go(-1);
             },
             skipId(_id){
-                this.$router.push({name:'confirmOrder',query:{_id}});
+
+                    this.$router.push({name:'confirmOrder',query:{_id}});
             }
         },
         mounted(){
             
+
             let username = window.localStorage.getItem('username');
 
             http.post('getaddress',{username}).then((res) =>{
-                console.log(res.data)
+                
                 this.address = res.data
 
             })
+        },
+        beforeRouteLeave(to,from,next){
+
+            console.log(to)
+
+            next();
+            //if(from.path == '/confirmOrder'){
+             //   next(); 
+            //}
+
         }
     }
     
