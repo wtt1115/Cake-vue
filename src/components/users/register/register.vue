@@ -23,12 +23,13 @@
                         <input type="password" placeholder="确认密码"v-model="pwd"/>
                     </li>
                     <li>
-                        <input type="text" placeholder="请输入图片字符" id="code_input" v-model="code_input"/>
-                        <h1 id="v_container" class="codes" v-model="v_container"></h1>
+                        <input type="text" placeholder="请选择生日" id="demo1" v-model="birthday" />
                     </li>
                     <li>
-                        <input type="text" placeholder="请选择生日" id="demo1" />
+                        <input type="text" placeholder="请输入图片字符" id="code_input"v-model="code_input"  />
+                        <h1 id="v_container" class="codes" ></h1>
                     </li>
+                    
                      <li> 
                        <span  v-text="errot" v-show="show" calss="fa fa-info-circle"></span>
                     </li>
@@ -58,9 +59,8 @@ import router from '../../../router/router.js'
                 pwd:'',
                 showl:false,
                 yzm:'' ,
-               v_container:'',
-                code_input:'',
-                 verifyCode:{}
+                birthday:'',
+                code_input:''
                 }  
         },
         mounted(){
@@ -72,6 +72,7 @@ import router from '../../../router/router.js'
                 'maxDate':'2100-12-31',/*最大日期*/
                 'onSubmit':function(){/*确认时触发事件*/
                     var theSelectData=calendar.value;
+                    this.birthday = theSelectData;
                 },
                 'onClose':function(){/*取消时触发事件*/
                 }
@@ -79,20 +80,14 @@ import router from '../../../router/router.js'
 
             var verifyCode = new GVerify("v_container");
               document.getElementById('btn').onclick=()=>{
-              
                 var rest = verifyCode.validate(document.getElementById("code_input").value);
 
-                console.log('hah'+rest)
-                  console.log('我的'+verifyCode)
-                  // console.log( this.verifyCode)
-
-                  let reg = /^1[34578]\d{9}$/;
+                let reg = /^1[34578]\d{9}$/;
                 if(!reg.test(this.data.username)){
                     this.show = true;
                     this.errot = '请输入正确手机号码';
                     return false;
                 } 
-
                 let mima =/^\S{8,20}$/;
                 if(!mima.test(this.data.password)){
                     this.show = true;
@@ -104,11 +99,22 @@ import router from '../../../router/router.js'
                     this.errot = '请输入相同的密码！';
                     return false;
                 }
-                if(this.pwd !== this.data.password){
+                 if(this.birthday ==''){
                     this.show = true;
-                    this.errot = '请输入相同的密码！';
+                    this.errot = '生日不能为空！';
                     return false;
                 }
+                if(rest){
+                    this.show = true;
+                    this.errot = '验证码正确！';
+                      router.push({name:'login'})
+              
+                }else{
+                     this.show = true;
+                    this.errot = '验证码错误';
+                    return false;
+                } 
+
                
                  http.post('register',this.data).then((res)=>{
                         console.log(res)
@@ -120,7 +126,6 @@ import router from '../../../router/router.js'
                             this.errot = '用户已存在';
                             return false;
                         }
-                
                 })
               }
         }

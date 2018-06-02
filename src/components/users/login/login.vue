@@ -28,7 +28,7 @@
                     </li>
                     
                     <li >
-                       <span id="btn" @click="loginl">登录</span>
+                       <span id="btn" >登&nbsp;录</span>
                     </li>
                 </ul>
                 <p class="xieyi">使用未注册的手机号码登录时，将自动注册21cake账号，且认为您已同意<i class="tip">《21cake用户协议》</i></p>
@@ -56,14 +56,13 @@ import router from '../../../router/router.js'
         },
         mounted(){
             var verifyCode = new GVerify("v_container");
-              document.getElementById('btn').onclick=()=>{
-                
-                var rest = verifyCode.validate(document.getElementById("code_input").value);
-            }
+                document.getElementById('btn').onclick=()=>{
+                    var rest = verifyCode.validate(document.getElementById("code_input").value);
+               
 
-            },
-              methods: {
-                loginl(){
+          
+             
+              
                 let reg = /^1[34578]\d{9}$/;
                 if(!reg.test(this.data.username)){
                     this.show = true;
@@ -75,6 +74,15 @@ import router from '../../../router/router.js'
                 if(!mima.test(this.data.password)){
                     this.show = true;
                     this.errot = '密码:8~20字符，需同时包含英文和数字！';
+                    return false;
+                }
+                if(rest){
+                    this.show = true;
+                    this.errot = '验证码正确！';
+                 
+                }else{
+                     this.show = true;
+                    this.errot = '验证码错误';
                     return false;
                 }
 

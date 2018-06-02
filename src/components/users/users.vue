@@ -117,13 +117,12 @@ import router from '../../router/router.js'
                 this.$router.push({name:'address'})
             }
         },
-        mounted(){
-         
+        mounted(){  
+            let username = window.localStorage.getItem('username');
             http.post('getStatus',{}).then((res) =>{
-                if(res.status ){
-                    let username = window.localStorage.getItem('username');
-                    console.log(res)
-                    this.username = username;
+                if(res.status && username){
+             this.username = username;
+                    // console.log(res)
                     this.show = false;
                     this.showname = true;
                 } 
