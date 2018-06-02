@@ -89,9 +89,9 @@ import router from '../../../router/router.js'
                 http.post('login',this.data).then((res) =>{
                     console.log(res)
                     if(res.status){
-                         window.localStorage.setItem('token',res.data.token);
+                        window.localStorage.setItem('token',res.data.token);
                         window.localStorage.setItem('username',res.data.username);
-                       this.$store.commit('setCarlistLen')
+                        this.$store.commit('setCarlistLen')
                         router.push({name:'users'});
                     } else {
                         this.show = true
