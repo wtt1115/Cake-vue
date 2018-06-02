@@ -119,14 +119,16 @@ import router from '../../router/router.js'
         },
         mounted(){  
             let username = window.localStorage.getItem('username');
-            http.post('getStatus',{}).then((res) =>{
-                if(res.status && username){
-             this.username = username;
-                    // console.log(res)
-                    this.show = false;
-                    this.showname = true;
-                } 
-            })
+            if(username){
+                this.username = username;
+                this.show = false;
+                this.showname = true;
+            } else{
+                this.show = true;
+                this.showname = false;
+
+            }
+        
         },
 
     }
