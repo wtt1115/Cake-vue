@@ -52,7 +52,8 @@
             },
             // 封一个退回路由的函数
             toIndex(){
-                this.$router.go(-1);
+                // this.$router.go(-1);
+                this.$router.push('/');
             },
             // 封一个获取关键字的函数
             getText(e){

@@ -2,12 +2,16 @@
 %color{color:#442818;}
 // 标题背景颜色
 %bgColor{
-    display:inline-block;
+    margin:0;
+    display:flex;
+    align-items:center;
     height:0.266667rem;
-    font-size:0.186667rem;
     background:#F4EBE2;
     padding:0 0.133333rem;
+    font-size:0.186667rem;
     border-radius:0.133333rem;
+
+
     @extend %color;
 }
 // 标题
@@ -36,6 +40,7 @@
     display:flex;
     flex-direction:column;
     .index-masked{
+        // margin:
         position:fixed;
         left:0;
         right:0;
@@ -44,8 +49,8 @@
         background:rgba(0,0,0,0.5);
         z-index:9999;
         .masked-box{
-            width:340px;
-            height:300px;
+            width:4.533333rem;
+            height:4.0rem;
             background:#fff;
             position:absolute;
             left:50%;
@@ -180,7 +185,7 @@
                         height:0.186667rem;
                         margin-top:0.04rem;
                         margin-right:0.026667rem;
-                        background:url('http://192.168.0.114:88/car.png') no-repeat;
+                        background:url('http://192.168.0.110:88/car.png') no-repeat;
                         background-position:0 -0.2rem;
                         background-size:1.2rem auto;
                     }
@@ -254,7 +259,7 @@
                                     border:0 none;
                                     outline:none;
                                     background:none;
-                                    background:url('http://192.168.0.114:88/car.png') no-repeat;
+                                    background:url('http://192.168.0.110:88/car.png') no-repeat;
                                     background-position:-0.466667rem 0.04rem;
                                     background-size:1.066667rem auto;
                                 }
