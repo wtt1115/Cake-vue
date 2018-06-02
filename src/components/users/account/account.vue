@@ -69,9 +69,10 @@ import router from '../../../router/router.js'
                  let username = window.localStorage.removeItem('username');
                  let password = window.localStorage.removeItem('password');
                 // window.localStorage.removeItem('token');
+                this.username = username;
                 console.log(username) 
-                 this.show = false;
                router.push({name:'users'});
+               this.show=false;
             }
          }
     }

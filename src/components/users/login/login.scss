@@ -1,28 +1,30 @@
 .dl{
     .nav{ 
-
-        .nvt{height:0.625rem;flex:1;justify-content:space-between;display:flex;
+        .nvt{height:0.625rem;justify-content:space-between;
+            display:flex;flex:1;
+            
             a{color:#000;
                 i{
-                font-size:35px;line-height:0.78125rem;  padding-right: 0.15625rem;
+                font-size:30px;  padding-right: 0.15625rem;
 
                 }
                 i:nth-child(1){
-                    padding-left: 0.15625rem;
+                    padding-left: 0.15625rem;padding-top:0.15625rem;
                 }
             }
             a:nth-child(3){
               padding-right: 0.15625rem;font-size:18px;padding-top:0.15625rem;
             }
            span{
-                text-align:center;line-height:0.46875rem;font-size:20px;color:#000; margin-top: 0.078125rem;
+                text-align:center;line-height:0.46875rem;
+                font-size:20px;color:#000;padding-top: 0.078125rem; 
             }
         }
     }
     .yzm{
         .form{padding:0.21875rem;
             li{ display:flex;justify-content:space-between; 
-                height:0.78125rem;border-bottom:1px solid #ccc   ;
+                height:0.78125rem;border-bottom:1px solid #ccc;
                 input{width:100%;padding-top:0.3125rem;          
                     border:none;font-size:16px;
                 }
@@ -32,12 +34,10 @@
                 
                
                 #btn{height:0.703125rem;background:#442818;text-align:center;font-size:14px;border-radius:0.125rem;width:100%;color:#fff;
-                        background-color:#442818;border:0;
+                        background-color:#442818;border:0;line-height:0.3125rem;
                     }      
-              
-              
             }
-            #v_container{margin-top:0.015625rem;height:0.75rem;
+            #v_container{margin-top:0.015625rem;height:0.75rem;width:2.34375rem;
 
             }
             li:nth-child(4){

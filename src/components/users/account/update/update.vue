@@ -25,12 +25,15 @@
                     <label class="label">再次输入</label>
                         <input type="password" placeholder="再次输入新密码" v-model="pwd"/>
                 </li>
+                <li> 
+                    <span  v-text="errot" v-show="show" calss="fa fa-info-circle"></span>
+                </li>
             </ul>
             <div class="t1">
                 <p>修改成功</p>
             </div>
             <div class="t2">
-                <p>输入相同密码</p>
+                <p>请确认新密码</p>
             </div>
         </div>
         <div class="bao">
@@ -62,27 +65,40 @@
                 queren(){
                    let username = window.localStorage.getItem('username');
                    console.log(username)
+                 let mima =/^\S{8,20}$/;
+                if(!mima.test(this.data.newpassword)){
+                    this.show = true;
+                    this.errot = '密码:8~20字符，需同时包含英文和数字！';
+                    return false;
+                }
                     let userdata = {
                         username:username,
                         password:this.data.password,
                         newpassword:this.data.newpassword,
                         type:'password'
                     }
+
+                     if(userdata.newpassword == userdata.password){
+                        this.show = true;
+                            this.errot = '请修改密码!';
+                            return false;
+                    }
+
+                    if(userdata.newpassword !== this.pwd){
+                        $(".t2").show().delay(3000).hide(0);
+                        return false;
+                    }
                     console.log(userdata)
                     http.post('update',userdata).then((res) =>{ 
                         console.log(res)
                         if(res.status){
-                            if(this.pwd == userdata.newpassword){
-                                $(".t1").show().delay(2000).hide(0);
+                            $(".t1").show().delay(2000).hide(0);
                                     setTimeout(function(){
                                         router.push({name:'users'})
                                     },1000)
-                            }else{
-                                 $(".t2").show().delay(3000).hide(0);
-                                 return;
-                            }
                         }
-                    }) 
+                    })
+
                 }
             }
 
