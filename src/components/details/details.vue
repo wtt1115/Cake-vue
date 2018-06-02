@@ -73,7 +73,7 @@
             <div class="masked-content">
                 <p class="content-price">￥{{this.defaultPrice}}</p>
                 <div class="content-img">
-                    <img src="http://10.3.133.250:88/f-tips.jpg"/>
+                    <img src="http://192.168.0.110:88/f-tips.jpg"/>
                     <ul class="content-options">
                         <li v-for="(obj,idx) in paramsData">
                             <i :class="obj.icon" aria-hidden="true"></i> 
@@ -145,10 +145,8 @@
                 type = this.$route.query.type;
             }
             let product_id = this.$route.query.product_id;
-            console.log(this.$route)
             // 向后端获取商品数据
             http.post('getProduct',{type,id:product_id}).then(res=>{
-                console.log(res)
                 if(res.status){
                     this.productData = res.data;
                     // 初始化数据
@@ -230,7 +228,6 @@
                     if(userName){
                         this.userProduct.username = userName;
                         this.showTips = true;
-                        console.log(this.userProduct);
                         
                         http.post('addProductCar',this.userProduct).then(res=>{
                             if(res){

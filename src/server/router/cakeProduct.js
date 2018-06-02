@@ -5,7 +5,23 @@ const ObjectId = require('mongodb').ObjectId;
 module.exports = {
     edit(app){
         //插入商品
-        app.post('/addProduct',async (req,res) =>{
+        app.post('/addProduct',async (req,res) =>{  
+            console.log(req.body)
+
+            let img_url = req.body.img_url;           
+            let name = req.body.name;
+            let en_name = req.body.en_name;
+            let spec = req.body.spec;
+            let price = req.body.price;
+            let type = req.body.type;
+
+            let result = await db.insert('productsCake',{img_url,name,en_name,price,spec,type})
+                    console.log(result)
+                    if(result.status){
+                        res.send(apiResult(true))
+                    } else {
+                        res.send(apiResult(false))
+                    }
 
         });
         //删除后台页面商品
@@ -44,7 +60,7 @@ module.exports = {
             if(req.body.id && !req.body.type){
                 let product_id = req.body.id;
                 // product_id = Number(product_id);id是string类型就不用这个转义
-                // console.log(product_id)
+                
 
                 let result = await db.select('productsCake',{product_id});
                 res.send(result)
@@ -115,7 +131,7 @@ module.exports = {
             let product_price = req.body.product_price;
             let type_text = req.body.type_text;
 
-            console.log(product_id,img_url,product_brief,product_name,product_price,type_text)
+            
 
             let result = await db.update('productsCake',{product_id},{img_url,product_brief,product_name,product_price,type_text})
 
@@ -126,6 +142,8 @@ module.exports = {
         app.post('/upProductqty',async (req,res) =>{
 
             let username = req.body.username;
+            let _qty = req.body.qty;
+
             
             let product_id = Number(req.body.product_id);
             let spec = req.body.spec;
@@ -134,7 +152,7 @@ module.exports = {
             let type = req.body.type || '';
             
             let resultuser = await db.select('productCar',{username})
-            console.log(resultuser)
+            
             let qty;
 
             if(resultuser.status){
@@ -158,7 +176,7 @@ module.exports = {
 
                         }else if(type == "="){
                             qty = Number(item.qty);
-                            let result = await db.update('productCar',{username,product_id,spec},{qty})
+                            let result = await db.update('productCar',{username,product_id,spec},{qty:_qty})
                             console.log(result)
                             res.send(result.status);
                         }
@@ -191,12 +209,9 @@ module.exports = {
             if(result_id.status){
                 let dataQty = result_id.data[0].qty;
                 dataQty = dataQty+ qty;
-                // console.log(dataQty,qty);
-                console.log(username,product_id,spec);
-             
-
+                
                 let result = await db.update('productCar',{username,product_id,spec},{qty:dataQty});
-                console.log(result)
+                
                 if(result.status){
                     res.send(true);
                 }else{
@@ -205,7 +220,7 @@ module.exports = {
             }else{
                 // spec和id不相同
                 let result = await db.insert('productCar',{username,product_id,img_url,img_url1,name,en_name,price,spec,qty})
-                    console.log(result)
+                   
                     if(result.status){
                         res.send(result.status)
                     } else {
@@ -234,7 +249,7 @@ module.exports = {
 
             let ispay = req.body.ispay;
 
-            console.log(JSON.parse(req.body.products))
+            // console.log(JSON.parse(req.body.products))
             let products = JSON.parse(req.body.products);
 
             let time = '';
@@ -248,7 +263,7 @@ module.exports = {
             let taketime = req.body.taketime;
             let ordernumber = req.body.ordernumber;
 
-            console.log(ispay,totalprice,totalnums,taketime);
+           
 
             if(username){
                 
@@ -271,7 +286,7 @@ module.exports = {
             }
 
             let result = await db.insert('order',{username,ordernumber,ispay,time,totalprice,totalnums,address,taketime,products});
-            console.log(result)
+            // console.log(result)
 
             if(result.status){
                 res.send(apiResult(true))

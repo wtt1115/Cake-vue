@@ -1,16 +1,11 @@
 <template>
         <div>
-            <!-- 搜索 -->
-            <div class="w-sousuo">
-                <input type="text" class="w-input"/>
-                <input type="button" value="搜索" class="w-search"/>
-            </div>
-            <table>
+            <table class="table">
                 <thead>
                     <tr>
                         <th>用户名</th>
-                        <th>昵称</th>
                         <th>密码</th>
+                        <th>昵称</th>
                         <th>性别</th>
                         <th>生日</th>
                     </tr>
@@ -18,8 +13,8 @@
                 <tbody>
                     <tr v-for="(obj,idx) in dataset">
                         <td>{{obj.username}}</td>
-                        <td>{{obj.nickname}}</td>
                         <td>{{obj.password}}</td>
+                        <td>{{obj.nickname}}</td>
                         <td>{{obj.gender}}</td>
                         <td>{{obj.birthday}}</td>
                     </tr>

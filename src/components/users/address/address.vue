@@ -57,7 +57,7 @@
                 address:[],
                 text:'删除成功',
                 _id:'',
-                aa:''
+                path:''
             }
         },
         components: {
@@ -107,7 +107,7 @@
             },
             skipId(_id){
 
-                    this.$router.push({name:'confirmOrder',query:{_id}});
+                this.$router.push({name:'confirmOrder',query:{_id}});
             }
         },
         mounted(){
@@ -130,7 +130,7 @@
              //   next(); 
             //}
 
+
         }
     }
-    
 </script>
