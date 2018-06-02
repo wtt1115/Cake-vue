@@ -43,30 +43,30 @@
                 essay:[
                     {
                         time: "3月1日",
-                        img_url: "http://192.168.0.114:88/eassy1.jpg",
+                        img_url: "http://192.168.0.110:88/eassy1.jpg",
                     },{
                         time: "6月28日",
-                        img_url: "http://192.168.0.114:88/eassy2.jpg",
+                        img_url: "http://192.168.0.110:88/eassy2.jpg",
                     },{
                         time: "8月21日",
-                        img_url: "http://192.168.0.114:88/eassy3.jpg",
+                        img_url: "http://192.168.0.110:88/eassy3.jpg",
                     },{
                         time: "10月18日",
-                        img_url: "http://192.168.0.114:88/eassy4.jpg",
+                        img_url: "http://192.168.0.110:88/eassy4.jpg",
                     },{
                         time: "11月21日",
-                        img_url: "http://192.168.0.114:88/eassy5.jpg",
+                        img_url: "http://192.168.0.110:88/eassy5.jpg",
                     },{
                         time: "12月21日",
-                        img_url: "http://192.168.0.114:88/eassy6.jpg",
+                        img_url: "http://192.168.0.110:88/eassy6.jpg",
                     },{
                         time: "3月1日",
-                        img_url: "http://192.168.0.114:88/eassy2.jpg",
+                        img_url: "http://192.168.0.110:88/eassy2.jpg",
                     }
                 ],
                 essay1:[
                     {
-                        img_url: "http://192.168.0.114:88/eassy7.jpg",
+                        img_url: "http://192.168.0.110:88/eassy7.jpg",
                     }
                 ]
             }

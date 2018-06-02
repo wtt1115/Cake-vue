@@ -1,7 +1,7 @@
 <template>
         <div class="serverBhead">
             <div class="w-logo">
-                <img src="http://192.168.0.114:88/cake.png" />
+                <img src="http://192.168.0.110:88/cake.png" />
                 <span>后台管理系统</span>
             </div>
             <div class="gongneng1">
@@ -56,7 +56,7 @@
         data(){
             return{
      
-                src:'http://192.168.0.114:88/touxiang.jpg',
+                src:'http://192.168.0.110:88/touxiang.jpg',
                 txt:'wtt',
             }
         },
