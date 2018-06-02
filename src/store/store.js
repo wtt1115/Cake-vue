@@ -5,8 +5,7 @@ import { log } from 'util';
 Vue.use(Vuex)
 const state = {
     carListLen : 0,
-    totalCarlist : [],
-    address:''
+    totalCarlist : []
 }
 const mutations = {
     addCar(state,_item){
@@ -157,7 +156,6 @@ const mutations = {
                             totalQty += carItem.qty;
                         })
                         state.carListLen = totalQty;
-                        
                     }
                 })
                 
@@ -174,7 +172,6 @@ const mutations = {
                             totalQty += item.qty;
                         })
                         state.carListLen = totalQty;
-                       
                     }
                 })
             }
@@ -183,7 +180,7 @@ const mutations = {
     },
     updateCarLen(state,qty){
         
-        state.carListLen += qty;
+        state.carListLen += Number(qty);
     },
 
 }

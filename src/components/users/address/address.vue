@@ -56,7 +56,8 @@
             return {
                 address:[],
                 text:'删除成功',
-                _id:''
+                _id:'',
+                path:''
             }
         },
         components: {
@@ -117,6 +118,7 @@
                 this.address = res.data
 
             })
+            
         }
     }
     

@@ -174,14 +174,24 @@ export default {
             this.totalnums += order.qty;
         });
 
-        http.post('getaddress',{username:username,type:'default'}).then((res) => {
-            console.log(res);
-            if(res.status){
-                
-                this.templateAddress = res.data[0];
-            }
-             
-        })
+        let addressId = this.$route.query._id
+        if(addressId == undefined){
+            http.post('getaddress',{username:username,type:'default'}).then((res) => {
+                console.log(res);
+                if(res.status){
+                    this.templateAddress = res.data[0];
+                }
+            })
+        }else{
+             http.post('getaddress',{username:username,_id:addressId}).then((res) => {
+                 
+                console.log(res);
+                if(res.status){
+                    this.templateAddress = res.data[0];
+                }
+            })
+        }
+        
         
         let  date = new Date(Date.now());
         let week = ['周日','周一','周二','周三','周四','周五','周六'];

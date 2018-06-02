@@ -170,7 +170,7 @@
                             }
                         })
                     }else{
-                        this.$store.commit('addCar',this.carlist[idx]);
+                        this.$store.commit('addCar',this.carlist[idx]);  
                         this.$store.commit('updateCarLen',-1);
                         this.getTotalPrice();
                     }
@@ -256,15 +256,13 @@
             // 确认修改
             confirm(){
                 
-                if(this.currentQty == '' || !(typeof(this.currentQty) == 'number')){
+                if(this.currentQty == '' || !Number(this.currentQty)){
                     return;
                 }
                 let count = this.currentQty - this.carlist[this.currentIdx].qty;
                 this.carlist[this.currentIdx].type = "=";
                 this.carlist[this.currentIdx].qty = this.currentQty;
-                console.log(this.carlist[this.currentIdx]);
                 http.post('upProductqty',this.carlist[this.currentIdx]).then(res=>{
-                    console.log(res);
                     if(res){
                         this.$store.commit('updateCarLen',count);
                         this.getTotalPrice();
@@ -466,6 +464,7 @@
             }
             this.getTotalPrice();
             // ajax
+            this.$store.commit('setCarlistLen')
             
         },
         data(){
