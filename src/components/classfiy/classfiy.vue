@@ -3,6 +3,7 @@
         <div class="k-header">
             <ul class="Htop">
                 <li @click="zhezao()"><i class="fa fa-bars"></i></li>
+
                 <li><img src="http://192.168.0.107:88/logo.png" /></li>
                 <li><i class="fa fa-shopping-cart"></i></li>
             </ul>
@@ -16,8 +17,11 @@
                 <li>咖啡</li>
                 <li>常温蛋糕</li>
                 <li>设计师礼品</li>
+                <li>
+                    <span>价格区间：</span><br /><input type="text" /> - <input type="text" />
+                </li>
             </ul>
-            <button @click="fanhui()">返回</button>
+            <button @click="fanhui()">返回</button><button>确认</button>
         </div>
         <div class="k-nav">
             <ul class="Nav">
@@ -33,7 +37,7 @@
             <div class="k-Tmain">
                 <ul class="Main">
                     <li v-for="(item,idx) in data" @click="Chuan(item)">
-                        <img :src="item.img_url">
+                        <img :src="item.img_url" class="imgs">
                         <p> {{item.en_name}}</p>
                         <p>{{item.name}}</p>
                         <span>￥{{item.price[0]}}/{{item.spec[0]}}</span>
@@ -174,11 +178,10 @@
                 }
             },
             zhezao(){
-                $('.zhezao').css("width","300px")
+                $('.zhezao').addClass('anmite');
             },
             fanhui(){
-                $('.zhezao').css("width","0")
-                $('.zhezao').hide()
+                $('.zhezao').removeClass('anmite');
             },
             Chuan(item){
 
@@ -241,7 +244,7 @@
         },
         mounted(){
             http.post('getProduct',{}).then((res) =>{
-
+                $('.imgs').fadein()
                 if(res.status){
                     for(var i=0;i<res.data.length;i++){
                         if(res.data[i].type == '蛋糕'){
