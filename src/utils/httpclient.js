@@ -1,7 +1,7 @@
 import axios from 'axios'
 import router from '../router/router.js'
 // 请求数据的端口号
-const baseUrl = 'http://192.168.0.110:88/'
+const baseUrl = 'http://192.168.0.107:88/'
 let filterUrl = (_url) => {
     if(_url && _url.startsWith('http')){
         return _url;
