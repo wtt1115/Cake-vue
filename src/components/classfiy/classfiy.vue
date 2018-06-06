@@ -3,8 +3,9 @@
         <div class="k-header">
             <ul class="Htop">
                 <li @click="zhezao()"><i class="fa fa-bars"></i></li>
-                <li><img src="http://192.168.0.110:88/logo.png" /></li>
-                <li><router-link to='/car'><i class="fa fa-shopping-cart"></i><span class="carCount">{{this.$store.state.carListLen}}</span></router-link></li>
+
+                <li><img src="http://192.168.0.107:88/logo.png" /></li>
+                <li><i class="fa fa-shopping-cart"></i></li>
             </ul>
         </div>
         <div class="zhezao">
@@ -52,7 +53,7 @@
                 <div class="look">
                     <ul class="Look">
                         <li>
-                            <img src="http://192.168.0.110:88/cake1.jpg" />
+                            <img src="http://192.168.0.107:88/cake1.jpg" />
                             <p>The Moon Cake</p>
                             <p>中秋坚果芝士慕斯</p>
                             <span>￥268.00/1.0磅</span>
@@ -60,7 +61,7 @@
                             <h2>敬请期待</h2>
                         </li>
                         <li>
-                            <img src="http://192.168.0.110:88/cake39.jpg" />
+                            <img src="http://192.168.0.107:88/cake39.jpg" />
                             <p>Birthday Cake</p>
                             <p>21cake生日奶油蛋糕</p>
                             <span>￥498.00/0.5磅</span>
@@ -93,7 +94,7 @@
                 </li>
             </ul>
             <div class="content-img">
-                <img src="http://192.168.0.110:88/f-tips.jpg"/>
+                <img src="http://192.168.0.107:88/f-tips.jpg"/>
             </div>
             <p class="product-spec">商品规格</p>
             <ul class="spec-text">
